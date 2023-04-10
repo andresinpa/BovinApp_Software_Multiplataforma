@@ -41,6 +41,7 @@ dependencies:
   dropdown_button2: ^1.8.5
   syncfusion_flutter_calendar: ^20.3.50
   crypto: ^3.0.2
+  http: ^0.13.5
 
 
 dev_dependencies:

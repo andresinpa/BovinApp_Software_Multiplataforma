@@ -187,7 +187,7 @@ class CrearCuentaApp extends State<CrearCuenta>{
                           objUser.finca = finca.text;
                           objUser.ganado = ganado.text;
                           objUser.password = password.text;
-                          //await sendEmail(name: objUser.nombre, email: objUser.email, message: "323565");
+                          await sendEmail(name: objUser.nombre, email: objUser.email, message: "323565");
                           nombre.clear();
                           apellido.clear();
                           usuario.clear();
@@ -246,5 +246,33 @@ class CrearCuentaApp extends State<CrearCuenta>{
         ),
       ],
     );
+  }
+        Future sendEmail({
+    required String name,
+    required String email,
+    required String message,
+  }) async{
+    final serviceId = 'service_8zg5d6h';
+    final templateId= 'template_df7zc0j';
+    final userId = 'MzvTx11b0rcHUpIf3';
+    final url = Uri.parse('https://api.emailjs.com/api/v1.0/email/send');
+    final response = await http.post(
+      url,
+      headers: {
+        'origin':'http:localhost',
+        'Content-Type': 'application/json',
+      },
+      body: json.encode({
+        'service_id': serviceId,
+        'template_id': templateId,
+        'user_id':userId,
+        'template_params': {
+          'user_name': name,
+          'user_email': email,
+          'user_message': message,
+        },
+      }),
+      );
+      print('informacion enviada al correo');
   }
 }
