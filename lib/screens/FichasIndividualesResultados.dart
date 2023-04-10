@@ -8,7 +8,8 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class FichasIndividualesResultados extends StatelessWidget {
-  const FichasIndividualesResultados({super.key});
+  FichasIndividualesResultados({super.key});
+    TextEditingController buscar= TextEditingController();
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -335,11 +336,12 @@ class FichasIndividualesResultados extends StatelessWidget {
                     const SizedBox(
                       height: 20,
                     ),
-                    const TextInputField(
+                    TextInputField(
                       icon: FontAwesomeIcons.bottleWater,
                       hint: 'Produccion de leche diaria',
                       inputType: TextInputType.number,
                       inputAction: TextInputAction.done,
+                      controler: buscar,
                     ),
                     const SizedBox(
                       height: 32,

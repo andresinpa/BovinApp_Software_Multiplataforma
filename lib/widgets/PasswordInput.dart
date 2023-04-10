@@ -9,8 +9,9 @@ class PasswordInput extends StatelessWidget {
     required this.hint,
     required this.inputType,
     required this.inputAction,
+    required this.controler,
   }) : super(key: key);
-
+  final TextEditingController controler;
   final IconData icon;
   final String hint;
   final TextInputType inputType;
@@ -31,6 +32,7 @@ class PasswordInput extends StatelessWidget {
         ),
         child: Center(
           child: TextField(
+            controller: controler,
             decoration: InputDecoration(
               border: InputBorder.none,
               prefixIcon: Padding(
@@ -54,3 +56,4 @@ class PasswordInput extends StatelessWidget {
     );
   }
 }
+
