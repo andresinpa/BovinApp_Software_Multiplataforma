@@ -7,7 +7,13 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class NuevoRegistroInventarioFisico extends StatelessWidget {
-  const NuevoRegistroInventarioFisico({super.key});
+  NuevoRegistroInventarioFisico({super.key});
+  TextEditingController codigoFinca = TextEditingController();
+  TextEditingController codigoProducto = TextEditingController();
+  TextEditingController fechaObtencion = TextEditingController();
+  TextEditingController precio = TextEditingController();
+  TextEditingController utilidad = TextEditingController();
+  TextEditingController descripcion = TextEditingController();
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -90,26 +96,30 @@ class NuevoRegistroInventarioFisico extends StatelessWidget {
                 ),
                 Column(
                   children: [
-                    const TextInputField(
+                    TextInputField(
                         icon: FontAwesomeIcons.houseChimneyMedical,
                         hint: 'Codigo de la finca',
                         inputType: TextInputType.name,
-                        inputAction: TextInputAction.next),
-                    const TextInputField(
+                        inputAction: TextInputAction.next,
+                        controler: codigoFinca,),
+                    TextInputField(
                         icon: FontAwesomeIcons.key,
                         hint: 'Codigo del producto',
                         inputType: TextInputType.name,
-                        inputAction: TextInputAction.next),
-                    const TextInputField(
+                        inputAction: TextInputAction.next,
+                        controler: codigoProducto,),
+                    TextInputField(
                         icon: FontAwesomeIcons.calendar,
                         hint: 'Fecha de obtención',
                         inputType: TextInputType.datetime,
-                        inputAction: TextInputAction.next),
-                    const TextInputField(
+                        inputAction: TextInputAction.next,
+                        controler: fechaObtencion,),
+                    TextInputField(
                         icon: FontAwesomeIcons.dollarSign,
                         hint: 'Precio',
                         inputType: TextInputType.number,
-                        inputAction: TextInputAction.next),
+                        inputAction: TextInputAction.next,
+                        controler: precio,),
                     const SizedBox(
                       height: 10,
                     ),
@@ -158,16 +168,18 @@ class NuevoRegistroInventarioFisico extends StatelessWidget {
                     const SizedBox(
                       height: 10,
                     ),
-                    const TextInputField(
+                    TextInputField(
                         icon: FontAwesomeIcons.rectangleXmark,
                         hint: 'Utilidad',
                         inputType: TextInputType.text,
-                        inputAction: TextInputAction.next),
-                    const TextInputField(
+                        inputAction: TextInputAction.next,
+                        controler: utilidad,),
+                    TextInputField(
                         icon: FontAwesomeIcons.rectangleList,
                         hint: 'Descripción',
                         inputType: TextInputType.text,
-                        inputAction: TextInputAction.next),
+                        inputAction: TextInputAction.next,
+                        controler: descripcion,),
                     const SizedBox(
                       height: 25,
                     ),

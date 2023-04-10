@@ -6,8 +6,9 @@ import '../palette.dart';
 import 'package:bovinapp/widgets/widgets.dart';
 
 class LoginScreen extends StatelessWidget {
-  const LoginScreen({super.key});
-
+  LoginScreen({super.key});
+  TextEditingController email = TextEditingController();
+  TextEditingController password = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -38,19 +39,21 @@ class LoginScreen extends StatelessWidget {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
-                  const TextInputField(
+                  TextInputField(
                     icon: FontAwesomeIcons.envelope,
                     hint: 'Correo electrónico',
                     inputType: TextInputType.emailAddress,
                     inputAction: TextInputAction.next,
+                    controler: email,
                   ),
 
                   //Paddin 2 nombre
-                  const PasswordInput(
+                  PasswordInput(
                     icon: FontAwesomeIcons.lock,
                     hint: 'Contraseña',
                     inputType: TextInputType.name,
                     inputAction: TextInputAction.done,
+                    controler: password,
                   ),
                   const SizedBox(
                     height: 25,

@@ -3,8 +3,9 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:bovinapp/widgets/widgets.dart';
 
 class CambioPassword extends StatelessWidget {
-  const CambioPassword({super.key});
-
+  CambioPassword({super.key});
+  TextEditingController nueva = TextEditingController();
+  TextEditingController confirmacion = TextEditingController();
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -52,13 +53,14 @@ class CambioPassword extends StatelessWidget {
                 //Padding 1 email
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
-                  children: const [
+                  children: [
                     //Paddin 2 nombre
                     PasswordInput(
                       icon: FontAwesomeIcons.lock,
                       hint: 'Nueva Contraseña',
                       inputType: TextInputType.name,
                       inputAction: TextInputAction.done,
+                      controler: nueva,
                     ),
                     SizedBox(
                       height: 25,
@@ -68,6 +70,7 @@ class CambioPassword extends StatelessWidget {
                       hint: 'Confirmar Contraseña',
                       inputType: TextInputType.name,
                       inputAction: TextInputAction.done,
+                      controler: confirmacion,
                     ),
                   ],
                 ),

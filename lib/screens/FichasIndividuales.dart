@@ -3,8 +3,8 @@ import 'package:bovinapp/widgets/widgets.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class FichasIndividuales extends StatelessWidget {
-  const FichasIndividuales({super.key});
-
+  FichasIndividuales({super.key});
+  TextEditingController buscar= TextEditingController();
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -101,6 +101,7 @@ class FichasIndividuales extends StatelessWidget {
                     hint: 'Buscar',
                     inputType: TextInputType.name,
                     inputAction: TextInputAction.done,
+                    controler: buscar,
                   ),
                   SizedBox(
                     width: size.width * 0.8,

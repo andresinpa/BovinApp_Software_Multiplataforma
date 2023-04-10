@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class OlvidePassword extends StatelessWidget {
-  const OlvidePassword({Key? key}) : super(key: key);
-
+  OlvidePassword({Key? key}) : super(key: key);
+  TextEditingController email = TextEditingController();
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -66,6 +66,7 @@ class OlvidePassword extends StatelessWidget {
                       hint: 'Correo electrónico',
                       inputType: TextInputType.emailAddress,
                       inputAction: TextInputAction.done,
+                      controler: email,
                     ),
 
                     const SizedBox(

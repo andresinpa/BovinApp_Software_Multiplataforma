@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "278774091147",
+    "project_id": "bovinapp-project",
+    "storage_bucket": "bovinapp-project.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:278774091147:android:01071fc5c2b2ddeaa7738e",
+        "android_client_info": {
+          "package_name": "com.example.bovinapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "278774091147-2k69j7vujpapfrahcf3vil3k5do8kh6m.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAgy1TYz4tVviJcigytTZsMVnWz1ftCT-4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "278774091147-2k69j7vujpapfrahcf3vil3k5do8kh6m.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "278774091147-9fj7eg59nv67g79ua8cactksoqvv6q8l.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.bovinapp"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

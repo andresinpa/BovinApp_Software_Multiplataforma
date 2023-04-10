@@ -3,12 +3,27 @@ import 'dart:ui';
 import 'package:bovinapp/palette.dart';
 import 'package:bovinapp/widgets/RoundedButton.dart';
 import 'package:bovinapp/widgets/TextInputField.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_core/firebase_core.dart';
 
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class MiUsuarioYFinca extends StatelessWidget {
-  const MiUsuarioYFinca({super.key});
+  MiUsuarioYFinca({super.key});
+  TextEditingController usuario = TextEditingController();
+  TextEditingController correo = TextEditingController();
+  TextEditingController ubicacion = TextEditingController();
+  TextEditingController area = TextEditingController();
+  validarDatos() async{
+    try{
+      CollectionReference ref = FirebaseFirestore.instance.collection('Usuarios');
+      QuerySnapshot usuarios = await ref.get();
+
+    }catch(e){
+      print("Error.... "+e.toString());
+    }
+  }
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -106,16 +121,18 @@ class MiUsuarioYFinca extends StatelessWidget {
                     const SizedBox(
                       height: 25,
                     ),
-                    const TextInputField(
+                    TextInputField(
                         icon: FontAwesomeIcons.circleUser,
                         hint: 'Usuario',
                         inputType: TextInputType.name,
-                        inputAction: TextInputAction.next),
-                    const TextInputField(
+                        inputAction: TextInputAction.next,
+                        controler: usuario,),
+                    TextInputField(
                       icon: FontAwesomeIcons.envelope,
                       hint: 'Correo electrónico',
                       inputType: TextInputType.emailAddress,
                       inputAction: TextInputAction.next,
+                      controler: correo,
                     ),
                     const SizedBox(
                       height: 15,
@@ -142,19 +159,21 @@ class MiUsuarioYFinca extends StatelessWidget {
                     const SizedBox(
                       height: 15,
                     ),
-                    const TextInputField(
+                    TextInputField(
                       icon: FontAwesomeIcons.locationArrow,
                       hint: 'Ubicación de la finca',
                       inputType: TextInputType.name,
                       inputAction: TextInputAction.next,
+                      controler: ubicacion,
                     ),
                     Column(
                       children: [
-                        const TextInputField(
+                        TextInputField(
                           icon: FontAwesomeIcons.rectangleXmark,
                           hint: 'Mi finca tiene un área de:',
                           inputType: TextInputType.name,
                           inputAction: TextInputAction.done,
+                          controler: area,
                         ),
                         const SizedBox(
                           height: 15,
