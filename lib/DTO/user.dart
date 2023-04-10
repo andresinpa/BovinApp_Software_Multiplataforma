@@ -6,6 +6,6 @@ class User{
   String finca='';
   String ganado='';
   String password='';
-
+  String codigo='';
 
 }

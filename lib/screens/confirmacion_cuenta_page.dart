@@ -119,7 +119,7 @@ class ConfirmacionCuentaPageApp extends State<ConfirmacionCuentaPage> {
                             ),
                             child: TextButton(
                               onPressed: () {
-                                if(codigo.text=="323565"){
+                                if(codigo.text==widget.cadena.codigo){
                                   insertarDatos();
                                   Navigator.pushNamed(context, '/');
                                 }else{

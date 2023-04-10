@@ -1,4 +1,5 @@
 
+import 'dart:math';
 import 'dart:ui';
 import 'package:bovinapp/palette.dart';
 import 'package:bovinapp/screens/screens.dart';
@@ -29,13 +30,14 @@ class CrearCuentaApp extends State<CrearCuenta>{
   TextEditingController password = TextEditingController();
   TextEditingController confirmacion = TextEditingController();
   User objUser = User();
-  void alert(){
+  bool bandera = true;
+  void alert(String contenido){
     showDialog(
       context: context,
       builder: (buildcontext){
         return AlertDialog(
           title: Text('Error'),
-          content: Text('Contraseña incorrecta'),
+          content: Text(contenido),
           actions: <Widget>[
               ElevatedButton(
                 onPressed: () {
@@ -50,6 +52,44 @@ class CrearCuentaApp extends State<CrearCuenta>{
         );
       }
     );
+  }
+  validarDatos() async{
+    try{
+      CollectionReference ref=FirebaseFirestore.instance.collection('Usuarios');
+      QuerySnapshot usuarios = await ref.get();
+
+      if(usuarios.docs.length !=0){
+        for(var cursor in usuarios.docs){
+          if(cursor.get('EmailUsuario')==email.text){
+            alert('El email ya existe');
+            bandera = false;
+          }
+        }
+      }
+      if(bandera==true){
+        password.text = (sha256.convert(utf8.encode(password.text))).toString();
+        objUser.nombre = nombre.text;
+        objUser.apellido = apellido.text;
+        objUser.usuario = usuario.text;
+        objUser.email = email.text;
+        objUser.finca = finca.text;
+        objUser.ganado = ganado.text;
+        objUser.password = password.text;
+        objUser.codigo = (Random().nextInt(99999)+11111).toString();
+        await sendEmail(name: objUser.nombre, email: objUser.email, message: objUser.codigo);
+        nombre.clear();
+        apellido.clear();
+        usuario.clear();
+        email.clear();
+        finca.clear();
+        ganado.clear();
+        password.clear();
+        confirmacion.clear();
+        Navigator.push(context, MaterialPageRoute(builder: (_) => ConfirmacionCuentaPage(objUser)));
+      }
+    }catch(e){
+      print('Error.....'+e.toString());
+    }
   }
   @override
   Widget build(BuildContext context) {
@@ -179,27 +219,9 @@ class CrearCuentaApp extends State<CrearCuenta>{
                       child: TextButton(
                       onPressed: () async{
                         if(password.text == confirmacion.text){
-                          password.text = (sha256.convert(utf8.encode(password.text))).toString();
-                          objUser.nombre = nombre.text;
-                          objUser.apellido = apellido.text;
-                          objUser.usuario = usuario.text;
-                          objUser.email = email.text;
-                          objUser.finca = finca.text;
-                          objUser.ganado = ganado.text;
-                          objUser.password = password.text;
-                          await sendEmail(name: objUser.nombre, email: objUser.email, message: "323565");
-                          nombre.clear();
-                          apellido.clear();
-                          usuario.clear();
-                          email.clear();
-                          finca.clear();
-                          ganado.clear();
-                          password.clear();
-                          confirmacion.clear();
-                          Navigator.push(context, MaterialPageRoute(builder: (_) => ConfirmacionCuentaPage(objUser)));
-                          print(objUser);
+                          validarDatos();
                         }else{
-                          alert();
+                          alert("Las contraseñas no coinciden");
                         }
                       },
                         child: Text(
