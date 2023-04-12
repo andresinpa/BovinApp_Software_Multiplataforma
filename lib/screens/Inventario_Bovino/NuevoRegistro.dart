@@ -5,7 +5,7 @@ import 'package:bovinapp/widgets/RoundedButton.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-import '../widgets/TextInputFieldOtros.dart';
+import '../../widgets/TextInputFieldOtros.dart';
 
 const List<String> list = [
   'Holstein',
