@@ -19,6 +19,7 @@ class MiUsuarioYFinca extends StatelessWidget {
     try{
       CollectionReference ref = FirebaseFirestore.instance.collection('Usuarios');
       QuerySnapshot usuarios = await ref.get();
+      
 
     }catch(e){
       print("Error.... "+e.toString());
