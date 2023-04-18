@@ -26,3 +26,4 @@ export 'ConsultaMedicamentos.dart';
 export 'ConsultaFerreteria.dart';
 export 'consultaMaquinaria.dart';
 export 'ConsultaOtros.dart';
+export 'ControlDeTareas.dart';
