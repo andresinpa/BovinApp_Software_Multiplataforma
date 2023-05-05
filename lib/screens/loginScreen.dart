@@ -1,26 +1,69 @@
 // ignore_for_file: deprecated_member_use
 
+import 'dart:convert';
+
+import 'package:bovinapp/screens/Home1_Drawer.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:crypto/crypto.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import '../DTO/user.dart';
 import '../palette.dart';
 import 'package:bovinapp/widgets/widgets.dart';
 
-class LoginScreen extends StatelessWidget {
-  LoginScreen({super.key});
+class LoginScreen extends StatefulWidget {
+  LoginScreen();
+  @override
+  LoginScreenApp createState() => LoginScreenApp();
+}
+class LoginScreenApp extends State<LoginScreen>{
   TextEditingController email = TextEditingController();
   TextEditingController password = TextEditingController();
-  @override
+  User objUser = User();
+    validarDatos() async{
+    try{
+      CollectionReference ref=FirebaseFirestore.instance.collection('Usuarios');
+      QuerySnapshot usuarios = await ref.get();
+
+      if(usuarios.docs.length !=0){
+        for(var cursor in usuarios.docs){
+          if(cursor.get('EmailUsuario')==email.text){
+            if(cursor.get('PasswordUsuario')==password.text){
+              print('*************Acceso aceptado****************');
+              objUser.nombre= cursor.get('NombreUsuario');
+              objUser.apellido= cursor.get('ApellidosUsuario');
+              objUser.finca = cursor.get('FincaUsuario');
+              objUser.ganado = cursor.get('GanadoUsuario');
+              objUser.usuario = cursor.get('Usuario');
+              objUser.email= cursor.get('EmailUsuario');
+              email.clear();
+              password.clear();
+            }
+          }
+        }
+
+      }else{
+        print('no hay documentos en la colección');
+      }
+
+    }catch(e){
+      print('Error....'+e.toString());
+    }
+  }
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
     return Stack(
       children: [
         Container(
+          
           decoration: const BoxDecoration(
             color: Colors.white,
           ),
         ),
         Scaffold(
           backgroundColor: const Color.fromARGB(255, 255, 255, 255),
-          body: Column(
+          body: 
+          Column(
             // ignore: prefer_const_literals_to_create_immutables
             children: [
               const Flexible(
@@ -69,10 +112,25 @@ class LoginScreen extends StatelessWidget {
                     height: 80,
                   ),
 
-                  const RoundedButton(
-                    buttonName: 'Ingresar',
-                    rute: "Home1",
-                  ),
+                  Container(
+                      height: size.height * 0.08,
+                      width: size.width * 0.8,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(16),
+                        color: kBlue,
+                      ),
+                      child: TextButton(
+                      onPressed: () async{
+                        password.text = (sha256.convert(utf8.encode(password.text))).toString();
+                        validarDatos();
+                        Navigator.push(context, MaterialPageRoute(builder: (_) => Home1(objUser)));
+                      },
+                        child: Text(
+                          'Ingresar',
+                          style: kBodyText.copyWith(fontWeight: FontWeight.bold),
+                        ),
+                      ),
+                    ),
 
                   const SizedBox(
                     height: 25,

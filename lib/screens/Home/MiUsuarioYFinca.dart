@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:ui';
 
 import 'package:bovinapp/palette.dart';
@@ -9,20 +10,45 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-class MiUsuarioYFinca extends StatelessWidget {
-  MiUsuarioYFinca({super.key});
+import '../../DTO/user.dart';
+import '../Home1_Drawer.dart';
+
+class MiUsuarioYFinca extends StatefulWidget {
+  final User user;
+  MiUsuarioYFinca(this.user);
+  MiUsuarioYFincaApp createState() => MiUsuarioYFincaApp();
+}
+class MiUsuarioYFincaApp extends State<MiUsuarioYFinca>{
   TextEditingController usuario = TextEditingController();
   TextEditingController correo = TextEditingController();
   TextEditingController ubicacion = TextEditingController();
   TextEditingController area = TextEditingController();
-  validarDatos() async{
+  TextEditingController medida = TextEditingController();
+    final db = FirebaseFirestore.instance;
+    var documento;
+    insertarDatos() async{
     try{
-      CollectionReference ref = FirebaseFirestore.instance.collection('Usuarios');
+      CollectionReference ref=db.collection('Usuarios');
       QuerySnapshot usuarios = await ref.get();
-      
 
-    }catch(e){
-      print("Error.... "+e.toString());
+      if(usuarios.docs.length !=0){
+        for(var cursor in usuarios.docs){
+          if(cursor.get('EmailUsuario')==widget.user.email){
+            documento =(cursor.id).toString();
+        }
+      }
+        var docRef = db.collection("Usuarios").doc(documento);
+          docRef.update({
+            "EmailUsuario":correo.text,
+            "Usuario":usuario.text,
+            "Ubicacion":ubicacion.text,
+          "Area":(area.text+" "+medida.text),
+
+        });
+
+      }
+    }catch (e){
+      print("Error ----->"+e.toString());
     }
   }
   @override
@@ -30,6 +56,9 @@ class MiUsuarioYFinca extends StatelessWidget {
     Size size = MediaQuery.of(context).size;
     var lista = ['metros cuadrados', 'fanegadas'];
     String vista = 'selecciona una opción';
+    usuario.text = widget.user.usuario;
+    correo.text = widget.user.email;
+
     return Stack(
       children: [
         Container(
@@ -102,7 +131,7 @@ class MiUsuarioYFinca extends StatelessWidget {
                   children: [
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
-                      children: const [
+                      children: [
                         Text(
                           'Nombre:   ',
                           style: TextStyle(
@@ -111,7 +140,7 @@ class MiUsuarioYFinca extends StatelessWidget {
                           ),
                         ),
                         Text(
-                          'Flor',
+                          (widget.user.nombre),
                           style: TextStyle(
                             color: Colors.black,
                             fontSize: 26,
@@ -140,7 +169,7 @@ class MiUsuarioYFinca extends StatelessWidget {
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
-                      children: const [
+                      children: [
                         Text(
                           'Nombre de la finca:   ',
                           style: TextStyle(
@@ -149,7 +178,7 @@ class MiUsuarioYFinca extends StatelessWidget {
                           ),
                         ),
                         Text(
-                          'la arboleda',
+                          widget.user.finca,
                           style: TextStyle(
                             color: Colors.black,
                             fontSize: 23,
@@ -197,7 +226,7 @@ class MiUsuarioYFinca extends StatelessWidget {
 
                             //})
                             // ignore: avoid_print
-                            print(value)
+                            medida.text = value.toString()
                           },
                           hint: Text(
                             vista,
@@ -215,12 +244,21 @@ class MiUsuarioYFinca extends StatelessWidget {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        GestureDetector(
-                          /*child: const RoundedButton(
-                              buttonName: 'Actualizar y Guardar'),*/
-                          child: const RoundedButton(
-                              buttonName: 'Actualizar y Guardar',
-                              rute: 'Home1'),
+                      Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(16),
+                            color: kBlue,
+                          ),
+                          child: TextButton(
+                          onPressed: () async{
+                            insertarDatos();
+                            Navigator.push(context, MaterialPageRoute(builder: (_) => Home1(widget.user)));
+                          },
+                            child: Text(
+                              'Actualizar y Guardar',
+                              style: kBodyText.copyWith(fontWeight: FontWeight.bold),
+                            ),
+                          ),
                         ),
                       ],
                     ),
