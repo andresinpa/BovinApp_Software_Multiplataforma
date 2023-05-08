@@ -1,7 +1,6 @@
 import 'package:bovinapp/DTO/Tareas.dart';
 import 'package:bovinapp/screens/Tareas_Metas/ListadoTareas.dart';
 import 'package:bovinapp/screens/Tareas_Metas/services/TareasServices.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 class FormularioTareas extends StatefulWidget {
@@ -14,14 +13,12 @@ class FormularioTareas extends StatefulWidget {
 
 class _FormularioTareasState extends State<FormularioTareas> {
   final idForm = GlobalKey<FormState>();
-  //Map<String, dynamic>? tarea;
   Tareas objTareas = Tareas();
-  bool flag = false;
 
   TextEditingController nombreTarea = TextEditingController();
   TextEditingController descripcionTarea = TextEditingController();
   String fechaCreacion = DateTime.now().toString();
-  bool estadoTarea = true;
+  bool estadoTarea = false;
   //Map<String, dynamic> nuevaTarea = {};
 
   void alert(String contenido) {
@@ -122,9 +119,7 @@ class _FormularioTareasState extends State<FormularioTareas> {
                       Navigator.popAndPushNamed(
                           context, ListadoTareas.nombrePagina)
                     });
-
-            /*nuevaTarea['estado'] = false;
-          if (tarea != null) {
+            /*if (tarea != null) {
             Navigator.popAndPushNamed(context, ListadoTareas.nombrePagina);
           } else {
             Navigator.popAndPushNamed(context, ListadoTareas.nombrePagina);
@@ -137,29 +132,4 @@ class _FormularioTareasState extends State<FormularioTareas> {
           ),
     );
   }
-
-  /*tareasBD() async {
-    try {
-      CollectionReference datesBD =
-          FirebaseFirestore.instance.collection('Tareas');
-      QuerySnapshot tareas = await datesBD.get();
-
-      if (tareas.docs.isNotEmpty) {
-        for (var cursor in tareas.docs) {
-          if (cursor.get('NombreTarea') == nombreTarea.text) {
-            alert('La tarea ya existe');
-            flag = false;
-          }
-        }
-      }
-      if (flag == true) {
-        objTareas.nombreTarea = nombreTarea.text;
-        objTareas.fechaCreacion = fechaCreacion;
-        objTareas.estadoTarea = estadoTarea;
-        objTareas.descripcionTarea = descripcionTarea.text;
-      }
-    } catch (e) {
-      print('Error.....' + e.toString());
-    }
-  }*/
 }
