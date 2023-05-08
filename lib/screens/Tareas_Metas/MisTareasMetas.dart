@@ -21,8 +21,10 @@ class MisTareasMetas extends StatelessWidget {
             centerTitle: true,
             actions: <Widget>[
               IconButton(
-                icon: const Icon(Icons.exit_to_app_rounded),
-                onPressed: () {},
+                icon: const Icon(Icons.calendar_month_outlined),
+                onPressed: () {
+                  Navigator.pushNamed(context, 'ListadoTareas');
+                },
               ),
             ],
           ),

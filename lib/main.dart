@@ -61,7 +61,9 @@ class MyApp extends StatelessWidget {
         'ConsultaFerreteria': (context) => const ConsultaFerreteria(),
         'ConsultaMaquinaria': (context) => const ConsultaMaquinaria(),
         'ConsultaOtros': (context) => const ConsultaOtros(),
-        'ControlDeTareas':(context) => const ControlDeTareas(),
+        'DetalleTareas': (context) => const DetalleTareas(),
+        'FormularioTareas': (context) => const FormularioTareas(),
+        'ListadoTareas': (context) => const ListadoTareas()
       },
     );
   }

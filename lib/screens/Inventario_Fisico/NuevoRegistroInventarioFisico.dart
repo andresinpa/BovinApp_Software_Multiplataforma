@@ -1,6 +1,6 @@
 import 'dart:ui';
 
-import 'package:bovinapp/palette.dart';
+import 'package:bovinapp/Design/palette.dart';
 import 'package:bovinapp/widgets/RoundedButton.dart';
 import 'package:bovinapp/widgets/TextInputField.dart';
 import 'package:flutter/material.dart';
@@ -97,29 +97,33 @@ class NuevoRegistroInventarioFisico extends StatelessWidget {
                 Column(
                   children: [
                     TextInputField(
-                        icon: FontAwesomeIcons.houseChimneyMedical,
-                        hint: 'Codigo de la finca',
-                        inputType: TextInputType.name,
-                        inputAction: TextInputAction.next,
-                        controler: codigoFinca,),
+                      icon: FontAwesomeIcons.houseChimneyMedical,
+                      hint: 'Codigo de la finca',
+                      inputType: TextInputType.name,
+                      inputAction: TextInputAction.next,
+                      controler: codigoFinca,
+                    ),
                     TextInputField(
-                        icon: FontAwesomeIcons.key,
-                        hint: 'Codigo del producto',
-                        inputType: TextInputType.name,
-                        inputAction: TextInputAction.next,
-                        controler: codigoProducto,),
+                      icon: FontAwesomeIcons.key,
+                      hint: 'Codigo del producto',
+                      inputType: TextInputType.name,
+                      inputAction: TextInputAction.next,
+                      controler: codigoProducto,
+                    ),
                     TextInputField(
-                        icon: FontAwesomeIcons.calendar,
-                        hint: 'Fecha de obtención',
-                        inputType: TextInputType.datetime,
-                        inputAction: TextInputAction.next,
-                        controler: fechaObtencion,),
+                      icon: FontAwesomeIcons.calendar,
+                      hint: 'Fecha de obtención',
+                      inputType: TextInputType.datetime,
+                      inputAction: TextInputAction.next,
+                      controler: fechaObtencion,
+                    ),
                     TextInputField(
-                        icon: FontAwesomeIcons.dollarSign,
-                        hint: 'Precio',
-                        inputType: TextInputType.number,
-                        inputAction: TextInputAction.next,
-                        controler: precio,),
+                      icon: FontAwesomeIcons.dollarSign,
+                      hint: 'Precio',
+                      inputType: TextInputType.number,
+                      inputAction: TextInputAction.next,
+                      controler: precio,
+                    ),
                     const SizedBox(
                       height: 10,
                     ),
@@ -169,17 +173,19 @@ class NuevoRegistroInventarioFisico extends StatelessWidget {
                       height: 10,
                     ),
                     TextInputField(
-                        icon: FontAwesomeIcons.rectangleXmark,
-                        hint: 'Utilidad',
-                        inputType: TextInputType.text,
-                        inputAction: TextInputAction.next,
-                        controler: utilidad,),
+                      icon: FontAwesomeIcons.rectangleXmark,
+                      hint: 'Utilidad',
+                      inputType: TextInputType.text,
+                      inputAction: TextInputAction.next,
+                      controler: utilidad,
+                    ),
                     TextInputField(
-                        icon: FontAwesomeIcons.rectangleList,
-                        hint: 'Descripción',
-                        inputType: TextInputType.text,
-                        inputAction: TextInputAction.next,
-                        controler: descripcion,),
+                      icon: FontAwesomeIcons.rectangleList,
+                      hint: 'Descripción',
+                      inputType: TextInputType.text,
+                      inputAction: TextInputAction.next,
+                      controler: descripcion,
+                    ),
                     const SizedBox(
                       height: 25,
                     ),

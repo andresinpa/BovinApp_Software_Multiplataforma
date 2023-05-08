@@ -264,7 +264,7 @@ Widget buildHeader(BuildContext context) => Material(
               CircleAvatar(
                 radius: 52,
                 backgroundImage: NetworkImage(
-                    'https://img2.freepng.es/20180623/iqh/kisspng-computer-icons-avatar-social-media-blog-font-aweso-avatar-icon-5b2e99c40ce333.6524068515297806760528.jpg'),
+                    'https://cdn-icons-png.flaticon.com/512/147/147144.png'),
               ),
               SizedBox(height: 12),
               Text(

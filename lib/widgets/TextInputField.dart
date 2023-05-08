@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../palette.dart';
+import '../Design/palette.dart';
 
 class TextInputField extends StatelessWidget {
   const TextInputField({
@@ -10,14 +10,12 @@ class TextInputField extends StatelessWidget {
     required this.hint,
     required this.inputType,
     required this.inputAction,
-    
   }) : super(key: key);
   final TextEditingController controler;
   final IconData icon;
   final String hint;
   final TextInputType inputType;
   final TextInputAction inputAction;
-  
 
   @override
   Widget build(BuildContext context) {

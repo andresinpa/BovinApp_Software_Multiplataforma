@@ -1,6 +1,6 @@
 import 'dart:ui';
 
-import 'package:bovinapp/palette.dart';
+import 'package:bovinapp/Design/palette.dart';
 import 'package:bovinapp/widgets/RoundedButton.dart';
 import 'package:bovinapp/widgets/TextInputField.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -15,16 +15,16 @@ class MiUsuarioYFinca extends StatelessWidget {
   TextEditingController correo = TextEditingController();
   TextEditingController ubicacion = TextEditingController();
   TextEditingController area = TextEditingController();
-  validarDatos() async{
-    try{
-      CollectionReference ref = FirebaseFirestore.instance.collection('Usuarios');
+  validarDatos() async {
+    try {
+      CollectionReference ref =
+          FirebaseFirestore.instance.collection('Usuarios');
       QuerySnapshot usuarios = await ref.get();
-      
-
-    }catch(e){
-      print("Error.... "+e.toString());
+    } catch (e) {
+      print("Error.... " + e.toString());
     }
   }
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -123,11 +123,12 @@ class MiUsuarioYFinca extends StatelessWidget {
                       height: 25,
                     ),
                     TextInputField(
-                        icon: FontAwesomeIcons.circleUser,
-                        hint: 'Usuario',
-                        inputType: TextInputType.name,
-                        inputAction: TextInputAction.next,
-                        controler: usuario,),
+                      icon: FontAwesomeIcons.circleUser,
+                      hint: 'Usuario',
+                      inputType: TextInputType.name,
+                      inputAction: TextInputAction.next,
+                      controler: usuario,
+                    ),
                     TextInputField(
                       icon: FontAwesomeIcons.envelope,
                       hint: 'Correo electrónico',

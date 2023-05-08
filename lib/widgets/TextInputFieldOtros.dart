@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../palette.dart';
+import '../Design/palette.dart';
 
 class TextInputFieldOtros extends StatelessWidget {
   const TextInputFieldOtros({

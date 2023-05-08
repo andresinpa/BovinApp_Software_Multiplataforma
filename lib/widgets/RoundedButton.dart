@@ -2,7 +2,7 @@
 
 import 'package:flutter/material.dart';
 
-import '../palette.dart';
+import '../Design/palette.dart';
 
 class RoundedButton extends StatelessWidget {
   const RoundedButton({
@@ -27,7 +27,6 @@ class RoundedButton extends StatelessWidget {
       ),
       child: TextButton(
         onPressed: () => Navigator.pushNamed(context, rute),
-
         child: Text(
           buttonName,
           style: kBodyText.copyWith(fontWeight: FontWeight.bold),

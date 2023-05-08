@@ -1,10 +1,8 @@
-
 import 'dart:math';
 import 'dart:ui';
-import 'package:bovinapp/palette.dart';
+import 'package:bovinapp/Design/palette.dart';
 import 'package:bovinapp/screens/screens.dart';
 import 'package:bovinapp/widgets/PasswordInput.dart';
-import 'package:bovinapp/widgets/RoundedButton.dart';
 import 'package:bovinapp/widgets/TextInputField.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -14,13 +12,15 @@ import 'dart:async';
 import 'package:http/http.dart' as http;
 import 'dart:io';
 import 'dart:convert';
-import '../DTO/user.dart';
+import '../../DTO/user.dart';
+
 class CrearCuenta extends StatefulWidget {
   CrearCuenta();
   @override
   CrearCuentaApp createState() => CrearCuentaApp();
 }
-class CrearCuentaApp extends State<CrearCuenta>{
+
+class CrearCuentaApp extends State<CrearCuenta> {
   final TextEditingController nombre = TextEditingController();
   TextEditingController apellido = TextEditingController();
   TextEditingController usuario = TextEditingController();
@@ -31,42 +31,43 @@ class CrearCuentaApp extends State<CrearCuenta>{
   TextEditingController confirmacion = TextEditingController();
   User objUser = User();
   bool bandera = true;
-  void alert(String contenido){
+  void alert(String contenido) {
     showDialog(
-      context: context,
-      builder: (buildcontext){
-        return AlertDialog(
-          title: Text('Error'),
-          content: Text(contenido),
-          actions: <Widget>[
+        context: context,
+        builder: (buildcontext) {
+          return AlertDialog(
+            title: const Text('Error'),
+            content: Text(contenido),
+            actions: <Widget>[
               ElevatedButton(
                 onPressed: () {
                   Navigator.pop(context);
                 },
-                child: Text(
+                child: const Text(
                   'Aceptar',
                   style: TextStyle(color: Colors.blueGrey),
                 ),
               )
             ],
-        );
-      }
-    );
+          );
+        });
   }
-  validarDatos() async{
-    try{
-      CollectionReference ref=FirebaseFirestore.instance.collection('Usuarios');
+
+  validarDatos() async {
+    try {
+      CollectionReference ref =
+          FirebaseFirestore.instance.collection('Usuarios');
       QuerySnapshot usuarios = await ref.get();
 
-      if(usuarios.docs.length !=0){
-        for(var cursor in usuarios.docs){
-          if(cursor.get('EmailUsuario')==email.text){
+      if (usuarios.docs.length != 0) {
+        for (var cursor in usuarios.docs) {
+          if (cursor.get('EmailUsuario') == email.text) {
             alert('El email ya existe');
             bandera = false;
           }
         }
       }
-      if(bandera==true){
+      if (bandera == true) {
         password.text = (sha256.convert(utf8.encode(password.text))).toString();
         objUser.nombre = nombre.text;
         objUser.apellido = apellido.text;
@@ -75,8 +76,11 @@ class CrearCuentaApp extends State<CrearCuenta>{
         objUser.finca = finca.text;
         objUser.ganado = ganado.text;
         objUser.password = password.text;
-        objUser.codigo = (Random().nextInt(99999)+11111).toString();
-        await sendEmail(name: objUser.nombre, email: objUser.email, message: objUser.codigo);
+        objUser.codigo = (Random().nextInt(99999) + 11111).toString();
+        await sendEmail(
+            name: objUser.nombre,
+            email: objUser.email,
+            message: objUser.codigo);
         nombre.clear();
         apellido.clear();
         usuario.clear();
@@ -85,12 +89,14 @@ class CrearCuentaApp extends State<CrearCuenta>{
         ganado.clear();
         password.clear();
         confirmacion.clear();
-        Navigator.push(context, MaterialPageRoute(builder: (_) => ConfirmacionCuentaPage(objUser)));
+        Navigator.push(context,
+            MaterialPageRoute(builder: (_) => ConfirmacionCuentaPage(objUser)));
       }
-    }catch(e){
-      print('Error.....'+e.toString());
+    } catch (e) {
+      print('Error.....' + e.toString());
     }
   }
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -155,23 +161,26 @@ class CrearCuentaApp extends State<CrearCuenta>{
                 Column(
                   children: [
                     TextInputField(
-                        icon: FontAwesomeIcons.user,
-                        hint: 'Nombres',
-                        inputType: TextInputType.name,
-                        inputAction: TextInputAction.next,
-                        controler: nombre,),
+                      icon: FontAwesomeIcons.user,
+                      hint: 'Nombres',
+                      inputType: TextInputType.name,
+                      inputAction: TextInputAction.next,
+                      controler: nombre,
+                    ),
                     TextInputField(
-                        icon: FontAwesomeIcons.user,
-                        hint: 'Apellidos',
-                        inputType: TextInputType.name,
-                        inputAction: TextInputAction.next,
-                        controler: apellido,),
+                      icon: FontAwesomeIcons.user,
+                      hint: 'Apellidos',
+                      inputType: TextInputType.name,
+                      inputAction: TextInputAction.next,
+                      controler: apellido,
+                    ),
                     TextInputField(
-                        icon: FontAwesomeIcons.circleUser,
-                        hint: 'Usuario',
-                        inputType: TextInputType.name,
-                        inputAction: TextInputAction.next,
-                        controler: usuario,),
+                      icon: FontAwesomeIcons.circleUser,
+                      hint: 'Usuario',
+                      inputType: TextInputType.name,
+                      inputAction: TextInputAction.next,
+                      controler: usuario,
+                    ),
                     TextInputField(
                       icon: FontAwesomeIcons.envelope,
                       hint: 'Correo electrónico',
@@ -180,18 +189,19 @@ class CrearCuentaApp extends State<CrearCuenta>{
                       controler: email,
                     ),
                     TextInputField(
-                        icon: FontAwesomeIcons.houseChimney,
-                        hint: 'Nombre de su finca',
-                        inputType: TextInputType.name,
-                        inputAction: TextInputAction.next,
-                        controler: finca,
-                        ),
+                      icon: FontAwesomeIcons.houseChimney,
+                      hint: 'Nombre de su finca',
+                      inputType: TextInputType.name,
+                      inputAction: TextInputAction.next,
+                      controler: finca,
+                    ),
                     TextInputField(
-                        icon: FontAwesomeIcons.arrowUp19,
-                        hint: 'Cabezas de ganado',
-                        inputType: TextInputType.number,
-                        inputAction: TextInputAction.next,
-                        controler: ganado,),
+                      icon: FontAwesomeIcons.arrowUp19,
+                      hint: 'Cabezas de ganado',
+                      inputType: TextInputType.number,
+                      inputAction: TextInputAction.next,
+                      controler: ganado,
+                    ),
                     PasswordInput(
                       icon: FontAwesomeIcons.lock,
                       hint: 'Contraseña',
@@ -210,23 +220,24 @@ class CrearCuentaApp extends State<CrearCuenta>{
                       height: 25,
                     ),
                     Container(
-                          height: size.height * 0.08,
+                      height: size.height * 0.08,
                       width: size.width * 0.8,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(16),
                         color: kBlue,
                       ),
                       child: TextButton(
-                      onPressed: () async{
-                        if(password.text == confirmacion.text){
-                          validarDatos();
-                        }else{
-                          alert("Las contraseñas no coinciden");
-                        }
-                      },
+                        onPressed: () async {
+                          if (password.text == confirmacion.text) {
+                            validarDatos();
+                          } else {
+                            alert("Las contraseñas no coinciden");
+                          }
+                        },
                         child: Text(
                           'Registrar',
-                          style: kBodyText.copyWith(fontWeight: FontWeight.bold),
+                          style:
+                              kBodyText.copyWith(fontWeight: FontWeight.bold),
                         ),
                       ),
                     ),
@@ -245,7 +256,6 @@ class CrearCuentaApp extends State<CrearCuenta>{
                         ),
                         GestureDetector(
                           onTap: () {
-
                             Navigator.pushNamed(context, '/');
                           },
                           child: Text(
@@ -269,32 +279,33 @@ class CrearCuentaApp extends State<CrearCuenta>{
       ],
     );
   }
-        Future sendEmail({
+
+  Future sendEmail({
     required String name,
     required String email,
     required String message,
-  }) async{
+  }) async {
     final serviceId = 'service_8zg5d6h';
-    final templateId= 'template_df7zc0j';
+    final templateId = 'template_df7zc0j';
     final userId = 'MzvTx11b0rcHUpIf3';
     final url = Uri.parse('https://api.emailjs.com/api/v1.0/email/send');
     final response = await http.post(
       url,
       headers: {
-        'origin':'http:localhost',
+        'origin': 'http:localhost',
         'Content-Type': 'application/json',
       },
       body: json.encode({
         'service_id': serviceId,
         'template_id': templateId,
-        'user_id':userId,
+        'user_id': userId,
         'template_params': {
           'user_name': name,
           'user_email': email,
           'user_message': message,
         },
       }),
-      );
-      print('informacion enviada al correo');
+    );
+    print('informacion enviada al correo');
   }
 }
