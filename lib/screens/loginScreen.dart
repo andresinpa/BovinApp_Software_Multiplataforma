@@ -16,54 +16,90 @@ class LoginScreen extends StatefulWidget {
   @override
   LoginScreenApp createState() => LoginScreenApp();
 }
-class LoginScreenApp extends State<LoginScreen>{
+
+class LoginScreenApp extends State<LoginScreen> {
   TextEditingController email = TextEditingController();
   TextEditingController password = TextEditingController();
   User objUser = User();
-    validarDatos() async{
-    try{
-      CollectionReference ref=FirebaseFirestore.instance.collection('Usuarios');
-      QuerySnapshot usuarios = await ref.get();
+  bool bandera = false;
+  void alert(String Titulo, String contenido) {
+    showDialog(
+        context: context,
+        builder: (buildcontext) {
+          return AlertDialog(
+            title: Text(Titulo),
+            content: Text(contenido),
+            actions: <Widget>[
+              ElevatedButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                  if (bandera==true) {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (_) => Home1(objUser)));
+                  }
+                },
+                child: Text(
+                  'Aceptar',
+                  style: TextStyle(color: Colors.blueGrey),
+                ),
+              )
+            ],
+          );
+        });
+  }
 
-      if(usuarios.docs.length !=0){
-        for(var cursor in usuarios.docs){
-          if(cursor.get('EmailUsuario')==email.text){
-            if(cursor.get('PasswordUsuario')==password.text){
+  validarDatos() async {
+    try {
+      CollectionReference ref =
+          FirebaseFirestore.instance.collection('Usuarios');
+      QuerySnapshot usuarios = await ref.get();
+      bool bandera = false;
+      if (usuarios.docs.length != 0) {
+        for (var cursor in usuarios.docs) {
+          if (cursor.get('EmailUsuario') == email.text) {
+            if (cursor.get('PasswordUsuario') == password.text) {
+              bandera = true;
               print('*************Acceso aceptado****************');
-              objUser.nombre= cursor.get('NombreUsuario');
-              objUser.apellido= cursor.get('ApellidosUsuario');
+              objUser.nombre = cursor.get('NombreUsuario');
+              objUser.apellido = cursor.get('ApellidosUsuario');
               objUser.finca = cursor.get('FincaUsuario');
               objUser.ganado = cursor.get('GanadoUsuario');
               objUser.usuario = cursor.get('Usuario');
-              objUser.email= cursor.get('EmailUsuario');
+              objUser.email = cursor.get('EmailUsuario');
               email.clear();
               password.clear();
-            }
+            } else {}
           }
         }
-
-      }else{
+      } else {
+        alert('Usuario no encontrado', 'Primero debe crear la cuenta');
         print('no hay documentos en la colección');
       }
-
-    }catch(e){
-      print('Error....'+e.toString());
+      if (bandera == true) {
+        alert('Usuario encontrado', 'Accesso aceptado');
+      } else {
+        alert('Contraseña incorrecta', 'Por favor intente de nuevo');
+        print('*************Contraseña incorrecta****************');
+        email.clear();
+        password.clear();
+      }
+    } catch (e) {
+      print('Error....' + e.toString());
     }
   }
+
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Stack(
       children: [
         Container(
-          
           decoration: const BoxDecoration(
             color: Colors.white,
           ),
         ),
         Scaffold(
           backgroundColor: const Color.fromARGB(255, 255, 255, 255),
-          body: 
-          Column(
+          body: Column(
             // ignore: prefer_const_literals_to_create_immutables
             children: [
               const Flexible(
@@ -113,24 +149,25 @@ class LoginScreenApp extends State<LoginScreen>{
                   ),
 
                   Container(
-                      height: size.height * 0.08,
-                      width: size.width * 0.8,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(16),
-                        color: kBlue,
-                      ),
-                      child: TextButton(
-                      onPressed: () async{
-                        password.text = (sha256.convert(utf8.encode(password.text))).toString();
+                    height: size.height * 0.08,
+                    width: size.width * 0.8,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(16),
+                      color: kBlue,
+                    ),
+                    child: TextButton(
+                      onPressed: () async {
+                        password.text =
+                            (sha256.convert(utf8.encode(password.text)))
+                                .toString();
                         validarDatos();
-                        Navigator.push(context, MaterialPageRoute(builder: (_) => Home1(objUser)));
                       },
-                        child: Text(
-                          'Ingresar',
-                          style: kBodyText.copyWith(fontWeight: FontWeight.bold),
-                        ),
+                      child: Text(
+                        'Ingresar',
+                        style: kBodyText.copyWith(fontWeight: FontWeight.bold),
                       ),
                     ),
+                  ),
 
                   const SizedBox(
                     height: 25,

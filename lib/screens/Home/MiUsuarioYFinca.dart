@@ -18,46 +18,44 @@ class MiUsuarioYFinca extends StatefulWidget {
   MiUsuarioYFinca(this.user);
   MiUsuarioYFincaApp createState() => MiUsuarioYFincaApp();
 }
-class MiUsuarioYFincaApp extends State<MiUsuarioYFinca>{
+
+class MiUsuarioYFincaApp extends State<MiUsuarioYFinca> {
   TextEditingController usuario = TextEditingController();
-  TextEditingController correo = TextEditingController();
+  TextEditingController nombre = TextEditingController();
   TextEditingController ubicacion = TextEditingController();
   TextEditingController area = TextEditingController();
   TextEditingController medida = TextEditingController();
-    final db = FirebaseFirestore.instance;
-    var documento;
-    insertarDatos() async{
-    try{
-      CollectionReference ref=db.collection('Usuarios');
+  final db = FirebaseFirestore.instance;
+  var documento;
+  insertarDatos() async {
+    try {
+      CollectionReference ref = db.collection('Usuarios');
       QuerySnapshot usuarios = await ref.get();
 
-      if(usuarios.docs.length !=0){
-        for(var cursor in usuarios.docs){
-          if(cursor.get('EmailUsuario')==widget.user.email){
-            documento =(cursor.id).toString();
+      if (usuarios.docs.length != 0) {
+        for (var cursor in usuarios.docs) {
+          if (cursor.get('EmailUsuario') == widget.user.email) {
+            documento = (cursor.id).toString();
+          }
         }
-      }
         var docRef = db.collection("Usuarios").doc(documento);
-          docRef.update({
-            "EmailUsuario":correo.text,
-            "Usuario":usuario.text,
-            "Ubicacion":ubicacion.text,
-          "Area":(area.text+" "+medida.text),
-
+        docRef.update({
+          "NombreUsuario": nombre.text,
+          "Usuario": usuario.text,
+          "Ubicacion": ubicacion.text,
+          "Area": (area.text + " " + medida.text),
         });
-
       }
-    }catch (e){
-      print("Error ----->"+e.toString());
+    } catch (e) {
+      print("Error ----->" + e.toString());
     }
   }
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     var lista = ['metros cuadrados', 'fanegadas'];
     String vista = 'selecciona una opción';
-    usuario.text = widget.user.usuario;
-    correo.text = widget.user.email;
 
     return Stack(
       children: [
@@ -133,14 +131,14 @@ class MiUsuarioYFincaApp extends State<MiUsuarioYFinca>{
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text(
-                          'Nombre:   ',
+                          'Correo electronico:   ',
                           style: TextStyle(
                             color: Colors.black,
                             fontSize: 26,
                           ),
                         ),
                         Text(
-                          (widget.user.nombre),
+                          (widget.user.email),
                           style: TextStyle(
                             color: Colors.black,
                             fontSize: 26,
@@ -152,17 +150,18 @@ class MiUsuarioYFincaApp extends State<MiUsuarioYFinca>{
                       height: 25,
                     ),
                     TextInputField(
-                        icon: FontAwesomeIcons.circleUser,
-                        hint: 'Usuario',
-                        inputType: TextInputType.name,
-                        inputAction: TextInputAction.next,
-                        controler: usuario,),
+                      icon: FontAwesomeIcons.circleUser,
+                      hint: 'Usuario',
+                      inputType: TextInputType.name,
+                      inputAction: TextInputAction.next,
+                      controler: usuario,
+                    ),
                     TextInputField(
                       icon: FontAwesomeIcons.envelope,
-                      hint: 'Correo electrónico',
+                      hint: 'Nombre',
                       inputType: TextInputType.emailAddress,
                       inputAction: TextInputAction.next,
-                      controler: correo,
+                      controler: nombre,
                     ),
                     const SizedBox(
                       height: 15,
@@ -244,19 +243,23 @@ class MiUsuarioYFincaApp extends State<MiUsuarioYFinca>{
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                      Container(
+                        Container(
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(16),
                             color: kBlue,
                           ),
                           child: TextButton(
-                          onPressed: () async{
-                            insertarDatos();
-                            Navigator.push(context, MaterialPageRoute(builder: (_) => Home1(widget.user)));
-                          },
+                            onPressed: () async {
+                              insertarDatos();
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (_) => Home1(widget.user)));
+                            },
                             child: Text(
                               'Actualizar y Guardar',
-                              style: kBodyText.copyWith(fontWeight: FontWeight.bold),
+                              style: kBodyText.copyWith(
+                                  fontWeight: FontWeight.bold),
                             ),
                           ),
                         ),
