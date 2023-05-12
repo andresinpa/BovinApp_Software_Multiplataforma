@@ -15,15 +15,6 @@ class MiUsuarioYFinca extends StatelessWidget {
   TextEditingController correo = TextEditingController();
   TextEditingController ubicacion = TextEditingController();
   TextEditingController area = TextEditingController();
-  validarDatos() async {
-    try {
-      CollectionReference ref =
-          FirebaseFirestore.instance.collection('Usuarios');
-      QuerySnapshot usuarios = await ref.get();
-    } catch (e) {
-      print("Error.... " + e.toString());
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
