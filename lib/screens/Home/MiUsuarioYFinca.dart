@@ -23,6 +23,7 @@ class MiUsuarioYFincaApp extends State<MiUsuarioYFinca> {
   TextEditingController nombre = TextEditingController();
   TextEditingController ubicacion = TextEditingController();
   TextEditingController area = TextEditingController();
+
   TextEditingController medida = TextEditingController();
   final db = FirebaseFirestore.instance;
   var documento;

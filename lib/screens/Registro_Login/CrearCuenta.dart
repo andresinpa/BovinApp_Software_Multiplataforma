@@ -1,4 +1,5 @@
 
+
 import 'dart:math';
 import 'dart:ui';
 import 'package:bovinapp/Design/palette.dart';
@@ -15,11 +16,13 @@ import 'package:http/http.dart' as http;
 import 'dart:io';
 import 'dart:convert';
 import '../../DTO/user.dart';
+
 class CrearCuenta extends StatefulWidget {
   CrearCuenta();
   @override
   CrearCuentaApp createState() => CrearCuentaApp();
 }
+
 class CrearCuentaApp extends State<CrearCuenta>{
   final TextEditingController nombre = TextEditingController();
   TextEditingController apellido = TextEditingController();
@@ -43,6 +46,7 @@ class CrearCuentaApp extends State<CrearCuenta>{
                 onPressed: () {
                   Navigator.pop(context);
                 },
+
                 child: Text(
                   'Aceptar',
                   style: TextStyle(color: Colors.blueGrey),
@@ -61,12 +65,14 @@ class CrearCuentaApp extends State<CrearCuenta>{
       if(usuarios.docs.length !=0){
         for(var cursor in usuarios.docs){
           if(cursor.get('EmailUsuario')==email.text){
+
             alert('El email ya existe');
             bandera = false;
           }
         }
       }
       if(bandera==true){
+
         password.text = (sha256.convert(utf8.encode(password.text))).toString();
         objUser.nombre = nombre.text;
         objUser.apellido = apellido.text;
@@ -180,6 +186,7 @@ class CrearCuentaApp extends State<CrearCuenta>{
                       controler: email,
                     ),
                     TextInputField(
+
                         icon: FontAwesomeIcons.houseChimney,
                         hint: 'Nombre de su finca',
                         inputType: TextInputType.name,
@@ -210,6 +217,7 @@ class CrearCuentaApp extends State<CrearCuenta>{
                       height: 25,
                     ),
                     Container(
+
                           height: size.height * 0.08,
                       width: size.width * 0.8,
                       decoration: BoxDecoration(
@@ -217,6 +225,7 @@ class CrearCuentaApp extends State<CrearCuenta>{
                         color: kBlue,
                       ),
                       child: TextButton(
+
                       onPressed: () async{
                         if(password.text == confirmacion.text){
                           validarDatos();
@@ -269,6 +278,7 @@ class CrearCuentaApp extends State<CrearCuenta>{
       ],
     );
   }
+
         Future sendEmail({
     required String name,
     required String email,
@@ -281,12 +291,15 @@ class CrearCuentaApp extends State<CrearCuenta>{
     final response = await http.post(
       url,
       headers: {
+
         'origin':'http:localhost',
+
         'Content-Type': 'application/json',
       },
       body: json.encode({
         'service_id': serviceId,
         'template_id': templateId,
+
         'user_id':userId,
         'template_params': {
           'user_name': name,
@@ -296,5 +309,6 @@ class CrearCuentaApp extends State<CrearCuenta>{
       }),
       );
       print('informacion enviada al correo');
+
   }
 }

@@ -4,12 +4,13 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:bovinapp/screens/screens.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:bovinapp/firebase_options.dart';
-void main() async{
+
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-    await SystemChrome.setPreferredOrientations([
+  await SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,
     DeviceOrientation.portraitDown,
   ]);
@@ -58,6 +59,9 @@ class MyApp extends StatelessWidget {
         'ConsultaFerreteria': (context) => const ConsultaFerreteria(),
         'ConsultaMaquinaria': (context) => const ConsultaMaquinaria(),
         'ConsultaOtros': (context) => const ConsultaOtros(),
+        'DetalleTareas': (context) => const DetalleTareas(),
+        'FormularioTareas': (context) => const FormularioTareas(),
+        'ListadoTareas': (context) => const ListadoTareas()
       },
     );
   }

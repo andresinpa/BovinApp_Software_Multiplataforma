@@ -27,7 +27,6 @@ class RoundedButton extends StatelessWidget {
       ),
       child: TextButton(
         onPressed: () => Navigator.pushNamed(context, rute),
-
         child: Text(
           buttonName,
           style: kBodyText.copyWith(fontWeight: FontWeight.bold),

@@ -26,3 +26,6 @@ export 'Inventario_Fisico/ConsultaMedicamentos.dart';
 export 'Inventario_Fisico/ConsultaFerreteria.dart';
 export 'Inventario_Fisico/consultaMaquinaria.dart';
 export 'Inventario_Fisico/ConsultaOtros.dart';
+export 'Tareas_Metas/DetalleTareas.dart';
+export 'Tareas_Metas/FormularioTareas.dart';
+export 'Tareas_Metas/ListadoTareas.dart';

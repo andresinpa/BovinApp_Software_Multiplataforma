@@ -9,7 +9,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class FichasIndividualesResultados extends StatelessWidget {
   FichasIndividualesResultados({super.key});
-    TextEditingController buscar= TextEditingController();
+  TextEditingController buscar = TextEditingController();
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
