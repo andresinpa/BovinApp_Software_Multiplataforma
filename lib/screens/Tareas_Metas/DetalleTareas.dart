@@ -62,7 +62,13 @@ class DetalleTareas extends StatelessWidget {
                   ),
                   onPressed: () => Navigator.pushNamed(
                       context, FormularioTareas.nombrePagina,
-                      arguments: tarea),
+                      arguments: {
+                        'NombreTarea': tarea['NombreTarea'],
+                        'DescripcionTarea': tarea['DescripcionTarea'],
+                        'FechaCreacion': tarea['FechaCreacion'],
+                        'EstadoTarea': tarea['EstadoTarea'],
+                        'uid': tarea['uid'],
+                      }),
                   child: const Text('Editar'),
                 ),
                 ElevatedButton(
@@ -70,6 +76,7 @@ class DetalleTareas extends StatelessWidget {
                     backgroundColor: Colors.pink,
                   ),
                   onPressed: () {
+                    //print(tarea);
                     Navigator.popAndPushNamed(
                         context, ListadoTareas.nombrePagina);
                   },

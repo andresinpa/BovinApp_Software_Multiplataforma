@@ -1,6 +1,9 @@
+import 'dart:collection';
+
 import 'package:bovinapp/DTO/Tareas.dart';
 import 'package:bovinapp/screens/Tareas_Metas/ListadoTareas.dart';
 import 'package:bovinapp/screens/Tareas_Metas/services/TareasServices.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 class FormularioTareas extends StatefulWidget {
@@ -14,12 +17,11 @@ class FormularioTareas extends StatefulWidget {
 class _FormularioTareasState extends State<FormularioTareas> {
   final idForm = GlobalKey<FormState>();
   Tareas objTareas = Tareas();
-
   TextEditingController nombreTarea = TextEditingController();
   TextEditingController descripcionTarea = TextEditingController();
   String fechaCreacion = DateTime.now().toString();
   bool estadoTarea = false;
-  //Map<String, dynamic> nuevaTarea = {};
+  LinkedHashMap<String, dynamic>? tarea;
 
   void alert(String contenido) {
     showDialog(
@@ -45,7 +47,17 @@ class _FormularioTareasState extends State<FormularioTareas> {
 
   @override
   Widget build(BuildContext context) {
-    //tarea = ModalRoute.of(context)?.settings.arguments as Map<String, dynamic>?;
+    tarea = ModalRoute.of(context)?.settings.arguments
+        as LinkedHashMap<String, dynamic>?;
+
+    if (tarea == null) {
+      nombreTarea.text = "";
+      descripcionTarea.text = "";
+    } else {
+      nombreTarea.text = tarea!['NombreTarea'];
+      descripcionTarea.text = tarea!['DescripcionTarea'];
+    }
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('Formulario'),
@@ -76,9 +88,11 @@ class _FormularioTareasState extends State<FormularioTareas> {
   _crearInputNombre() {
     return TextFormField(
       controller: nombreTarea,
-      //initialValue: (tarea != null) ? tarea!['nombre'] : "",
+      //initialValue: tarea != null ? tarea!['NombreTarea'] : null,
       /*onSaved: (valor) {
-        nuevaTarea['nombre'] = valor;
+        if (tarea != null) {
+          tarea!['NombreTarea'] = valor;
+        }
       },*/
       decoration: const InputDecoration(
         hintText: 'Nombre de la tarea',
@@ -93,9 +107,9 @@ class _FormularioTareasState extends State<FormularioTareas> {
       ),
       child: TextFormField(
         controller: descripcionTarea,
-        //initialValue: (tarea != null) ? tarea!['descripcion'] : "",
-        /*onSaved: (valor) {
-          nuevaTarea['descripcion'] = valor;
+        /*initialValue: (tarea != null) ? tarea['DescripcionTarea'] : "",
+        onSaved: (valor) {
+          tarea['descripcion'] = valor;
         },*/
         maxLines: null,
         decoration: const InputDecoration(
@@ -111,25 +125,33 @@ class _FormularioTareasState extends State<FormularioTareas> {
         top: 20,
       ),
       child: ElevatedButton(
-          onPressed: () async {
-            idForm.currentState?.save();
-            await addTareas(nombreTarea.text, descripcionTarea.text,
-                    fechaCreacion, 'andres', estadoTarea)
+        onPressed: () async {
+          idForm.currentState?.save();
+          if (tarea != null) {
+            //print(tarea!['uid']);
+            await updateTarea(
+                    tarea!['uid'],
+                    nombreTarea.text,
+                    descripcionTarea.text,
+                    tarea!['FechaCreacion'],
+                    tarea!['EstadoTarea'])
                 .then((_) => {
                       Navigator.popAndPushNamed(
                           context, ListadoTareas.nombrePagina)
                     });
-            /*if (tarea != null) {
-            Navigator.popAndPushNamed(context, ListadoTareas.nombrePagina);
           } else {
-            Navigator.popAndPushNamed(context, ListadoTareas.nombrePagina);
-          }*/
-          },
-          child: //(tarea != null)
-              //?
-              const Text('Editar Tarea')
-          //: const Text('Crear Tarea'),
-          ),
+            await addTareas(nombreTarea.text, descripcionTarea.text,
+                    fechaCreacion, estadoTarea)
+                .then((_) => {
+                      Navigator.popAndPushNamed(
+                          context, ListadoTareas.nombrePagina)
+                    });
+          }
+        },
+        child: (tarea != null)
+            ? const Text('Editar Tarea')
+            : const Text('Crear Tarea'),
+      ),
     );
   }
 }
