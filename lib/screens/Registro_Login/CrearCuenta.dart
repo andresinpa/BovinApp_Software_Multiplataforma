@@ -1,7 +1,7 @@
 
 import 'dart:math';
 import 'dart:ui';
-import 'package:bovinapp/palette.dart';
+import 'package:bovinapp/Design/palette.dart';
 import 'package:bovinapp/screens/screens.dart';
 import 'package:bovinapp/widgets/PasswordInput.dart';
 import 'package:bovinapp/widgets/RoundedButton.dart';
@@ -14,7 +14,7 @@ import 'dart:async';
 import 'package:http/http.dart' as http;
 import 'dart:io';
 import 'dart:convert';
-import '../DTO/user.dart';
+import '../../DTO/user.dart';
 class CrearCuenta extends StatefulWidget {
   CrearCuenta();
   @override

@@ -1,7 +1,6 @@
-import 'dart:convert';
 import 'dart:ui';
 
-import 'package:bovinapp/palette.dart';
+import 'package:bovinapp/Design/palette.dart';
 import 'package:bovinapp/widgets/RoundedButton.dart';
 import 'package:bovinapp/widgets/TextInputField.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -11,7 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import '../../DTO/user.dart';
-import '../Home1_Drawer.dart';
+import 'Home1_Drawer.dart';
 
 class MiUsuarioYFinca extends StatefulWidget {
   final User user;

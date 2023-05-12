@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:bovinapp/widgets/widgets.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-import '../DTO/user.dart';
-import '../palette.dart';
+import '../../DTO/user.dart';
+import '../../Design/palette.dart';
 
 class ConfirmacionCuentaPage extends StatefulWidget {
   final User cadena;

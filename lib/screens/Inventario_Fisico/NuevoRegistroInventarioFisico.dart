@@ -1,6 +1,6 @@
 import 'dart:ui';
 
-import 'package:bovinapp/palette.dart';
+import 'package:bovinapp/Design/palette.dart';
 import 'package:bovinapp/widgets/RoundedButton.dart';
 import 'package:bovinapp/widgets/TextInputField.dart';
 import 'package:flutter/material.dart';

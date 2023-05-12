@@ -2,13 +2,13 @@
 
 import 'dart:convert';
 
-import 'package:bovinapp/screens/Home1_Drawer.dart';
+import 'package:bovinapp/screens/Home/Home1_Drawer.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:crypto/crypto.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import '../DTO/user.dart';
-import '../palette.dart';
+import '../../DTO/user.dart';
+import '../../Design/palette.dart';
 import 'package:bovinapp/widgets/widgets.dart';
 
 class LoginScreen extends StatefulWidget {
