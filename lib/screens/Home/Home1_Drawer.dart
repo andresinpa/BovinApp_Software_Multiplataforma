@@ -1,10 +1,16 @@
+
+import 'package:bovinapp/screens/Home/MiUsuarioYFinca.dart';
 import 'package:flutter/material.dart';
 
-void main() => runApp(const Home1());
+import '../../DTO/user.dart';
 
-class Home1 extends StatelessWidget {
-  const Home1({super.key});
+class Home1 extends StatefulWidget {
+  final User user;
+  const Home1(this.user);
+  Home1App createState() => Home1App();
+}
 
+class Home1App extends State<Home1> {
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -39,7 +45,9 @@ class Home1 extends StatelessWidget {
             ],
           ),
           body: Padding(
-            padding: const EdgeInsets.only(top: 25),
+            padding: const EdgeInsets.only(
+              top: 25,
+            ),
             child: GridView.count(
               crossAxisCount: 2,
               children: <Widget>[
@@ -55,8 +63,10 @@ class Home1 extends StatelessWidget {
                         borderRadius: BorderRadius.circular(16),
                       ),
                       child: GestureDetector(
-                        onTap: () =>
-                            Navigator.pushNamed(context, 'MiUsuarioyFinca'),
+                        onTap: () => Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (_) => MiUsuarioYFinca(widget.user))),
                         child: Image.asset('assets/images/home1/Home1.png',
                             fit: BoxFit.cover),
                       ),
