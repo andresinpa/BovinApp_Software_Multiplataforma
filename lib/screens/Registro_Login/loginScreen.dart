@@ -21,7 +21,7 @@ class LoginScreenApp extends State<LoginScreen> {
   TextEditingController email = TextEditingController();
   TextEditingController password = TextEditingController();
   User objUser = User();
-  bool bandera = false;
+  bool bandera = true;
   void alert(String Titulo, String contenido) {
     showDialog(
         context: context,
@@ -33,14 +33,14 @@ class LoginScreenApp extends State<LoginScreen> {
               ElevatedButton(
                 onPressed: () {
                   Navigator.pop(context);
-                  if (bandera==true) {
+                  if (bandera == true) {
                     Navigator.push(context,
                         MaterialPageRoute(builder: (_) => Home1(objUser)));
                   }
                 },
-                child: Text(
+                child: const Text(
                   'Aceptar',
-                  style: TextStyle(color: Colors.blueGrey),
+                  style: TextStyle(color: Color.fromARGB(255, 255, 255, 255)),
                 ),
               )
             ],
@@ -76,7 +76,7 @@ class LoginScreenApp extends State<LoginScreen> {
         print('no hay documentos en la colección');
       }
       if (bandera == true) {
-        alert('Usuario encontrado', 'Accesso aceptado');
+        alert('Usuario encontrado', 'Acceso aceptado');
       } else {
         alert('Contraseña incorrecta', 'Por favor intente de nuevo');
         print('*************Contraseña incorrecta****************');
