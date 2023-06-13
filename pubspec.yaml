@@ -42,6 +42,7 @@ dependencies:
   syncfusion_flutter_calendar: ^20.3.50
   crypto: ^3.0.2
   http: ^0.13.5
+  flutter_clean_calendar: ^1.1.0
 
 
 dev_dependencies:
@@ -125,6 +126,7 @@ flutter:
     - assets/images/home2/home1.png
     - assets/images/home2/home2.png
 
+    - assets/images/tareas/tareas.png
   #   - images/a_dot_burr.jpeg
   #   - images/a_dot_ham.jpeg
 

@@ -45,3 +45,7 @@ Future<void> updateTarea(String uid, String newName, String newDescripcion,
     'EstadoTarea': newEstado,
   });
 }
+
+Future<void> deleteTarea(String uid) async {
+  await dbTareas.collection('Tareas').doc(uid).delete();
+}

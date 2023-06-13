@@ -1,4 +1,3 @@
-
 import 'package:bovinapp/screens/Home/MiUsuarioYFinca.dart';
 import 'package:flutter/material.dart';
 
@@ -40,7 +39,12 @@ class Home1App extends State<Home1> {
             actions: <Widget>[
               IconButton(
                 icon: const Icon(Icons.exit_to_app_rounded),
-                onPressed: () {},
+                onPressed: () {
+                  const AlertDialog(
+                    title: Text('Saliendo ...'),
+                  );
+                  Navigator.pushNamed(context, '/');
+                },
               ),
             ],
           ),
@@ -274,15 +278,15 @@ Widget buildHeader(BuildContext context) => Material(
               CircleAvatar(
                 radius: 52,
                 backgroundImage: NetworkImage(
-                    'https://cdn-icons-png.flaticon.com/512/147/147144.png'),
+                    'https://cdn-icons-png.flaticon.com/128/3593/3593532.png'),
               ),
               SizedBox(height: 12),
               Text(
-                '¡Hola andres123!',
+                '¡Hola florecita!',
                 style: TextStyle(fontSize: 28, color: Colors.white),
               ),
               Text(
-                'andresinfantepaez@gmail.com',
+                'bovinapp2023@gmail.com',
                 style: TextStyle(fontSize: 16, color: Colors.white),
               ),
             ],
@@ -305,7 +309,9 @@ Widget buildMenuItems(BuildContext context) => Container(
           ListTile(
               leading: const Icon(Icons.calendar_month_rounded),
               title: const Text('Mis tareas y metas'),
-              onTap: () {}),
+              onTap: () {
+                Navigator.pushNamed(context, 'MisTareasMetas');
+              }),
           ListTile(
               leading: const Icon(Icons.password_rounded),
               title: const Text('Cambio de contraseña'),

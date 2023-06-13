@@ -18,7 +18,7 @@ class _ListadoTareasState extends State<ListadoTareas> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Lista'),
+        title: const Text('Mis tareas 📋'),
       ),
       body: FutureBuilder(
         future: getTareas(),
@@ -29,20 +29,95 @@ class _ListadoTareasState extends State<ListadoTareas> {
             return const Center(child: Text('Error al cargar los datos'));
           } else if (snapshot.hasData) {
             final tareas = (snapshot.data as List<dynamic>);
-            return ListView.builder(
-                itemCount: tareas.length,
-                itemBuilder: (context, index) {
-                  final tarea = tareas[index];
-                  return ListTile(
-                    onTap: () => Navigator.pushNamed(
-                        context, DetalleTareas.nombrePagina,
-                        arguments: tarea),
-                    title: Text('${tarea['NombreTarea']}'),
-                    trailing: (tarea['EstadoTarea'])
-                        ? const Icon(Icons.star)
-                        : const Icon(Icons.star_border),
-                  );
-                });
+            return Column(
+              children: [
+                Padding(
+                  padding: EdgeInsets.all(6.0),
+                  child: Image.asset('assets/images/tareas/tareas.png',
+                      fit: BoxFit.contain),
+                ),
+                Expanded(
+                  child: ListView.builder(
+                      itemCount: tareas.length,
+                      itemBuilder: (context, index) {
+                        final tarea = tareas[index];
+                        return Dismissible(
+                          onDismissed: (direction) async {
+                            await deleteTarea(tarea['uid']);
+                            tareas.remove(index);
+                          },
+                          confirmDismiss: (direction) async {
+                            bool result = false;
+
+                            result = await showDialog(
+                                context: context,
+                                builder: (context) {
+                                  return AlertDialog(
+                                    title: const Text(
+                                        "¿Estás seguro de eliminar la tarea?"),
+                                    actions: [
+                                      TextButton(
+                                          onPressed: () {
+                                            return Navigator.pop(
+                                              context,
+                                              false,
+                                            );
+                                          },
+                                          child: const Text(
+                                            "Cancelar",
+                                            style: TextStyle(
+                                                color: Color.fromARGB(
+                                                    255, 150, 15, 15)),
+                                          )),
+                                      TextButton(
+                                          onPressed: () {
+                                            return Navigator.pop(
+                                              context,
+                                              true,
+                                            );
+                                          },
+                                          child: const Text("Eliminar")),
+                                    ],
+                                  );
+                                });
+                            return result;
+                          },
+                          key: Key(tarea['uid']),
+                          background: Container(
+                            color: Colors.blueAccent,
+                            child: const Icon(Icons.delete),
+                          ),
+                          direction: DismissDirection.startToEnd,
+                          child: ListTile(
+                            onTap: () => Navigator.pushNamed(
+                                context, DetalleTareas.nombrePagina,
+                                arguments: {
+                                  'NombreTarea': tarea['NombreTarea'],
+                                  'DescripcionTarea': tarea['DescripcionTarea'],
+                                  'FechaCreacion': tarea['FechaCreacion'],
+                                  'EstadoTarea': tarea['EstadoTarea'],
+                                  'uid': tarea['uid'],
+                                }),
+                            title: Text(
+                              '${tarea['NombreTarea']}',
+                              style: TextStyle(
+                                color: tarea['EstadoTarea']
+                                    ? const Color.fromARGB(255, 204, 35, 23)
+                                    : Colors.black,
+                              ),
+                            ),
+                            trailing: (tarea['EstadoTarea'])
+                                ? const Icon(
+                                    Icons.star,
+                                    color: Colors.red,
+                                  )
+                                : const Icon(Icons.star_border),
+                          ),
+                        );
+                      }),
+                ),
+              ],
+            );
           } else {
             return const Center(child: Text('No hay datos disponibles'));
           }
@@ -54,7 +129,11 @@ class _ListadoTareasState extends State<ListadoTareas> {
               context, FormularioTareas.nombrePagina);
           setState(() {});
         },
-        child: const Icon(Icons.add),
+        backgroundColor: const Color.fromARGB(255, 3, 116, 27),
+        focusColor: const Color.fromARGB(255, 11, 151, 70),
+        child: const Icon(
+          Icons.add,
+        ),
       ),
     );
   }
