@@ -60,7 +60,7 @@ class _FormularioTareasState extends State<FormularioTareas> {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Formulario'),
+        title: const Text('Formulario de tareas 📝'),
       ),
       body: SingleChildScrollView(
         child: Container(
@@ -88,14 +88,9 @@ class _FormularioTareasState extends State<FormularioTareas> {
   _crearInputNombre() {
     return TextFormField(
       controller: nombreTarea,
-      //initialValue: tarea != null ? tarea!['NombreTarea'] : null,
-      /*onSaved: (valor) {
-        if (tarea != null) {
-          tarea!['NombreTarea'] = valor;
-        }
-      },*/
       decoration: const InputDecoration(
         hintText: 'Nombre de la tarea',
+        border: OutlineInputBorder(),
       ),
     );
   }
@@ -107,13 +102,10 @@ class _FormularioTareasState extends State<FormularioTareas> {
       ),
       child: TextFormField(
         controller: descripcionTarea,
-        /*initialValue: (tarea != null) ? tarea['DescripcionTarea'] : "",
-        onSaved: (valor) {
-          tarea['descripcion'] = valor;
-        },*/
         maxLines: null,
         decoration: const InputDecoration(
           hintText: 'Descripción de la tarea',
+          border: OutlineInputBorder(),
         ),
       ),
     );
