@@ -1,18 +1,18 @@
-// ignore_for_file: deprecated_member_use
+// ignore_for_file: deprecated_member_use, avoid_print
 
 import 'dart:convert';
-
 import 'package:bovinapp/screens/Home/Home1_Drawer.dart';
+import 'package:bovinapp/widgets/PasswordInput.dart';
+import 'package:bovinapp/widgets/TextInputField.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:crypto/crypto.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import '../../DTO/user.dart';
 import '../../Design/palette.dart';
-import 'package:bovinapp/widgets/widgets.dart';
 
 class LoginScreen extends StatefulWidget {
-  LoginScreen();
+  const LoginScreen({super.key});
   @override
   LoginScreenApp createState() => LoginScreenApp();
 }
@@ -22,7 +22,8 @@ class LoginScreenApp extends State<LoginScreen> {
   TextEditingController password = TextEditingController();
   User objUser = User();
   bool bandera = true;
-  void alert(String Titulo, String contenido) {
+  // ignore: non_constant_identifier_names
+  Future<void> alert(String Titulo, String contenido) async {
     showDialog(
         context: context,
         builder: (buildcontext) {
@@ -54,7 +55,7 @@ class LoginScreenApp extends State<LoginScreen> {
           FirebaseFirestore.instance.collection('Usuarios');
       QuerySnapshot usuarios = await ref.get();
       bool bandera = false;
-      if (usuarios.docs.length != 0) {
+      if (usuarios.docs.isNotEmpty) {
         for (var cursor in usuarios.docs) {
           if (cursor.get('EmailUsuario') == email.text) {
             if (cursor.get('PasswordUsuario') == password.text) {
@@ -84,21 +85,22 @@ class LoginScreenApp extends State<LoginScreen> {
         password.clear();
       }
     } catch (e) {
-      print('Error....' + e.toString());
+      print('Error....$e');
     }
   }
 
+  @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Stack(
       children: [
-        Container(
-          decoration: const BoxDecoration(
-            color: Colors.white,
-          ),
-        ),
+        // Container(
+        //   decoration: const BoxDecoration(
+        //     color: Color.fromARGB(255, 6, 156, 44),
+        //   ),
+        // ),
         Scaffold(
-          backgroundColor: const Color.fromARGB(255, 255, 255, 255),
+          backgroundColor: Color.fromARGB(255, 253, 253, 253),
           body: Column(
             // ignore: prefer_const_literals_to_create_immutables
             children: [

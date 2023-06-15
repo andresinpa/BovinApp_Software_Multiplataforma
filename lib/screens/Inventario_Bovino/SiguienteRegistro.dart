@@ -261,8 +261,8 @@ class _SiguienteRegistroState extends State<Siguiente> {
                         style: TextStyle(color: Colors.black54, fontSize: 20),
                       ),
                       const SizedBox(height: 20),
-                      Row(
-                        children: const [
+                      const Row(
+                        children: [
                           SizedBox(
                             width: 38,
                           ),

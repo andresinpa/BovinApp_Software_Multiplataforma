@@ -1,20 +1,16 @@
 import 'dart:ui';
-
 import 'package:bovinapp/Design/palette.dart';
-import 'package:bovinapp/widgets/RoundedButton.dart';
 import 'package:bovinapp/widgets/TextInputField.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_core/firebase_core.dart';
-
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-
 import '../../DTO/user.dart';
 import 'Home1_Drawer.dart';
 
 class MiUsuarioYFinca extends StatefulWidget {
   final User user;
-  MiUsuarioYFinca(this.user);
+  const MiUsuarioYFinca(this.user, {super.key});
+  @override
   MiUsuarioYFincaApp createState() => MiUsuarioYFincaApp();
 }
 
@@ -26,13 +22,14 @@ class MiUsuarioYFincaApp extends State<MiUsuarioYFinca> {
 
   TextEditingController medida = TextEditingController();
   final db = FirebaseFirestore.instance;
+  // ignore: prefer_typing_uninitialized_variables
   var documento;
   insertarDatos() async {
     try {
       CollectionReference ref = db.collection('Usuarios');
       QuerySnapshot usuarios = await ref.get();
 
-      if (usuarios.docs.length != 0) {
+      if (usuarios.docs.isNotEmpty) {
         for (var cursor in usuarios.docs) {
           if (cursor.get('EmailUsuario') == widget.user.email) {
             documento = (cursor.id).toString();
@@ -43,11 +40,12 @@ class MiUsuarioYFincaApp extends State<MiUsuarioYFinca> {
           "NombreUsuario": nombre.text,
           "Usuario": usuario.text,
           "Ubicacion": ubicacion.text,
-          "Area": (area.text + " " + medida.text),
+          "Area": ("${area.text} ${medida.text}"),
         });
       }
     } catch (e) {
-      print("Error ----->" + e.toString());
+      // ignore: avoid_print
+      print("Error ----->$e");
     }
   }
 
@@ -130,7 +128,7 @@ class MiUsuarioYFincaApp extends State<MiUsuarioYFinca> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Text(
+                        const Text(
                           'Correo electronico:   ',
                           style: TextStyle(
                             color: Colors.black,
@@ -139,7 +137,7 @@ class MiUsuarioYFincaApp extends State<MiUsuarioYFinca> {
                         ),
                         Text(
                           (widget.user.email),
-                          style: TextStyle(
+                          style: const TextStyle(
                             color: Colors.black,
                             fontSize: 26,
                           ),
@@ -169,7 +167,7 @@ class MiUsuarioYFincaApp extends State<MiUsuarioYFinca> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Text(
+                        const Text(
                           'Nombre de la finca:   ',
                           style: TextStyle(
                             color: Colors.black,
@@ -178,7 +176,7 @@ class MiUsuarioYFincaApp extends State<MiUsuarioYFinca> {
                         ),
                         Text(
                           widget.user.finca,
-                          style: TextStyle(
+                          style: const TextStyle(
                             color: Colors.black,
                             fontSize: 23,
                           ),

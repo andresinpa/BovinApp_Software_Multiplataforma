@@ -5,7 +5,8 @@ import '../../DTO/user.dart';
 
 class Home1 extends StatefulWidget {
   final User user;
-  const Home1(this.user);
+  const Home1(this.user, {super.key});
+  @override
   Home1App createState() => Home1App();
 }
 
@@ -273,8 +274,8 @@ Widget buildHeader(BuildContext context) => Material(
             top: 24 + MediaQuery.of(context).padding.top,
             bottom: 24,
           ),
-          child: Column(
-            children: const [
+          child: const Column(
+            children: [
               CircleAvatar(
                 radius: 52,
                 backgroundImage: NetworkImage(
@@ -327,13 +328,13 @@ Widget buildMenuItems(BuildContext context) => Container(
               title: const Text('Actualizaciones'),
               onTap: () {}),
           Center(child: Image.asset('assets/icon/icon.png', height: 190)),
-          Column(
+          const Column(
             children: [
-              const SizedBox(
+              SizedBox(
                 height: 35,
               ),
               Row(
-                children: const [
+                children: [
                   Text('BovinApp'),
                   SizedBox(
                     width: 130,

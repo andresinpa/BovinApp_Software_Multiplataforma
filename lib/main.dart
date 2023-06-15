@@ -1,9 +1,9 @@
+import 'package:bovinapp/firebase_options.dart';
+import 'package:bovinapp/screens/screens.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:bovinapp/screens/screens.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:bovinapp/firebase_options.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -24,6 +24,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'BovinApp',
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
         textTheme:
             GoogleFonts.josefinSansTextTheme(Theme.of(context).textTheme),
@@ -32,9 +33,9 @@ class MyApp extends StatelessWidget {
       ),
       initialRoute: '/',
       routes: {
-        '/': (context) => LoginScreen(),
-        'OlvidePassword': (context) => OlvidePassword(),
-        'CrearCuenta': (context) => CrearCuenta(),
+        '/': (context) => const LoginScreen(),
+        'OlvidePassword': (context) => const OlvidePassword(),
+        'CrearCuenta': (context) => const CrearCuenta(),
         'NuevoRegistro': (context) => const NuevoRegistro(),
         'SiguienteRegistro': (context) => const SiguienteRegistro(),
         'InventarioFisico': (context) => const InventarioFisico(),
@@ -42,19 +43,19 @@ class MyApp extends StatelessWidget {
         'Produccion': (context) => const Produccion(),
         'MisTareasMetas': (context) => const MisTareasMetas(),
         'InventarioBovinos': (context) => const InventarioBovinos(),
-        'FichasIndividuales': (context) => FichasIndividuales(),
+        'FichasIndividuales': (context) => const FichasIndividuales(),
         'FichasIndividualesResultados': (context) =>
-            FichasIndividualesResultados(),
+            const FichasIndividualesResultados(),
         'ConsultaVacas': (context) => const ConsultasVacas(),
         'ConsultaToros': (context) => const ConsultasToros(),
         'ConsultaTerneros': (context) => const ConsultaTerneros(),
         'ConsultaNovillas': (context) => const ConsultaNovillas(),
         'ConsultaBueyes': (context) => const ConsultaBueyes(),
         'RazasBovinosUbate': (context) => const RazasBovinosUbate(),
-        'CambioPassword': (context) => CambioPassword(),
+        'CambioPassword': (context) => const CambioPassword(),
         'ConsultaAlimentos': (context) => const ConsultaAlimentos(),
         'NuevoRegistroInventarioFisico': (context) =>
-            NuevoRegistroInventarioFisico(),
+            const NuevoRegistroInventarioFisico(),
         'ConsultaMedicamentos': (context) => const ConsultaMedicamentos(),
         'ConsultaFerreteria': (context) => const ConsultaFerreteria(),
         'ConsultaMaquinaria': (context) => const ConsultaMaquinaria(),

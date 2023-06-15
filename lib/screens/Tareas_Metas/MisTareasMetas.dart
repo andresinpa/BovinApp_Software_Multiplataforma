@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_clean_calendar/flutter_clean_calendar.dart';
+import 'package:clean_calendar/clean_calendar.dart';
 
 class MisTareasMetas extends StatelessWidget {
   const MisTareasMetas({super.key});
@@ -49,82 +49,167 @@ class MetasTareas extends StatefulWidget {
 }
 
 class _MetasTareasState extends State<MetasTareas> {
-  DateTime selectedDay = DateTime.now();
-  late List<CleanCalendarEvent> selectedEvent;
-
-  final Map<DateTime, List<CleanCalendarEvent>> events = {
-    DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day): [
-      CleanCalendarEvent('Visita veterinaria y vacunación',
-          startTime: DateTime(DateTime.now().year, DateTime.now().month,
-              DateTime.now().day, 10, 0),
-          endTime: DateTime(DateTime.now().year, DateTime.now().month,
-              DateTime.now().day, 12, 0),
-          description: 'Se tienen que vacunar 12 vacas',
-          color: Colors.blue),
-    ],
-    DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day + 2):
-        [
-      CleanCalendarEvent('Compra dos terneros Holstein',
-          startTime: DateTime(DateTime.now().year, DateTime.now().month,
-              DateTime.now().day + 2, 10, 0),
-          endTime: DateTime(DateTime.now().year, DateTime.now().month,
-              DateTime.now().day + 2, 12, 0),
-          color: Colors.orange),
-      CleanCalendarEvent('Termina periodo de gestación de Lola',
-          startTime: DateTime(DateTime.now().year, DateTime.now().month,
-              DateTime.now().day + 2, 14, 30),
-          endTime: DateTime(DateTime.now().year, DateTime.now().month,
-              DateTime.now().day + 2, 17, 0),
-          color: Colors.pink),
-    ],
-  };
-
-  void _handleData(date) {
-    setState(() {
-      selectedDay = date;
-      selectedEvent = events[selectedDay] ?? [];
-    });
-    print(selectedDay);
-  }
-
-  @override
-  void initState() {
-    selectedEvent = events[selectedDay] ?? [];
-    super.initState();
-  }
-
+  List<DateTime> selectedDates = [];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SafeArea(
-        child: Container(
-          child: Calendar(
-            startOnMonday: true,
-            selectedColor: Colors.blue,
-            todayColor: Colors.red,
-            eventColor: Colors.green,
-            eventDoneColor: Colors.amber,
-            bottomBarColor: Colors.deepOrange,
-            onRangeSelected: (range) {
-              print('Dia Seleccionado ${range.from},${range.to}');
-            },
-            onDateSelected: (date) {
-              return _handleData(date);
-            },
-            events: events,
-            isExpanded: true,
-            dayOfWeekStyle: const TextStyle(
-              fontSize: 15,
-              color: Colors.black12,
-              fontWeight: FontWeight.w100,
+      appBar: AppBar(
+        elevation: 2,
+        title: const Text("Calendar"),
+      ),
+      body: Center(
+        child: ListView(
+          children: [
+            CleanCalendar(
+              enableDenseViewForDates: true,
+              enableDenseSplashForDates: true,
+              datesForStreaks: [
+                DateTime(2023, 01, 5),
+                DateTime(2023, 01, 6),
+                DateTime(2023, 01, 7),
+                DateTime(2023, 01, 9),
+                DateTime(2023, 01, 10),
+                DateTime(2023, 01, 11),
+                DateTime(2023, 01, 13),
+                DateTime(2023, 01, 20),
+                DateTime(2023, 01, 21),
+                DateTime(2023, 01, 23),
+                DateTime(2023, 01, 24),
+                DateTime(2023, 01, 25),
+              ],
+              dateSelectionMode: DatePickerSelectionMode.singleOrMultiple,
+              startWeekday: WeekDay.wednesday,
+              selectedDates: selectedDates,
+              onCalendarViewDate: (DateTime calendarViewDate) {
+                // print(calendarViewDate);
+              },
+              onSelectedDates: (List<DateTime> value) {
+                setState(() {
+                  if (selectedDates.contains(value.first)) {
+                    selectedDates.remove(value.first);
+                  } else {
+                    selectedDates.add(value.first);
+                  }
+                });
+                // print(selectedDates);
+              },
             ),
-            bottomBarTextStyle: const TextStyle(
-              color: Colors.white,
+            const SizedBox(
+              height: 20,
             ),
-            hideBottomBar: false,
-            hideArrows: false,
-            weekDays: const ['Lun', 'Mar', 'Mie', 'Jue', 'Vie', 'Sab', 'Dom'],
-          ),
+            CleanCalendar(
+              datePickerCalendarView: DatePickerCalendarView.weekView,
+              enableDenseViewForDates: true,
+              enableDenseSplashForDates: true,
+              datesForStreaks: [
+                DateTime(2023, 01, 5),
+                DateTime(2023, 01, 6),
+                DateTime(2023, 01, 7),
+                DateTime(2023, 01, 9),
+                DateTime(2023, 01, 10),
+                DateTime(2023, 01, 11),
+                DateTime(2023, 01, 13),
+                DateTime(2023, 01, 20),
+                DateTime(2023, 01, 21),
+                DateTime(2023, 01, 23),
+                DateTime(2023, 01, 24),
+                DateTime(2023, 01, 25),
+              ],
+              dateSelectionMode: DatePickerSelectionMode.singleOrMultiple,
+              onCalendarViewDate: (DateTime calendarViewDate) {
+                // print(calendarViewDate);
+              },
+              selectedDates: selectedDates,
+              onSelectedDates: (List<DateTime> value) {
+                setState(() {
+                  if (selectedDates.contains(value.first)) {
+                    selectedDates.remove(value.first);
+                  } else {
+                    selectedDates.add(value.first);
+                  }
+                });
+                // print(selectedDates);
+              },
+            ),
+            CleanCalendar(
+              headerProperties: HeaderProperties(
+                monthYearDecoration: MonthYearDecoration(
+                  monthYearTextColor: Colors.amber,
+                  monthYearTextStyle: Theme.of(context).textTheme.labelMedium,
+                ),
+                navigatorDecoration: NavigatorDecoration(
+                  navigatorResetButtonIcon: const Icon(
+                    Icons.restart_alt,
+                    color: Colors.amber,
+                  ),
+                  navigateLeftButtonIcon: const Icon(
+                    Icons.arrow_circle_left,
+                    color: Colors.amber,
+                  ),
+                  navigateRightButtonIcon: const Icon(
+                    Icons.arrow_circle_right,
+                    color: Colors.amber,
+                  ),
+                ),
+              ),
+              datePickerCalendarView: DatePickerCalendarView.weekView,
+              enableDenseViewForDates: true,
+              enableDenseSplashForDates: true,
+              datesForStreaks: [
+                DateTime(2023, 01, 5),
+                DateTime(2023, 01, 6),
+                DateTime(2023, 01, 7),
+                DateTime(2023, 01, 9),
+                DateTime(2023, 01, 10),
+                DateTime(2023, 01, 11),
+                DateTime(2023, 01, 13),
+                DateTime(2023, 01, 20),
+                DateTime(2023, 01, 21),
+                DateTime(2023, 01, 23),
+                DateTime(2023, 01, 24),
+                DateTime(2023, 01, 25),
+              ],
+              dateSelectionMode: DatePickerSelectionMode.disable,
+              onCalendarViewDate: (DateTime calendarViewDate) {
+                // print(calendarViewDate);
+              },
+              startWeekday: WeekDay.monday,
+              weekdaysSymbol: const Weekdays(
+                sunday: "s",
+                monday: "m",
+                tuesday: "t",
+                wednesday: "w",
+                thursday: "t",
+                friday: "f",
+                saturday: "s",
+              ),
+              monthsSymbol: const Months(
+                  january: "Jan",
+                  february: "Feb",
+                  march: "Mar",
+                  april: "Apr",
+                  may: "May",
+                  june: "Jun",
+                  july: "Jul",
+                  august: "Aug",
+                  september: "Sep",
+                  october: "Oct",
+                  november: "Nov",
+                  december: "Dec"),
+              weekdaysProperties: WeekdaysProperties(
+                generalWeekdaysDecoration:
+                    WeekdaysDecoration(weekdayTextColor: Colors.red),
+                sundayDecoration: WeekdaysDecoration(
+                    weekdayTextColor: Colors.green,
+                    weekdayTextStyle:
+                        Theme.of(context).textTheme.headlineMedium),
+                saturdayDecoration: WeekdaysDecoration(
+                    weekdayTextColor: Colors.green,
+                    weekdayTextStyle:
+                        Theme.of(context).textTheme.headlineMedium),
+              ),
+            ),
+          ],
         ),
       ),
     );

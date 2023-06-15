@@ -61,13 +61,13 @@ class _MatrizImagenesProduccionState extends State<MatrizImagenesProduccion> {
     return GridView.count(
       crossAxisCount: 2,
       children: <Widget>[
-        Column(
+        const Column(
           children: <Widget>[
-            const SizedBox(
+            SizedBox(
               height: 80,
             ),
             Row(
-              children: const [
+              children: [
                 SizedBox(
                   width: 32,
                 ),
@@ -82,13 +82,13 @@ class _MatrizImagenesProduccionState extends State<MatrizImagenesProduccion> {
             ),
           ],
         ),
-        Column(
+        const Column(
           children: [
-            const SizedBox(
+            SizedBox(
               height: 80,
             ),
             Row(
-              children: const [
+              children: [
                 SizedBox(
                   width: 0.08,
                 ),
@@ -312,8 +312,8 @@ class _MatrizImagenesProduccionState extends State<MatrizImagenesProduccion> {
           ],
         ),
 
-        Column(
-          children: const [
+        const Column(
+          children: [
             RoundedButton2(
               buttonName: 'Generar informe imprimible',
               rute: '',

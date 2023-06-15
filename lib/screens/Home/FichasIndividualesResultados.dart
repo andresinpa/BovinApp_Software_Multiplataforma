@@ -1,15 +1,22 @@
 import 'dart:ui';
-
 import 'package:bovinapp/Design/palette.dart';
 import 'package:bovinapp/widgets/RoundedButton.dart';
 import 'package:bovinapp/widgets/TextInputField.dart';
-
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-class FichasIndividualesResultados extends StatelessWidget {
-  FichasIndividualesResultados({super.key});
+class FichasIndividualesResultados extends StatefulWidget {
+  const FichasIndividualesResultados({super.key});
+
+  @override
+  State<FichasIndividualesResultados> createState() =>
+      _FichasIndividualesResultadosState();
+}
+
+class _FichasIndividualesResultadosState
+    extends State<FichasIndividualesResultados> {
   TextEditingController buscar = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;

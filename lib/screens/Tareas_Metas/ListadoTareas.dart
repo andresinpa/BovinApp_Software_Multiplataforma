@@ -1,10 +1,10 @@
 import 'package:bovinapp/screens/Tareas_Metas/DetalleTareas.dart';
-import 'package:flutter/material.dart';
-import 'package:bovinapp/screens/Tareas_Metas/services/TareasServices.dart';
 import 'package:bovinapp/screens/Tareas_Metas/FormularioTareas.dart';
+import 'package:bovinapp/screens/Tareas_Metas/services/TareasServices.dart';
+import 'package:flutter/material.dart';
 
 class ListadoTareas extends StatefulWidget {
-  const ListadoTareas({Key? key});
+  const ListadoTareas({super.key});
 
   static const nombrePagina = "ListadoTareas";
   static final List<Map<String, dynamic>> tareas = [];
@@ -32,7 +32,7 @@ class _ListadoTareasState extends State<ListadoTareas> {
             return Column(
               children: [
                 Padding(
-                  padding: EdgeInsets.all(6.0),
+                  padding: const EdgeInsets.all(6.0),
                   child: Image.asset('assets/images/tareas/tareas.png',
                       fit: BoxFit.contain),
                 ),

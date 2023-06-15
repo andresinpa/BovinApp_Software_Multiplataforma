@@ -6,14 +6,28 @@ import 'package:bovinapp/widgets/TextInputField.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-class NuevoRegistroInventarioFisico extends StatelessWidget {
-  NuevoRegistroInventarioFisico({super.key});
+class NuevoRegistroInventarioFisico extends StatefulWidget {
+  const NuevoRegistroInventarioFisico({super.key});
+
+  @override
+  State<NuevoRegistroInventarioFisico> createState() =>
+      _NuevoRegistroInventarioFisicoState();
+}
+
+class _NuevoRegistroInventarioFisicoState
+    extends State<NuevoRegistroInventarioFisico> {
   TextEditingController codigoFinca = TextEditingController();
+
   TextEditingController codigoProducto = TextEditingController();
+
   TextEditingController fechaObtencion = TextEditingController();
+
   TextEditingController precio = TextEditingController();
+
   TextEditingController utilidad = TextEditingController();
+
   TextEditingController descripcion = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;

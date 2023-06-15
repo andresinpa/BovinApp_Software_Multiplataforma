@@ -1,11 +1,20 @@
+import 'package:bovinapp/widgets/PasswordInput.dart';
+import 'package:bovinapp/widgets/RoundedButton.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:bovinapp/widgets/widgets.dart';
 
-class CambioPassword extends StatelessWidget {
-  CambioPassword({super.key});
+class CambioPassword extends StatefulWidget {
+  const CambioPassword({super.key});
+
+  @override
+  State<CambioPassword> createState() => _CambioPasswordState();
+}
+
+class _CambioPasswordState extends State<CambioPassword> {
   TextEditingController nueva = TextEditingController();
+
   TextEditingController confirmacion = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -62,7 +71,7 @@ class CambioPassword extends StatelessWidget {
                       inputAction: TextInputAction.done,
                       controler: nueva,
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 25,
                     ),
                     PasswordInput(
