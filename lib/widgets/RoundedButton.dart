@@ -2,8 +2,6 @@
 
 import 'package:flutter/material.dart';
 
-import '../Design/palette.dart';
-
 class RoundedButton extends StatelessWidget {
   const RoundedButton({
     Key? key,
@@ -18,18 +16,13 @@ class RoundedButton extends StatelessWidget {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
 
-    return Container(
+    return SizedBox(
       height: size.height * 0.08,
       width: size.width * 0.8,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(16),
-        color: kBlue,
-      ),
       child: TextButton(
         onPressed: () => Navigator.pushNamed(context, rute),
         child: Text(
           buttonName,
-          style: kBodyText.copyWith(fontWeight: FontWeight.bold),
         ),
       ),
     );

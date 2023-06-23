@@ -1,12 +1,10 @@
 // ignore_for_file: avoid_print, duplicate_ignore
 
-import 'package:bovinapp/widgets/TextInputField.dart';
+import 'package:BovinApp/DTO/User.dart';
+import 'package:BovinApp/Widgets/TextInputField.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-
-import '../../DTO/user.dart';
-import '../../Design/palette.dart';
 
 class ConfirmacionCuentaPage extends StatefulWidget {
   final User cadena;
@@ -42,15 +40,8 @@ class ConfirmacionCuentaPageApp extends State<ConfirmacionCuentaPage> {
     Size size = MediaQuery.of(context).size;
     return Stack(
       children: [
-        Container(
-          decoration: const BoxDecoration(
-            color: Colors.white,
-          ),
-        ),
         Scaffold(
-          backgroundColor: const Color.fromARGB(255, 255, 255, 255),
           appBar: AppBar(
-            backgroundColor: Colors.white,
             elevation: 0,
             leading: IconButton(
               icon: const Icon(Icons.arrow_back_ios),
@@ -61,7 +52,6 @@ class ConfirmacionCuentaPageApp extends State<ConfirmacionCuentaPage> {
             title: const Text(
               '¡Confirma tu cuenta!',
               style: TextStyle(
-                color: Colors.black,
                 fontSize: 24,
                 fontWeight: FontWeight.bold,
               ),
@@ -82,7 +72,6 @@ class ConfirmacionCuentaPageApp extends State<ConfirmacionCuentaPage> {
                         child: Text(
                           '"${widget.cadena.nombre}", gracias por elegir BovinApp como tu software para la gestión de tu ganado bovino y de tu finca. Estas a un paso de disfrutar de todas las opciones y caracteristicas de la App. Por favor valida tus datos e ingresa el código de la finca que fue enviado al correo "${widget.cadena.email}" para continuar',
                           style: const TextStyle(
-                            color: Colors.black,
                             fontSize: 18,
                           ),
                         ),
@@ -92,7 +81,6 @@ class ConfirmacionCuentaPageApp extends State<ConfirmacionCuentaPage> {
                         child: const Text(
                           'Ingresa aqui el código',
                           style: TextStyle(
-                            color: Colors.black,
                             fontSize: 18,
                           ),
                         ),
@@ -120,7 +108,6 @@ class ConfirmacionCuentaPageApp extends State<ConfirmacionCuentaPage> {
                         width: size.width * 0.8,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(16),
-                          color: kBlue,
                         ),
                         child: TextButton(
                           onPressed: () {
@@ -131,10 +118,8 @@ class ConfirmacionCuentaPageApp extends State<ConfirmacionCuentaPage> {
                               print('codigo erroneo');
                             }
                           },
-                          child: Text(
+                          child: const Text(
                             'Enviar',
-                            style:
-                                kBodyText.copyWith(fontWeight: FontWeight.bold),
                           ),
                         ),
                       )

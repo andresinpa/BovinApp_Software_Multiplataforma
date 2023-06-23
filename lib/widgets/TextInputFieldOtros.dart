@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../Design/palette.dart';
-
 class TextInputFieldOtros extends StatelessWidget {
   const TextInputFieldOtros({
     Key? key,
@@ -23,14 +21,10 @@ class TextInputFieldOtros extends StatelessWidget {
     Size size = MediaQuery.of(context).size;
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 10.0),
-      child: Container(
+      child: SizedBox(
         height: size.height * 0.08,
         //width: size.width * 0.8,
         width: size.width * widthContainer,
-        decoration: BoxDecoration(
-          color: Colors.grey[500]?.withOpacity(0.5),
-          borderRadius: BorderRadius.circular(16),
-        ),
         child: Padding(
           padding: const EdgeInsets.all(4.0),
           child: TextField(
@@ -41,13 +35,10 @@ class TextInputFieldOtros extends StatelessWidget {
                 child: Icon(
                   icon,
                   size: 28,
-                  color: kWhite,
                 ),
               ),
               hintText: hint,
-              hintStyle: kBodyText,
             ),
-            style: kBodyText,
             keyboardType: inputType,
             textInputAction: inputAction,
           ),

@@ -8,12 +8,9 @@ class RazasBovinosUbate extends StatelessWidget {
     return Stack(
       children: [
         Container(
-          decoration: const BoxDecoration(
-            color: Colors.white,
-          ),
+          decoration: const BoxDecoration(),
         ),
         Scaffold(
-          backgroundColor: Colors.white,
           body: Padding(
             padding: const EdgeInsets.only(top: 25),
             child: GridView.count(
@@ -27,7 +24,6 @@ class RazasBovinosUbate extends StatelessWidget {
                       height: 150,
                       width: 150,
                       decoration: BoxDecoration(
-                          color: const Color.fromARGB(156, 109, 184, 194),
                           borderRadius: BorderRadius.circular(16)),
                       child: GestureDetector(
                         onTap: () =>
@@ -42,9 +38,7 @@ class RazasBovinosUbate extends StatelessWidget {
                       child: Text(
                         'Normando',
                         style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            color: Color.fromARGB(156, 38, 88, 153),
-                            fontSize: 18),
+                            fontWeight: FontWeight.bold, fontSize: 18),
                       ),
                     ),
                   ],
@@ -57,7 +51,6 @@ class RazasBovinosUbate extends StatelessWidget {
                       height: 150,
                       width: 150,
                       decoration: BoxDecoration(
-                          color: const Color.fromARGB(156, 109, 184, 194),
                           borderRadius: BorderRadius.circular(16)),
                       child: Image.asset(
                           'assets/images/inventariobovino/bovino3.png'),
@@ -67,9 +60,7 @@ class RazasBovinosUbate extends StatelessWidget {
                       child: Text(
                         'Holstein',
                         style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            color: Color.fromARGB(156, 38, 88, 153),
-                            fontSize: 18),
+                            fontWeight: FontWeight.bold, fontSize: 18),
                       ),
                     ),
                   ],
@@ -82,7 +73,6 @@ class RazasBovinosUbate extends StatelessWidget {
                       height: 150,
                       width: 150,
                       decoration: BoxDecoration(
-                          color: const Color.fromARGB(156, 109, 184, 194),
                           borderRadius: BorderRadius.circular(16)),
                       child: Image.asset('assets/images/home2/home1.png'),
                     ),
@@ -91,9 +81,7 @@ class RazasBovinosUbate extends StatelessWidget {
                       child: Text(
                         'Montbéliarde',
                         style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            color: Color.fromARGB(156, 38, 88, 153),
-                            fontSize: 18),
+                            fontWeight: FontWeight.bold, fontSize: 18),
                       ),
                     ),
                   ],
@@ -106,7 +94,6 @@ class RazasBovinosUbate extends StatelessWidget {
                       height: 150,
                       width: 150,
                       decoration: BoxDecoration(
-                          color: const Color.fromARGB(156, 109, 184, 194),
                           borderRadius: BorderRadius.circular(16)),
                       child: Image.asset(
                           'assets/images/inventariobovino/bovino5.png'),
@@ -116,9 +103,7 @@ class RazasBovinosUbate extends StatelessWidget {
                       child: Text(
                         'Jersey',
                         style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            color: Color.fromARGB(156, 38, 88, 153),
-                            fontSize: 18),
+                            fontWeight: FontWeight.bold, fontSize: 18),
                       ),
                     ),
                   ],
@@ -131,7 +116,6 @@ class RazasBovinosUbate extends StatelessWidget {
                       height: 150,
                       width: 150,
                       decoration: BoxDecoration(
-                          color: const Color.fromARGB(156, 109, 184, 194),
                           borderRadius: BorderRadius.circular(16)),
                       child: Image.asset('assets/images/home2/home2.png'),
                     ),
@@ -140,9 +124,7 @@ class RazasBovinosUbate extends StatelessWidget {
                       child: Text(
                         'Conoce a Ubaté',
                         style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            color: Color.fromARGB(156, 38, 88, 153),
-                            fontSize: 18),
+                            fontWeight: FontWeight.bold, fontSize: 18),
                       ),
                     ),
                   ],

@@ -1,8 +1,7 @@
-import 'package:bovinapp/widgets/RoundedButton.dart';
+import 'package:BovinApp/Widgets/TextInputFieldOtros.dart';
+import 'package:BovinApp/widgets/RoundedButton.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-
-import '../../widgets/TextInputFieldOtros.dart';
 
 const List<String> listaEdad = [
   'Meses',
@@ -58,12 +57,9 @@ class _SiguienteRegistroState extends State<Siguiente> {
     return Stack(
       children: [
         Container(
-          decoration: const BoxDecoration(
-            color: Colors.white,
-          ),
+          decoration: const BoxDecoration(),
         ),
         Scaffold(
-          backgroundColor: Colors.white,
           body: SingleChildScrollView(
             child: Center(
               child: Column(
@@ -74,7 +70,6 @@ class _SiguienteRegistroState extends State<Siguiente> {
                   const Text(
                     'Registro de bovinos',
                     style: TextStyle(
-                      color: Colors.blue,
                       fontSize: 24,
                       fontWeight: FontWeight.bold,
                     ),
@@ -114,12 +109,10 @@ class _SiguienteRegistroState extends State<Siguiente> {
                             icon: const Icon(Icons.arrow_downward),
                             elevation: 16,
                             style: const TextStyle(
-                              color: Colors.deepPurple,
                               fontSize: 20,
                             ),
                             underline: Container(
                               height: 2,
-                              color: Colors.deepPurpleAccent,
                             ),
                             onChanged: (String? value) {
                               // This is called when the user selects an item.
@@ -186,11 +179,9 @@ class _SiguienteRegistroState extends State<Siguiente> {
                           DropdownButton<String>(
                             value: dropdownValue2,
                             elevation: 16,
-                            style: const TextStyle(
-                                color: Colors.deepPurple, fontSize: 20),
+                            style: const TextStyle(fontSize: 20),
                             underline: Container(
                               height: 2,
-                              color: Colors.deepPurpleAccent,
                             ),
                             onChanged: (String? value) {
                               // This is called when the user selects an item.
@@ -233,11 +224,9 @@ class _SiguienteRegistroState extends State<Siguiente> {
                           DropdownButton<String>(
                             value: dropdownValue2,
                             elevation: 16,
-                            style: const TextStyle(
-                                color: Colors.deepPurple, fontSize: 20),
+                            style: const TextStyle(fontSize: 20),
                             underline: Container(
                               height: 2,
-                              color: Colors.deepPurpleAccent,
                             ),
                             onChanged: (String? value) {
                               // This is called when the user selects an item.
@@ -258,7 +247,7 @@ class _SiguienteRegistroState extends State<Siguiente> {
                       const SizedBox(height: 20),
                       const Text(
                         'En caso de que sea vaca ...',
-                        style: TextStyle(color: Colors.black54, fontSize: 20),
+                        style: TextStyle(fontSize: 20),
                       ),
                       const SizedBox(height: 20),
                       const Row(
@@ -278,8 +267,7 @@ class _SiguienteRegistroState extends State<Siguiente> {
                           ),
                           Text(
                             'Litros',
-                            style:
-                                TextStyle(color: Colors.black54, fontSize: 20),
+                            style: TextStyle(fontSize: 20),
                           ),
                         ],
                       ),

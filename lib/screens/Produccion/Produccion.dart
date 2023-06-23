@@ -1,4 +1,4 @@
-import 'package:bovinapp/widgets/RoundedButton2.dart';
+import 'package:BovinApp/widgets/RoundedButton2.dart';
 import 'package:flutter/material.dart';
 
 class Produccion extends StatefulWidget {
@@ -19,7 +19,6 @@ class _ProduccionState extends State<Produccion> {
             title: const Text(
               'BovinApp',
               style: TextStyle(
-                color: Colors.black,
                 fontSize: 24,
                 fontWeight: FontWeight.bold,
               ),
@@ -73,10 +72,7 @@ class _MatrizImagenesProduccionState extends State<MatrizImagenesProduccion> {
                 ),
                 Text(
                   'Historial de',
-                  style: TextStyle(
-                      color: Colors.blue,
-                      fontSize: 28,
-                      fontWeight: FontWeight.bold),
+                  style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
                 ),
               ],
             ),
@@ -94,10 +90,7 @@ class _MatrizImagenesProduccionState extends State<MatrizImagenesProduccion> {
                 ),
                 Text(
                   'Producción',
-                  style: TextStyle(
-                      color: Colors.blue,
-                      fontSize: 28,
-                      fontWeight: FontWeight.bold),
+                  style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
                 ),
                 SizedBox(
                   width: 5,
@@ -118,7 +111,6 @@ class _MatrizImagenesProduccionState extends State<MatrizImagenesProduccion> {
               height: 150,
               width: 150,
               decoration: BoxDecoration(
-                color: const Color.fromARGB(156, 109, 184, 194),
                 borderRadius: BorderRadius.circular(16),
               ),
               child: Image.asset('assets/images/produccion/produccion1.png'),
@@ -127,10 +119,7 @@ class _MatrizImagenesProduccionState extends State<MatrizImagenesProduccion> {
               padding: EdgeInsets.symmetric(vertical: 2),
               child: Text(
                 'Carne',
-                style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    color: Color.fromARGB(156, 38, 88, 153),
-                    fontSize: 18),
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
               ),
             )
           ],
@@ -143,7 +132,6 @@ class _MatrizImagenesProduccionState extends State<MatrizImagenesProduccion> {
               height: 150,
               width: 150,
               decoration: BoxDecoration(
-                color: const Color.fromARGB(156, 109, 184, 194),
                 borderRadius: BorderRadius.circular(16),
               ),
               child: GestureDetector(
@@ -156,10 +144,7 @@ class _MatrizImagenesProduccionState extends State<MatrizImagenesProduccion> {
               padding: EdgeInsets.symmetric(vertical: 2),
               child: Text(
                 'Leche',
-                style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    color: Color.fromARGB(156, 38, 88, 153),
-                    fontSize: 18),
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
               ),
             )
           ],
@@ -172,7 +157,6 @@ class _MatrizImagenesProduccionState extends State<MatrizImagenesProduccion> {
               height: 150,
               width: 150,
               decoration: BoxDecoration(
-                color: const Color.fromARGB(156, 109, 184, 194),
                 borderRadius: BorderRadius.circular(16),
               ),
               child: Image.asset('assets/images/produccion/produccion3.png'),
@@ -181,10 +165,7 @@ class _MatrizImagenesProduccionState extends State<MatrizImagenesProduccion> {
               padding: EdgeInsets.symmetric(vertical: 2),
               child: Text(
                 'Reproducción',
-                style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    color: Color.fromARGB(156, 38, 88, 153),
-                    fontSize: 18),
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
               ),
             )
           ],
@@ -197,7 +178,6 @@ class _MatrizImagenesProduccionState extends State<MatrizImagenesProduccion> {
               height: 150,
               width: 150,
               decoration: BoxDecoration(
-                color: const Color.fromARGB(156, 109, 184, 194),
                 borderRadius: BorderRadius.circular(16),
               ),
               child: Image.asset('assets/images/produccion/produccion4.png'),
@@ -206,10 +186,7 @@ class _MatrizImagenesProduccionState extends State<MatrizImagenesProduccion> {
               padding: EdgeInsets.symmetric(vertical: 2),
               child: Text(
                 'Nuevo Registro',
-                style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    color: Color.fromARGB(156, 38, 88, 153),
-                    fontSize: 18),
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
               ),
             )
           ],
@@ -225,7 +202,6 @@ class _MatrizImagenesProduccionState extends State<MatrizImagenesProduccion> {
                   width: 20,
                 ),
                 Checkbox(
-                    checkColor: Colors.white,
                     fillColor: MaterialStateProperty.resolveWith<Color>(
                         (Set<MaterialState> states) {
                       if (states.contains(MaterialState.disabled)) {

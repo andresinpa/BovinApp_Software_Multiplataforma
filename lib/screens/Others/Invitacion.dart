@@ -12,7 +12,6 @@ class Invitacion extends StatelessWidget {
             title: const Text(
               'BovinApp',
               style: TextStyle(
-                color: Colors.black,
                 fontSize: 24,
                 fontWeight: FontWeight.bold,
               ),
@@ -45,43 +44,37 @@ class MatrizImges extends StatelessWidget {
     return GridView.count(
       crossAxisCount: 2,
       children: <Widget>[
-        Column(
+        const Column(
           children: <Widget>[
-            const SizedBox(
+            SizedBox(
               height: 90,
             ),
             Row(
-              children: const [
+              children: [
                 SizedBox(
                   width: 30,
                 ),
                 Text(
                   'Comparte la',
-                  style: TextStyle(
-                      color: Colors.blue,
-                      fontSize: 28,
-                      fontWeight: FontWeight.bold),
+                  style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
                 ),
               ],
             ),
           ],
         ),
-        Column(
+        const Column(
           children: [
-            const SizedBox(
+            SizedBox(
               height: 90,
             ),
             Row(
-              children: const [
+              children: [
                 SizedBox(
                   width: 5,
                 ),
                 Text(
                   'aplicación',
-                  style: TextStyle(
-                      color: Colors.blue,
-                      fontSize: 28,
-                      fontWeight: FontWeight.bold),
+                  style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
                 ),
                 SizedBox(
                   width: 5,
@@ -102,7 +95,6 @@ class MatrizImges extends StatelessWidget {
               height: 150,
               width: 150,
               decoration: BoxDecoration(
-                color: const Color.fromARGB(156, 109, 184, 194),
                 borderRadius: BorderRadius.circular(16),
               ),
               child: Image.asset('assets/images/invitacion/invitacion1.png',
@@ -112,10 +104,7 @@ class MatrizImges extends StatelessWidget {
               padding: EdgeInsets.symmetric(vertical: 2),
               child: Text(
                 'Generar enlace',
-                style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    color: Color.fromARGB(156, 38, 88, 153),
-                    fontSize: 18),
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
               ),
             )
           ],
@@ -128,7 +117,6 @@ class MatrizImges extends StatelessWidget {
               height: 150,
               width: 150,
               decoration: BoxDecoration(
-                color: const Color.fromARGB(156, 109, 184, 194),
                 borderRadius: BorderRadius.circular(16),
               ),
               child: GestureDetector(
@@ -141,10 +129,7 @@ class MatrizImges extends StatelessWidget {
               padding: EdgeInsets.symmetric(vertical: 2),
               child: Text(
                 'Mensaje de texto',
-                style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    color: Color.fromARGB(156, 38, 88, 153),
-                    fontSize: 18),
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
               ),
             )
           ],
@@ -157,7 +142,6 @@ class MatrizImges extends StatelessWidget {
               height: 150,
               width: 150,
               decoration: BoxDecoration(
-                color: const Color.fromARGB(156, 109, 184, 194),
                 borderRadius: BorderRadius.circular(16),
               ),
               child: Image.asset('assets/images/invitacion/invitacion3.png',
@@ -167,10 +151,7 @@ class MatrizImges extends StatelessWidget {
               padding: EdgeInsets.symmetric(vertical: 2),
               child: Text(
                 'Telegram',
-                style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    color: Color.fromARGB(156, 38, 88, 153),
-                    fontSize: 18),
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
               ),
             )
           ],
@@ -183,7 +164,6 @@ class MatrizImges extends StatelessWidget {
               height: 150,
               width: 150,
               decoration: BoxDecoration(
-                color: const Color.fromARGB(156, 109, 184, 194),
                 borderRadius: BorderRadius.circular(16),
               ),
               child: Image.asset('assets/images/invitacion/invitacion4.png',
@@ -193,10 +173,7 @@ class MatrizImges extends StatelessWidget {
               padding: EdgeInsets.symmetric(vertical: 2),
               child: Text(
                 'WhatsApp',
-                style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    color: Color.fromARGB(156, 38, 88, 153),
-                    fontSize: 18),
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
               ),
             )
           ],
@@ -209,7 +186,6 @@ class MatrizImges extends StatelessWidget {
               height: 150,
               width: 150,
               decoration: BoxDecoration(
-                color: const Color.fromARGB(156, 109, 184, 194),
                 borderRadius: BorderRadius.circular(16),
               ),
               child: Image.asset('assets/images/invitacion/invitacion5.png',
@@ -219,10 +195,7 @@ class MatrizImges extends StatelessWidget {
               padding: EdgeInsets.symmetric(vertical: 2),
               child: Text(
                 'Correo Electrónico',
-                style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    color: Color.fromARGB(156, 38, 88, 153),
-                    fontSize: 18),
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
               ),
             )
           ],
@@ -235,7 +208,6 @@ class MatrizImges extends StatelessWidget {
               height: 150,
               width: 150,
               decoration: BoxDecoration(
-                color: const Color.fromARGB(156, 109, 184, 194),
                 borderRadius: BorderRadius.circular(16),
               ),
               child: Image.asset('assets/images/invitacion/invitacion6.png',
@@ -245,10 +217,7 @@ class MatrizImges extends StatelessWidget {
               padding: EdgeInsets.symmetric(vertical: 2),
               child: Text(
                 'Bluetooth',
-                style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    color: Color.fromARGB(156, 38, 88, 153),
-                    fontSize: 18),
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
               ),
             )
           ],

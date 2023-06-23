@@ -1,8 +1,6 @@
 import 'dart:ui';
-
-import 'package:bovinapp/Design/palette.dart';
-import 'package:bovinapp/widgets/RoundedButton.dart';
-import 'package:bovinapp/widgets/TextInputField.dart';
+import 'package:BovinApp/widgets/RoundedButton.dart';
+import 'package:BovinApp/widgets/TextInputField.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
@@ -43,12 +41,9 @@ class _NuevoRegistroInventarioFisicoState
     return Stack(
       children: [
         Container(
-          decoration: const BoxDecoration(
-            color: Colors.white,
-          ),
+          decoration: const BoxDecoration(),
         ),
         Scaffold(
-          backgroundColor: Colors.white,
           body: SingleChildScrollView(
             child: Column(
               children: [
@@ -59,10 +54,7 @@ class _NuevoRegistroInventarioFisicoState
                   height: size.width * 0.1,
                   child: const Text(
                     'Nuevo Articulo',
-                    style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 30,
-                        fontWeight: FontWeight.bold),
+                    style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
                   ),
                 ),
                 Stack(
@@ -76,9 +68,8 @@ class _NuevoRegistroInventarioFisicoState
                           ),
                           child: CircleAvatar(
                             radius: size.width * 0.15,
-                            backgroundColor: Colors.blueGrey.withOpacity(0.5),
                             child: Icon(FontAwesomeIcons.wrench,
-                                color: kWhite, size: size.width * 0.1),
+                                size: size.width * 0.1),
                           ),
                         ),
                       ),
@@ -90,16 +81,13 @@ class _NuevoRegistroInventarioFisicoState
                         height: size.width * 0.1,
                         width: size.width * 0.1,
                         decoration: BoxDecoration(
-                          color: kBlue,
                           shape: BoxShape.circle,
                           border: Border.all(
-                            color: kWhite,
                             width: 1,
                           ),
                         ),
                         child: const Icon(
                           FontAwesomeIcons.arrowUp,
-                          color: kWhite,
                         ),
                       ),
                     ),
@@ -148,7 +136,6 @@ class _NuevoRegistroInventarioFisicoState
                           child: Text(
                             'Clasificación:    ',
                             style: TextStyle(
-                              color: Colors.black,
                               fontSize: 24,
                             ),
                           ),
@@ -160,7 +147,6 @@ class _NuevoRegistroInventarioFisicoState
                                 child: Text(
                                   a,
                                   style: const TextStyle(
-                                    color: Colors.black,
                                     fontSize: 22,
                                   ),
                                 ));
@@ -176,7 +162,6 @@ class _NuevoRegistroInventarioFisicoState
                           hint: Text(
                             vistaClasificacion,
                             style: const TextStyle(
-                              color: Colors.black,
                               fontSize: 22,
                             ),
                           ),

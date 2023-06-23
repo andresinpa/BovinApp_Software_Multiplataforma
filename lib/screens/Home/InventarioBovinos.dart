@@ -7,12 +7,9 @@ class InventarioBovinos extends StatelessWidget {
     return Stack(
       children: [
         Container(
-          decoration: const BoxDecoration(
-            color: Colors.white,
-          ),
+          decoration: const BoxDecoration(),
         ),
         Scaffold(
-          backgroundColor: Colors.white,
           body: Padding(
             padding: const EdgeInsets.only(top: 25),
             child: GridView.count(
@@ -26,7 +23,6 @@ class InventarioBovinos extends StatelessWidget {
                       height: 150,
                       width: 150,
                       decoration: BoxDecoration(
-                          color: const Color.fromARGB(156, 109, 184, 194),
                           borderRadius: BorderRadius.circular(16)),
                       child: GestureDetector(
                         onTap: () =>
@@ -41,9 +37,7 @@ class InventarioBovinos extends StatelessWidget {
                       child: Text(
                         'Vacas',
                         style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            color: Color.fromARGB(156, 38, 88, 153),
-                            fontSize: 18),
+                            fontWeight: FontWeight.bold, fontSize: 18),
                       ),
                     ),
                   ],
@@ -56,7 +50,6 @@ class InventarioBovinos extends StatelessWidget {
                       height: 150,
                       width: 150,
                       decoration: BoxDecoration(
-                          color: const Color.fromARGB(156, 109, 184, 194),
                           borderRadius: BorderRadius.circular(16)),
                       child: GestureDetector(
                         onTap: () =>
@@ -71,9 +64,7 @@ class InventarioBovinos extends StatelessWidget {
                       child: Text(
                         'Toros',
                         style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            color: Color.fromARGB(156, 38, 88, 153),
-                            fontSize: 18),
+                            fontWeight: FontWeight.bold, fontSize: 18),
                       ),
                     ),
                   ],
@@ -86,7 +77,6 @@ class InventarioBovinos extends StatelessWidget {
                       height: 150,
                       width: 150,
                       decoration: BoxDecoration(
-                          color: const Color.fromARGB(156, 109, 184, 194),
                           borderRadius: BorderRadius.circular(16)),
                       child: GestureDetector(
                         onTap: () =>
@@ -101,9 +91,7 @@ class InventarioBovinos extends StatelessWidget {
                       child: Text(
                         'Terneros',
                         style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            color: Color.fromARGB(156, 38, 88, 153),
-                            fontSize: 18),
+                            fontWeight: FontWeight.bold, fontSize: 18),
                       ),
                     ),
                   ],
@@ -116,7 +104,6 @@ class InventarioBovinos extends StatelessWidget {
                       height: 150,
                       width: 150,
                       decoration: BoxDecoration(
-                          color: const Color.fromARGB(156, 109, 184, 194),
                           borderRadius: BorderRadius.circular(16)),
                       child: GestureDetector(
                         onTap: () =>
@@ -131,9 +118,7 @@ class InventarioBovinos extends StatelessWidget {
                       child: Text(
                         'Novillas',
                         style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            color: Color.fromARGB(156, 38, 88, 153),
-                            fontSize: 18),
+                            fontWeight: FontWeight.bold, fontSize: 18),
                       ),
                     ),
                   ],
@@ -146,7 +131,6 @@ class InventarioBovinos extends StatelessWidget {
                       height: 150,
                       width: 150,
                       decoration: BoxDecoration(
-                          color: const Color.fromARGB(156, 109, 184, 194),
                           borderRadius: BorderRadius.circular(16)),
                       child: GestureDetector(
                         onTap: () =>
@@ -161,9 +145,7 @@ class InventarioBovinos extends StatelessWidget {
                       child: Text(
                         'Bueyes',
                         style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            color: Color.fromARGB(156, 38, 88, 153),
-                            fontSize: 18),
+                            fontWeight: FontWeight.bold, fontSize: 18),
                       ),
                     ),
                   ],
@@ -176,7 +158,6 @@ class InventarioBovinos extends StatelessWidget {
                       height: 150,
                       width: 150,
                       decoration: BoxDecoration(
-                          color: const Color.fromARGB(156, 109, 184, 194),
                           borderRadius: BorderRadius.circular(16)),
                       child: GestureDetector(
                         onTap: () =>
@@ -191,9 +172,7 @@ class InventarioBovinos extends StatelessWidget {
                       child: Text(
                         'Nuevo Registro',
                         style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            color: Color.fromARGB(156, 38, 88, 153),
-                            fontSize: 18),
+                            fontWeight: FontWeight.bold, fontSize: 18),
                       ),
                     ),
                   ],

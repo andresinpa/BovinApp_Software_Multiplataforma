@@ -1,10 +1,9 @@
 import 'dart:ui';
-import 'package:bovinapp/Design/palette.dart';
-import 'package:bovinapp/widgets/TextInputField.dart';
+import 'package:BovinApp/DTO/User.dart';
+import 'package:BovinApp/widgets/TextInputField.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import '../../DTO/user.dart';
 import 'Home1_Drawer.dart';
 
 class MiUsuarioYFinca extends StatefulWidget {
@@ -58,12 +57,9 @@ class MiUsuarioYFincaApp extends State<MiUsuarioYFinca> {
     return Stack(
       children: [
         Container(
-          decoration: const BoxDecoration(
-            color: Colors.white,
-          ),
+          decoration: const BoxDecoration(),
         ),
         Scaffold(
-          backgroundColor: Colors.white,
           body: SingleChildScrollView(
             child: Column(
               children: [
@@ -74,10 +70,7 @@ class MiUsuarioYFincaApp extends State<MiUsuarioYFinca> {
                   height: size.width * 0.1,
                   child: const Text(
                     'Mi usuario y finca',
-                    style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 30,
-                        fontWeight: FontWeight.bold),
+                    style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
                   ),
                 ),
                 Stack(
@@ -91,9 +84,8 @@ class MiUsuarioYFincaApp extends State<MiUsuarioYFinca> {
                           ),
                           child: CircleAvatar(
                             radius: size.width * 0.15,
-                            backgroundColor: Colors.blueGrey.withOpacity(0.5),
                             child: Icon(FontAwesomeIcons.user,
-                                color: kWhite, size: size.width * 0.1),
+                                size: size.width * 0.1),
                           ),
                         ),
                       ),
@@ -105,16 +97,13 @@ class MiUsuarioYFincaApp extends State<MiUsuarioYFinca> {
                         height: size.width * 0.1,
                         width: size.width * 0.1,
                         decoration: BoxDecoration(
-                          color: kBlue,
                           shape: BoxShape.circle,
                           border: Border.all(
-                            color: kWhite,
                             width: 1,
                           ),
                         ),
                         child: const Icon(
                           FontAwesomeIcons.arrowUp,
-                          color: kWhite,
                         ),
                       ),
                     ),
@@ -131,14 +120,12 @@ class MiUsuarioYFincaApp extends State<MiUsuarioYFinca> {
                         const Text(
                           'Correo electronico:   ',
                           style: TextStyle(
-                            color: Colors.black,
                             fontSize: 26,
                           ),
                         ),
                         Text(
                           (widget.user.email),
                           style: const TextStyle(
-                            color: Colors.black,
                             fontSize: 26,
                           ),
                         ),
@@ -170,14 +157,12 @@ class MiUsuarioYFincaApp extends State<MiUsuarioYFinca> {
                         const Text(
                           'Nombre de la finca:   ',
                           style: TextStyle(
-                            color: Colors.black,
                             fontSize: 23,
                           ),
                         ),
                         Text(
                           widget.user.finca,
                           style: const TextStyle(
-                            color: Colors.black,
                             fontSize: 23,
                           ),
                         ),
@@ -212,7 +197,6 @@ class MiUsuarioYFincaApp extends State<MiUsuarioYFinca> {
                                 child: Text(
                                   a,
                                   style: const TextStyle(
-                                    color: Colors.black,
                                     fontSize: 28,
                                   ),
                                 ));
@@ -228,7 +212,6 @@ class MiUsuarioYFincaApp extends State<MiUsuarioYFinca> {
                           hint: Text(
                             vista,
                             style: const TextStyle(
-                              color: Colors.black,
                               fontSize: 28,
                             ),
                           ),
@@ -244,7 +227,6 @@ class MiUsuarioYFincaApp extends State<MiUsuarioYFinca> {
                         Container(
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(16),
-                            color: kBlue,
                           ),
                           child: TextButton(
                             onPressed: () async {
@@ -254,10 +236,8 @@ class MiUsuarioYFincaApp extends State<MiUsuarioYFinca> {
                                   MaterialPageRoute(
                                       builder: (_) => Home1(widget.user)));
                             },
-                            child: Text(
+                            child: const Text(
                               'Actualizar y Guardar',
-                              style: kBodyText.copyWith(
-                                  fontWeight: FontWeight.bold),
                             ),
                           ),
                         ),

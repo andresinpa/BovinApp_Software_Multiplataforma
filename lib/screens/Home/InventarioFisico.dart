@@ -12,7 +12,6 @@ class InventarioFisico extends StatelessWidget {
             title: const Text(
               'BovinApp',
               style: TextStyle(
-                color: Colors.black,
                 fontSize: 24,
                 fontWeight: FontWeight.bold,
               ),
@@ -45,22 +44,19 @@ class MatrizImagenes extends StatelessWidget {
     return GridView.count(
       crossAxisCount: 2,
       children: <Widget>[
-        Column(
+        const Column(
           children: <Widget>[
-            const SizedBox(
+            SizedBox(
               height: 109,
             ),
             Row(
-              children: const [
+              children: [
                 SizedBox(
                   width: 56.5,
                 ),
                 Text(
                   'Inventario ',
-                  style: TextStyle(
-                      color: Colors.blue,
-                      fontSize: 28,
-                      fontWeight: FontWeight.bold),
+                  style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
                 ),
               ],
             ),
@@ -75,10 +71,7 @@ class MatrizImagenes extends StatelessWidget {
               children: [
                 const Text(
                   'Fisíco',
-                  style: TextStyle(
-                      color: Colors.blue,
-                      fontSize: 28,
-                      fontWeight: FontWeight.bold),
+                  style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
                 ),
                 const SizedBox(
                   width: 10,
@@ -100,7 +93,6 @@ class MatrizImagenes extends StatelessWidget {
               height: 150,
               width: 150,
               decoration: BoxDecoration(
-                color: const Color.fromARGB(156, 109, 184, 194),
                 borderRadius: BorderRadius.circular(16),
               ),
               child: GestureDetector(
@@ -113,10 +105,7 @@ class MatrizImagenes extends StatelessWidget {
               padding: EdgeInsets.symmetric(vertical: 2),
               child: Text(
                 'Alimentos',
-                style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    color: Color.fromARGB(156, 38, 88, 153),
-                    fontSize: 18),
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
               ),
             )
           ],
@@ -129,7 +118,6 @@ class MatrizImagenes extends StatelessWidget {
               height: 150,
               width: 150,
               decoration: BoxDecoration(
-                color: const Color.fromARGB(156, 109, 184, 194),
                 borderRadius: BorderRadius.circular(16),
               ),
               child: GestureDetector(
@@ -143,10 +131,7 @@ class MatrizImagenes extends StatelessWidget {
               padding: EdgeInsets.symmetric(vertical: 2),
               child: Text(
                 'Medicamentos',
-                style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    color: Color.fromARGB(156, 38, 88, 153),
-                    fontSize: 18),
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
               ),
             )
           ],
@@ -159,7 +144,6 @@ class MatrizImagenes extends StatelessWidget {
               height: 150,
               width: 150,
               decoration: BoxDecoration(
-                color: const Color.fromARGB(156, 109, 184, 194),
                 borderRadius: BorderRadius.circular(16),
               ),
               child: GestureDetector(
@@ -172,10 +156,7 @@ class MatrizImagenes extends StatelessWidget {
               padding: EdgeInsets.symmetric(vertical: 2),
               child: Text(
                 'Ferretería',
-                style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    color: Color.fromARGB(156, 38, 88, 153),
-                    fontSize: 18),
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
               ),
             )
           ],
@@ -188,7 +169,6 @@ class MatrizImagenes extends StatelessWidget {
               height: 150,
               width: 150,
               decoration: BoxDecoration(
-                color: const Color.fromARGB(156, 109, 184, 194),
                 borderRadius: BorderRadius.circular(16),
               ),
               child: GestureDetector(
@@ -201,10 +181,7 @@ class MatrizImagenes extends StatelessWidget {
               padding: EdgeInsets.symmetric(vertical: 2),
               child: Text(
                 'Maquinaria',
-                style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    color: Color.fromARGB(156, 38, 88, 153),
-                    fontSize: 18),
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
               ),
             )
           ],
@@ -217,7 +194,6 @@ class MatrizImagenes extends StatelessWidget {
               height: 150,
               width: 150,
               decoration: BoxDecoration(
-                color: const Color.fromARGB(156, 109, 184, 194),
                 borderRadius: BorderRadius.circular(16),
               ),
               child: GestureDetector(
@@ -230,10 +206,7 @@ class MatrizImagenes extends StatelessWidget {
               padding: EdgeInsets.symmetric(vertical: 2),
               child: Text(
                 'Otros',
-                style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    color: Color.fromARGB(156, 38, 88, 153),
-                    fontSize: 18),
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
               ),
             )
           ],
@@ -246,7 +219,6 @@ class MatrizImagenes extends StatelessWidget {
               height: 150,
               width: 150,
               decoration: BoxDecoration(
-                color: const Color.fromARGB(156, 109, 184, 194),
                 borderRadius: BorderRadius.circular(16),
               ),
               child: GestureDetector(
@@ -260,10 +232,7 @@ class MatrizImagenes extends StatelessWidget {
               padding: EdgeInsets.symmetric(vertical: 2),
               child: Text(
                 'Nuevo registro',
-                style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    color: Color.fromARGB(156, 38, 88, 153),
-                    fontSize: 18),
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
               ),
             )
           ],

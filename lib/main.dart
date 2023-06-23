@@ -1,12 +1,27 @@
-import 'package:bovinapp/firebase_options.dart';
-import 'package:bovinapp/screens/screens.dart';
+import 'dart:convert';
+
+import 'package:BovinApp/DTO/FirebaseOptions.dart';
+import 'package:BovinApp/Screens/Screens.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:json_theme/json_theme.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
+  //TEMA CLARO
+  final themeStrNormal =
+      await rootBundle.loadString('assets/themes/theme_normal.json');
+  final themeJsonNormal = jsonDecode(themeStrNormal);
+  final themeNormal = ThemeDecoder.decodeThemeData(themeJsonNormal)!;
+
+  //TEMA OSCURO
+  final themeStrBlack =
+      await rootBundle.loadString('assets/themes/theme_black.json');
+  final themeJsonBlack = jsonDecode(themeStrBlack);
+  final themeBlack = ThemeDecoder.decodeThemeData(themeJsonBlack)!;
+
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
@@ -14,23 +29,19 @@ void main() async {
     DeviceOrientation.portraitUp,
     DeviceOrientation.portraitDown,
   ]);
-  runApp(const MyApp());
+  runApp(MyApp(theme: themeNormal));
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  final ThemeData theme;
+  const MyApp({Key? key, required this.theme}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'BovinApp',
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        textTheme:
-            GoogleFonts.josefinSansTextTheme(Theme.of(context).textTheme),
-        primarySwatch: Colors.blue,
-        visualDensity: VisualDensity.adaptivePlatformDensity,
-      ),
+      theme: theme,
       initialRoute: '/',
       routes: {
         '/': (context) => const LoginScreen(),

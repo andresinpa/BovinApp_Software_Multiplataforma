@@ -1,10 +1,8 @@
 import 'dart:ui';
-import 'package:bovinapp/Design/palette.dart';
-import 'package:bovinapp/widgets/RoundedButton.dart';
+import 'package:BovinApp/Widgets/TextInputFieldOtros.dart';
+import 'package:BovinApp/widgets/RoundedButton.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-
-import '../../widgets/TextInputFieldOtros.dart';
 
 const List<String> list = [
   'Holstein',
@@ -55,12 +53,9 @@ class _NuevoRegistroState extends State<NuevoRegistro> {
     return Stack(
       children: [
         Container(
-          decoration: const BoxDecoration(
-            color: Colors.white,
-          ),
+          decoration: const BoxDecoration(),
         ),
         Scaffold(
-          backgroundColor: Colors.white,
           body: SingleChildScrollView(
             child: Column(
               children: [
@@ -78,9 +73,8 @@ class _NuevoRegistroState extends State<NuevoRegistro> {
                           ),
                           child: CircleAvatar(
                             radius: size.width * 0.15,
-                            backgroundColor: Colors.blueGrey.withOpacity(0.5),
                             child: Icon(FontAwesomeIcons.cow,
-                                color: kWhite, size: size.width * 0.1),
+                                size: size.width * 0.1),
                           ),
                         ),
                       ),
@@ -92,16 +86,13 @@ class _NuevoRegistroState extends State<NuevoRegistro> {
                         height: size.width * 0.1,
                         width: size.width * 0.1,
                         decoration: BoxDecoration(
-                          color: kBlue,
                           shape: BoxShape.circle,
                           border: Border.all(
-                            color: kWhite,
                             width: 1,
                           ),
                         ),
                         child: const Icon(
                           FontAwesomeIcons.arrowUp,
-                          color: kWhite,
                         ),
                       ),
                     ),
@@ -147,10 +138,8 @@ class _NuevoRegistroState extends State<NuevoRegistro> {
                       value: dropdownValue,
                       icon: const Icon(Icons.arrow_downward),
                       elevation: 16,
-                      style: const TextStyle(color: Colors.deepPurple),
                       underline: Container(
                         height: 2,
-                        color: Colors.deepPurpleAccent,
                       ),
                       onChanged: (String? value) {
                         // This is called when the user selects an item.
@@ -179,10 +168,8 @@ class _NuevoRegistroState extends State<NuevoRegistro> {
                       value: dropdownValue2,
                       icon: const Icon(Icons.arrow_downward),
                       elevation: 16,
-                      style: const TextStyle(color: Colors.deepPurple),
                       underline: Container(
                         height: 2,
-                        color: Colors.deepPurpleAccent,
                       ),
                       onChanged: (String? value) {
                         // This is called when the user selects an item.

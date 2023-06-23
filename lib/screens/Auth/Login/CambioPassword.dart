@@ -1,5 +1,5 @@
-import 'package:bovinapp/widgets/PasswordInput.dart';
-import 'package:bovinapp/widgets/RoundedButton.dart';
+import 'package:BovinApp/Widgets/PasswordInput.dart';
+import 'package:BovinApp/Widgets/RoundedButton.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
@@ -20,13 +20,7 @@ class _CambioPasswordState extends State<CambioPassword> {
     Size size = MediaQuery.of(context).size;
     return Stack(
       children: [
-        Container(
-          decoration: const BoxDecoration(
-            color: Colors.white,
-          ),
-        ),
         Scaffold(
-          backgroundColor: const Color.fromARGB(255, 255, 255, 255),
           body: SingleChildScrollView(
             child: Column(
               // ignore: prefer_const_literals_to_create_immutables
@@ -37,10 +31,7 @@ class _CambioPasswordState extends State<CambioPassword> {
                 const Center(
                   child: Text(
                     'Cambio Contraseña',
-                    style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 30,
-                        fontWeight: FontWeight.bold),
+                    style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
                   ),
                 ),
                 SizedBox(
@@ -51,7 +42,6 @@ class _CambioPasswordState extends State<CambioPassword> {
                   child: const Text(
                     'Ingresa tu nueva contraseña',
                     style: TextStyle(
-                      color: Colors.black,
                       fontSize: 20,
                     ),
                   ),

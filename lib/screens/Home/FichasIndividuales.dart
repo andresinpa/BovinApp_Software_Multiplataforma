@@ -1,5 +1,5 @@
-import 'package:bovinapp/widgets/RoundedButton.dart';
-import 'package:bovinapp/widgets/TextInputField.dart';
+import 'package:BovinApp/Widgets/RoundedButton.dart';
+import 'package:BovinApp/Widgets/TextInputField.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
@@ -22,15 +22,8 @@ class _FichasIndividualesState extends State<FichasIndividuales> {
     String vistaRaza = 'Holstein';
     return Stack(
       children: [
-        Container(
-          decoration: const BoxDecoration(
-            color: Colors.white,
-          ),
-        ),
         Scaffold(
-            backgroundColor: Colors.white,
             appBar: AppBar(
-              backgroundColor: Colors.white,
               leading: IconButton(
                 icon: const Icon(Icons.arrow_back_ios),
                 onPressed: () {
@@ -40,7 +33,6 @@ class _FichasIndividualesState extends State<FichasIndividuales> {
               title: const Text(
                 'BovinApp',
                 style: TextStyle(
-                  color: Colors.black,
                   fontSize: 24,
                   fontWeight: FontWeight.bold,
                 ),
@@ -68,7 +60,6 @@ class _FichasIndividualesState extends State<FichasIndividuales> {
                     child: const Text(
                       'Fichas Individuales',
                       style: TextStyle(
-                        color: Colors.black,
                         fontSize: 28,
                       ),
                     ),
@@ -81,7 +72,6 @@ class _FichasIndividualesState extends State<FichasIndividuales> {
                     child: const Text(
                       'Datos Generales',
                       style: TextStyle(
-                        color: Colors.black,
                         fontSize: 24,
                       ),
                     ),
@@ -94,7 +84,6 @@ class _FichasIndividualesState extends State<FichasIndividuales> {
                     child: const Text(
                       'Ingrese el nombre o codigo del bovino',
                       style: TextStyle(
-                        color: Colors.black,
                         fontSize: 20,
                       ),
                     ),
@@ -116,7 +105,6 @@ class _FichasIndividualesState extends State<FichasIndividuales> {
                     child: const Text(
                       'Buscar por:',
                       style: TextStyle(
-                        color: Colors.black,
                         fontSize: 22,
                       ),
                     ),
@@ -132,7 +120,6 @@ class _FichasIndividualesState extends State<FichasIndividuales> {
                         child: const Text(
                           'Clasificación',
                           style: TextStyle(
-                            color: Colors.black,
                             fontSize: 22,
                           ),
                         ),
@@ -144,7 +131,6 @@ class _FichasIndividualesState extends State<FichasIndividuales> {
                               child: Text(
                                 a,
                                 style: const TextStyle(
-                                  color: Colors.black,
                                   fontSize: 22,
                                 ),
                               ));
@@ -160,7 +146,6 @@ class _FichasIndividualesState extends State<FichasIndividuales> {
                         hint: Text(
                           vistaClasificacion,
                           style: const TextStyle(
-                            color: Colors.black,
                             fontSize: 22,
                           ),
                         ),
@@ -178,7 +163,6 @@ class _FichasIndividualesState extends State<FichasIndividuales> {
                         child: const Text(
                           'Raza',
                           style: TextStyle(
-                            color: Colors.black,
                             fontSize: 22,
                           ),
                         ),
@@ -190,7 +174,6 @@ class _FichasIndividualesState extends State<FichasIndividuales> {
                               child: Text(
                                 a,
                                 style: const TextStyle(
-                                  color: Colors.black,
                                   fontSize: 22,
                                 ),
                               ));
@@ -206,7 +189,6 @@ class _FichasIndividualesState extends State<FichasIndividuales> {
                         hint: Text(
                           vistaRaza,
                           style: const TextStyle(
-                            color: Colors.black,
                             fontSize: 22,
                           ),
                         ),

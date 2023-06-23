@@ -1,7 +1,6 @@
-import 'package:bovinapp/screens/Home/MiUsuarioYFinca.dart';
+import 'package:BovinApp/DTO/User.dart';
+import 'package:BovinApp/Screens/Home/MiUsuarioYFinca.dart';
 import 'package:flutter/material.dart';
-
-import '../../DTO/user.dart';
 
 class Home1 extends StatefulWidget {
   final User user;
@@ -31,7 +30,6 @@ class Home1App extends State<Home1> {
             title: const Text(
               'BovinApp',
               style: TextStyle(
-                color: Colors.black,
                 fontSize: 24,
                 fontWeight: FontWeight.bold,
               ),
@@ -64,7 +62,6 @@ class Home1App extends State<Home1> {
                       height: 150,
                       width: 150,
                       decoration: BoxDecoration(
-                        color: const Color.fromARGB(156, 109, 184, 194),
                         borderRadius: BorderRadius.circular(16),
                       ),
                       child: GestureDetector(
@@ -81,9 +78,7 @@ class Home1App extends State<Home1> {
                       child: Text(
                         'Mi usuario y finca',
                         style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            color: Color.fromARGB(156, 38, 88, 153),
-                            fontSize: 18),
+                            fontWeight: FontWeight.bold, fontSize: 18),
                       ),
                     )
                   ],
@@ -96,7 +91,6 @@ class Home1App extends State<Home1> {
                       height: 150,
                       width: 150,
                       decoration: BoxDecoration(
-                        color: const Color.fromARGB(156, 109, 184, 194),
                         borderRadius: BorderRadius.circular(16),
                       ),
                       child: GestureDetector(
@@ -111,9 +105,7 @@ class Home1App extends State<Home1> {
                       child: Text(
                         'Inventario de bovinos',
                         style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            color: Color.fromARGB(156, 38, 88, 153),
-                            fontSize: 18),
+                            fontWeight: FontWeight.bold, fontSize: 18),
                       ),
                     )
                   ],
@@ -126,7 +118,6 @@ class Home1App extends State<Home1> {
                       height: 150,
                       width: 150,
                       decoration: BoxDecoration(
-                        color: const Color.fromARGB(156, 109, 184, 194),
                         borderRadius: BorderRadius.circular(16),
                       ),
                       child: GestureDetector(
@@ -141,9 +132,7 @@ class Home1App extends State<Home1> {
                       child: Text(
                         'Fichas individuales',
                         style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            color: Color.fromARGB(156, 38, 88, 153),
-                            fontSize: 18),
+                            fontWeight: FontWeight.bold, fontSize: 18),
                       ),
                     )
                   ],
@@ -156,7 +145,6 @@ class Home1App extends State<Home1> {
                       height: 150,
                       width: 150,
                       decoration: BoxDecoration(
-                        color: const Color.fromARGB(156, 109, 184, 194),
                         borderRadius: BorderRadius.circular(16),
                       ),
                       child: GestureDetector(
@@ -171,9 +159,7 @@ class Home1App extends State<Home1> {
                       child: Text(
                         'Inventario Fisico',
                         style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            color: Color.fromARGB(156, 38, 88, 153),
-                            fontSize: 18),
+                            fontWeight: FontWeight.bold, fontSize: 18),
                       ),
                     )
                   ],
@@ -186,7 +172,6 @@ class Home1App extends State<Home1> {
                       height: 150,
                       width: 150,
                       decoration: BoxDecoration(
-                        color: const Color.fromARGB(156, 109, 184, 194),
                         borderRadius: BorderRadius.circular(16),
                       ),
                       child: GestureDetector(
@@ -200,9 +185,7 @@ class Home1App extends State<Home1> {
                       child: Text(
                         'Producción',
                         style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            color: Color.fromARGB(156, 38, 88, 153),
-                            fontSize: 18),
+                            fontWeight: FontWeight.bold, fontSize: 18),
                       ),
                     )
                   ],
@@ -216,7 +199,6 @@ class Home1App extends State<Home1> {
                       height: 150,
                       width: 150,
                       decoration: BoxDecoration(
-                        color: const Color.fromARGB(156, 109, 184, 194),
                         borderRadius: BorderRadius.circular(16),
                       ),
                       child: GestureDetector(
@@ -231,9 +213,7 @@ class Home1App extends State<Home1> {
                       child: Text(
                         'Razas de bovinos en Ubaté',
                         style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            color: Color.fromARGB(156, 38, 88, 153),
-                            fontSize: 18),
+                            fontWeight: FontWeight.bold, fontSize: 18),
                       ),
                     )
                   ],
@@ -256,7 +236,6 @@ class Home1App extends State<Home1> {
             onPressed: () {
               Navigator.pushNamed(context, 'MisTareasMetas');
             },
-            backgroundColor: const Color.fromARGB(235, 211, 198, 16),
             child: const Icon(Icons.notification_add_rounded),
           ),
         ),
@@ -266,7 +245,6 @@ class Home1App extends State<Home1> {
 }
 
 Widget buildHeader(BuildContext context) => Material(
-      color: Colors.blue.shade700,
       child: InkWell(
         onTap: () {},
         child: Container(
@@ -284,11 +262,9 @@ Widget buildHeader(BuildContext context) => Material(
               SizedBox(height: 12),
               Text(
                 '¡Hola florecita!',
-                style: TextStyle(fontSize: 28, color: Colors.white),
               ),
               Text(
                 'bovinapp2023@gmail.com',
-                style: TextStyle(fontSize: 16, color: Colors.white),
               ),
             ],
           ),

@@ -1,7 +1,6 @@
 import 'dart:ui';
-import 'package:bovinapp/Design/palette.dart';
-import 'package:bovinapp/widgets/RoundedButton.dart';
-import 'package:bovinapp/widgets/TextInputField.dart';
+import 'package:BovinApp/Widgets/RoundedButton.dart';
+import 'package:BovinApp/Widgets/TextInputField.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
@@ -26,12 +25,9 @@ class _FichasIndividualesResultadosState
     return Stack(
       children: [
         Container(
-          decoration: const BoxDecoration(
-            color: Colors.white,
-          ),
+          decoration: const BoxDecoration(),
         ),
         Scaffold(
-          backgroundColor: Colors.white,
           body: SingleChildScrollView(
             child: Column(
               children: [
@@ -46,7 +42,6 @@ class _FichasIndividualesResultadosState
                       child: const Text(
                         'Carlota',
                         style: TextStyle(
-                          color: Colors.black,
                           fontSize: 28,
                         ),
                       ),
@@ -64,7 +59,6 @@ class _FichasIndividualesResultadosState
                       child: const Text(
                         'Código:',
                         style: TextStyle(
-                          color: Colors.black,
                           fontSize: 28,
                         ),
                       ),
@@ -74,7 +68,6 @@ class _FichasIndividualesResultadosState
                       child: const Text(
                         '25',
                         style: TextStyle(
-                          color: Colors.black,
                           fontSize: 28,
                         ),
                       ),
@@ -95,9 +88,8 @@ class _FichasIndividualesResultadosState
                           ),
                           child: CircleAvatar(
                             radius: size.width * 0.15,
-                            backgroundColor: Colors.blueGrey.withOpacity(0.5),
                             child: Icon(FontAwesomeIcons.cow,
-                                color: kWhite, size: size.width * 0.1),
+                                size: size.width * 0.1),
                           ),
                         ),
                       ),
@@ -117,7 +109,6 @@ class _FichasIndividualesResultadosState
                           child: const Text(
                             'Raza:',
                             style: TextStyle(
-                              color: Colors.black,
                               fontSize: 26,
                             ),
                           ),
@@ -127,7 +118,6 @@ class _FichasIndividualesResultadosState
                           child: const Text(
                             'Normando',
                             style: TextStyle(
-                              color: Colors.black,
                               fontSize: 2,
                             ),
                           ),
@@ -145,7 +135,6 @@ class _FichasIndividualesResultadosState
                           child: const Text(
                             'Edad:',
                             style: TextStyle(
-                              color: Colors.black,
                               fontSize: 26,
                             ),
                           ),
@@ -155,7 +144,6 @@ class _FichasIndividualesResultadosState
                           child: const Text(
                             '3 años',
                             style: TextStyle(
-                              color: Colors.black,
                               fontSize: 26,
                             ),
                           ),
@@ -173,7 +161,6 @@ class _FichasIndividualesResultadosState
                           child: const Text(
                             'Clasificación:',
                             style: TextStyle(
-                              color: Colors.black,
                               fontSize: 26,
                             ),
                           ),
@@ -193,7 +180,6 @@ class _FichasIndividualesResultadosState
                           hint: Text(
                             vistaClasificacion,
                             style: const TextStyle(
-                              color: Colors.black,
                               fontSize: 26,
                             ),
                           ),
@@ -211,7 +197,6 @@ class _FichasIndividualesResultadosState
                           child: const Text(
                             'Fecha de nacimiento o de ingreso: ',
                             style: TextStyle(
-                              color: Colors.black,
                               fontSize: 26,
                             ),
                           ),
@@ -221,7 +206,6 @@ class _FichasIndividualesResultadosState
                           child: const Text(
                             '1-1-2022',
                             style: TextStyle(
-                              color: Colors.black,
                               fontSize: 24,
                             ),
                           ),
@@ -239,7 +223,6 @@ class _FichasIndividualesResultadosState
                           child: const Text(
                             'Codigo del padre: ',
                             style: TextStyle(
-                              color: Colors.black,
                               fontSize: 26,
                             ),
                           ),
@@ -249,7 +232,6 @@ class _FichasIndividualesResultadosState
                           child: const Text(
                             '7',
                             style: TextStyle(
-                              color: Colors.black,
                               fontSize: 26,
                             ),
                           ),
@@ -267,7 +249,6 @@ class _FichasIndividualesResultadosState
                           child: const Text(
                             'Raza del padre: ',
                             style: TextStyle(
-                              color: Colors.black,
                               fontSize: 26,
                             ),
                           ),
@@ -277,7 +258,6 @@ class _FichasIndividualesResultadosState
                           child: const Text(
                             'Normando',
                             style: TextStyle(
-                              color: Colors.black,
                               fontSize: 26,
                             ),
                           ),
@@ -295,7 +275,6 @@ class _FichasIndividualesResultadosState
                           child: const Text(
                             'Codigo de la madre: ',
                             style: TextStyle(
-                              color: Colors.black,
                               fontSize: 26,
                             ),
                           ),
@@ -305,7 +284,6 @@ class _FichasIndividualesResultadosState
                           child: const Text(
                             '8',
                             style: TextStyle(
-                              color: Colors.black,
                               fontSize: 24,
                             ),
                           ),
@@ -323,7 +301,6 @@ class _FichasIndividualesResultadosState
                           child: const Text(
                             'Raza del padre: ',
                             style: TextStyle(
-                              color: Colors.black,
                               fontSize: 28,
                             ),
                           ),
@@ -333,7 +310,6 @@ class _FichasIndividualesResultadosState
                           child: const Text(
                             'Hoistein',
                             style: TextStyle(
-                              color: Colors.black,
                               fontSize: 24,
                             ),
                           ),
