@@ -59,22 +59,17 @@ class LoginScreenApp extends State<LoginScreen> {
           if (cursor.get('EmailUsuario') == email.text) {
             if (cursor.get('PasswordUsuario') == pass) {
               bandera = true;
-              print('*************Acceso aceptado****************');
               email.clear();
               password.clear();
-            } else {}
+            }
           }
         }
-      } else {
-        alert('Usuario no encontrado', 'Primero debe crear la cuenta');
       }
       if (bandera == true) {
-        alert('Usuario encontrado', 'Acceso aceptado');
+        alert('Acceso aceptado', '¡Bienvenido a BovinApp!');
       } else {
-        alert('Contraseña incorrecta', 'Por favor intente de nuevo');
-        print('*************Contraseña incorrecta****************');
-        email.clear();
-        password.clear();
+        alert('Error',
+            '¡Los datos ingresados podrían no ser correctos, reintente de nuevo!');
       }
     } catch (e) {
       print('Error....$e');
@@ -84,7 +79,6 @@ class LoginScreenApp extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-
     return Scaffold(
       resizeToAvoidBottomInset: true,
       body: SingleChildScrollView(

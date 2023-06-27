@@ -43,6 +43,8 @@ dependencies:
   intl: ^0.18.0
   json_theme: ^6.0.0
   image_picker: ^0.8.9
+  firebase_storage: ^11.2.4
+  
 
 dev_dependencies:
   flutter_test:

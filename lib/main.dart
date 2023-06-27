@@ -16,11 +16,11 @@ void main() async {
   final themeJsonNormal = jsonDecode(themeStrNormal);
   final themeNormal = ThemeDecoder.decodeThemeData(themeJsonNormal)!;
 
-  //TEMA OSCURO
-  final themeStrBlack =
-      await rootBundle.loadString('assets/themes/theme_black.json');
-  final themeJsonBlack = jsonDecode(themeStrBlack);
-  final themeBlack = ThemeDecoder.decodeThemeData(themeJsonBlack)!;
+  // //TEMA OSCURO
+  // final themeStrBlack =
+  //     await rootBundle.loadString('assets/themes/theme_black.json');
+  // final themeJsonBlack = jsonDecode(themeStrBlack);
+  // final themeBlack = ThemeDecoder.decodeThemeData(themeJsonBlack)!;
 
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,

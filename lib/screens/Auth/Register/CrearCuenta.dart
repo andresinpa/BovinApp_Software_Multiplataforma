@@ -42,6 +42,7 @@ class CrearCuentaApp extends State<CrearCuenta> {
   TextEditingController confirmacion = TextEditingController();
   User objUser = User();
   bool bandera = true;
+  String passSha256 = "";
   void alert(String contenido) {
     showDialog(
         context: context,
@@ -68,25 +69,41 @@ class CrearCuentaApp extends State<CrearCuenta> {
       CollectionReference ref =
           FirebaseFirestore.instance.collection('Usuarios');
       QuerySnapshot usuarios = await ref.get();
-
       if (usuarios.docs.isNotEmpty) {
         for (var cursor in usuarios.docs) {
           if (cursor.get('EmailUsuario') == email.text) {
-            alert('El email ya existe');
+            alert('¡El correo electrónico ingresado ya existe!');
             bandera = false;
+            break;
+          } else {
+            if (cursor.get('Usuario') == usuario.text) {
+              alert('¡El usuario ya esta en uso, intente con otro!');
+              bandera = false;
+              break;
+            } else {
+              bandera = true;
+            }
           }
+
+          print(cursor.get('EmailUsuario'));
         }
       }
+
       if (bandera == true) {
-        password.text = (sha256.convert(utf8.encode(password.text))).toString();
+        passSha256 = (sha256.convert(utf8.encode(password.text))).toString();
         objUser.nombre = nombre.text;
         objUser.apellido = apellido.text;
         objUser.usuario = usuario.text;
         objUser.email = email.text;
         objUser.finca = finca.text;
         objUser.ganado = ganado.text;
-        objUser.password = password.text;
+        objUser.password = passSha256;
         objUser.codigo = (Random().nextInt(99999) + 11111).toString();
+        if (_pickedImage == null) {
+          objUser.imagenLocal = '';
+        } else {
+          objUser.imagenLocal = _pickedImage;
+        }
         await sendEmail(
             name: objUser.nombre,
             email: objUser.email,
@@ -186,7 +203,7 @@ class CrearCuentaApp extends State<CrearCuenta> {
                     controler: nombre,
                   ),
                   TextInputField(
-                    icon: FontAwesomeIcons.user,
+                    icon: FontAwesomeIcons.userLarge,
                     hint: 'Apellidos',
                     inputType: TextInputType.name,
                     inputAction: TextInputAction.next,
@@ -242,11 +259,7 @@ class CrearCuentaApp extends State<CrearCuenta> {
                       padding: const EdgeInsets.only(top: 24, bottom: 8),
                       child: ElevatedButton(
                         onPressed: () async {
-                          if (password.text == confirmacion.text) {
-                            validarDatos();
-                          } else {
-                            alert("Las contraseñas no coinciden");
-                          }
+                          validacionesDeEntrada();
                         },
                         style: ElevatedButton.styleFrom(
                           shape: RoundedRectangleBorder(
@@ -299,6 +312,44 @@ class CrearCuentaApp extends State<CrearCuenta> {
         ),
       ),
     );
+  }
+
+  void validacionesDeEntrada() async {
+    if (nombre.text.isNotEmpty &&
+        apellido.text.isNotEmpty &&
+        usuario.text.isNotEmpty &&
+        email.text.isNotEmpty &&
+        finca.text.isNotEmpty &&
+        ganado.text.isNotEmpty &&
+        password.text.isNotEmpty &&
+        confirmacion.text.isNotEmpty) {
+      if (password.text == confirmacion.text) {
+        if (usuario.text.length > 3) {
+          if (email.text.contains(
+              RegExp(r'^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$'))) {
+            if (ganado.text.contains(RegExp(r'^(?:[1-9]|[1-9][0-9])$'))) {
+              if (password.text
+                  .contains(RegExp(r'^(?=.*[a-zA-Z])(?=.*[\d\W]).{5,}$'))) {
+                await validarDatos();
+              } else {
+                alert(
+                    "La contraseña debe tener al menos 5 caracteres con el uso de letras y números");
+              }
+            } else {
+              alert("¡El número de bovinos debe estar entre 1 y 99!");
+            }
+          } else {
+            alert("¡Ingrese un correo electrónico válido!");
+          }
+        } else {
+          alert("¡El usuario debe tener por lo menos cuatro caracteres!");
+        }
+      } else {
+        alert("¡Las contraseñas no coinciden!");
+      }
+    } else {
+      alert("¡Todos los campos deben estar llenos!");
+    }
   }
 
   Future sendEmail({

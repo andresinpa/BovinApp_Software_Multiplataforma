@@ -1,6 +1,7 @@
 // ignore_for_file: avoid_print, duplicate_ignore
 
 import 'package:BovinApp/DTO/User.dart';
+import 'package:BovinApp/Screens/Auth/Register/ImagenUsuario.dart';
 import 'package:BovinApp/Widgets/TextInputField.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -16,7 +17,14 @@ class ConfirmacionCuentaPage extends StatefulWidget {
 class ConfirmacionCuentaPageApp extends State<ConfirmacionCuentaPage> {
   TextEditingController codigo = TextEditingController();
   final firebase = FirebaseFirestore.instance;
+  dynamic uploaded;
   insertarDatos() async {
+    if (widget.cadena.imagenLocal == '') {
+      uploaded = '';
+    } else {
+      uploaded =
+          await uploadImage(widget.cadena.imagenLocal, widget.cadena.usuario);
+    }
     // ignore: duplicate_ignore
     try {
       await firebase.collection('Usuarios').doc().set({
@@ -27,7 +35,9 @@ class ConfirmacionCuentaPageApp extends State<ConfirmacionCuentaPage> {
         "FincaUsuario": widget.cadena.finca,
         "GanadoUsuario": widget.cadena.ganado,
         "PasswordUsuario": widget.cadena.password,
+        "UrlAvatarUsuario": uploaded,
       });
+
       // ignore: avoid_print
       print('se envio la informacion');
     } catch (e) {
