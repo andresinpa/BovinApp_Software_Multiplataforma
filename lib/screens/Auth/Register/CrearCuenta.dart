@@ -1,10 +1,12 @@
-// ignore_for_file: avoid_print, duplicate_ignore
+// ignore_for_file: avoid_print, duplicate_ignore, use_build_context_synchronously
 
 import 'dart:io';
 import 'dart:math';
+import 'package:BovinApp/DTO/Services/EmailService.dart';
 import 'package:BovinApp/DTO/User.dart';
 import 'package:BovinApp/Screens/Auth/Login/BackgroundSimple.dart';
 import 'package:BovinApp/Screens/Auth/Register/ConfirmacionCuentaPage.dart';
+import 'package:BovinApp/Widgets/DialogUnBoton.dart';
 import 'package:BovinApp/Widgets/PasswordInput.dart';
 import 'package:BovinApp/Widgets/TextInputField.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -12,7 +14,6 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:crypto/crypto.dart';
 import 'dart:async';
-import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:image_picker/image_picker.dart';
 
@@ -43,26 +44,6 @@ class CrearCuentaApp extends State<CrearCuenta> {
   User objUser = User();
   bool bandera = true;
   String passSha256 = "";
-  void alert(String contenido) {
-    showDialog(
-        context: context,
-        builder: (buildcontext) {
-          return AlertDialog(
-            title: const Text('Error'),
-            content: Text(contenido),
-            actions: <Widget>[
-              ElevatedButton(
-                onPressed: () {
-                  Navigator.pop(context);
-                },
-                child: const Text(
-                  'Aceptar',
-                ),
-              )
-            ],
-          );
-        });
-  }
 
   validarDatos() async {
     try {
@@ -72,20 +53,20 @@ class CrearCuentaApp extends State<CrearCuenta> {
       if (usuarios.docs.isNotEmpty) {
         for (var cursor in usuarios.docs) {
           if (cursor.get('EmailUsuario') == email.text) {
-            alert('¡El correo electrónico ingresado ya existe!');
+            await DialogUnBoton.alert(context, 'Error',
+                '¡El correo electrónico ingresado ya existe!');
             bandera = false;
             break;
           } else {
             if (cursor.get('Usuario') == usuario.text) {
-              alert('¡El usuario ya esta en uso, intente con otro!');
+              await DialogUnBoton.alert(context, 'Error',
+                  'El usuario ya esta en uso, ¡intente con otro!');
               bandera = false;
               break;
             } else {
               bandera = true;
             }
           }
-
-          print(cursor.get('EmailUsuario'));
         }
       }
 
@@ -104,7 +85,7 @@ class CrearCuentaApp extends State<CrearCuenta> {
         } else {
           objUser.imagenLocal = _pickedImage;
         }
-        await sendEmail(
+        await EmailService.sendEmail(
             name: objUser.nombre,
             email: objUser.email,
             message: objUser.codigo);
@@ -116,7 +97,6 @@ class CrearCuentaApp extends State<CrearCuenta> {
         ganado.clear();
         password.clear();
         confirmacion.clear();
-        // ignore: use_build_context_synchronously
         Navigator.push(context,
             MaterialPageRoute(builder: (_) => ConfirmacionCuentaPage(objUser)));
       }
@@ -332,54 +312,28 @@ class CrearCuentaApp extends State<CrearCuenta> {
                   .contains(RegExp(r'^(?=.*[a-zA-Z])(?=.*[\d\W]).{5,}$'))) {
                 await validarDatos();
               } else {
-                alert(
+                await DialogUnBoton.alert(context, 'Alerta',
                     "La contraseña debe tener al menos 5 caracteres con el uso de letras y números");
               }
             } else {
-              alert("¡El número de bovinos debe estar entre 1 y 99!");
+              await DialogUnBoton.alert(context, 'Alerta',
+                  "¡El número de bovinos debe estar entre 1 y 99!");
             }
           } else {
-            alert("¡Ingrese un correo electrónico válido!");
+            await DialogUnBoton.alert(
+                context, 'Alerta', "¡Ingrese un correo electrónico válido!");
           }
         } else {
-          alert("¡El usuario debe tener por lo menos cuatro caracteres!");
+          await DialogUnBoton.alert(context, 'Alerta',
+              "¡El usuario debe tener por lo menos cuatro caracteres!");
         }
       } else {
-        alert("¡Las contraseñas no coinciden!");
+        await DialogUnBoton.alert(
+            context, 'Alerta', "¡Las contraseñas no coinciden!");
       }
     } else {
-      alert("¡Todos los campos deben estar llenos!");
+      await DialogUnBoton.alert(
+          context, 'Alerta', "¡Todos los campos deben estar llenos!");
     }
-  }
-
-  Future sendEmail({
-    required String name,
-    required String email,
-    required String message,
-  }) async {
-    const serviceId = 'service_8zg5d6h';
-    const templateId = 'template_df7zc0j';
-    const userId = 'MzvTx11b0rcHUpIf3';
-    final url = Uri.parse('https://api.emailjs.com/api/v1.0/email/send');
-    // ignore: unused_local_variable
-    final response = await http.post(
-      url,
-      headers: {
-        'origin': 'http:localhost',
-        'Content-Type': 'application/json',
-      },
-      body: json.encode({
-        'service_id': serviceId,
-        'template_id': templateId,
-        'user_id': userId,
-        'template_params': {
-          'user_name': name,
-          'user_email': email,
-          'user_message': message,
-        },
-      }),
-    );
-    // ignore: avoid_print
-    print('informacion enviada al correo');
   }
 }

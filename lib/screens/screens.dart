@@ -18,7 +18,6 @@ export 'Inventario_Bovino/ConsultaNovillas.dart';
 export 'Inventario_Bovino/ConsultaBueyes.dart';
 export 'Inventario_Bovino/ConsultaTerneros.dart';
 export 'Home/RazasBovinosUbate.dart';
-export 'Auth/Login/CambioPassword.dart';
 export 'Auth/Register/CrearCuenta.dart';
 export 'Inventario_Fisico/ConsultaAlimentos.dart';
 export 'Inventario_Fisico/NuevoRegistroInventarioFisico.dart';

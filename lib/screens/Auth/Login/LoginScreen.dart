@@ -1,8 +1,9 @@
-// ignore_for_file: deprecated_member_use, avoid_print
+// ignore_for_file: deprecated_member_use, avoid_print, use_build_context_synchronously
 import 'dart:convert';
 import 'package:BovinApp/DTO/User.dart';
 import 'package:BovinApp/Screens/Auth/Login/Background.dart';
 import 'package:BovinApp/Screens/Home/Home1_Drawer.dart';
+import 'package:BovinApp/Widgets/DialogUnBoton.dart';
 import 'package:BovinApp/Widgets/PasswordInput.dart';
 import 'package:BovinApp/Widgets/TextInputField.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -23,31 +24,6 @@ class LoginScreenApp extends State<LoginScreen> {
   User objUser = User();
   bool bandera = false;
   String pass = "";
-  // ignore: non_constant_identifier_names
-  Future<void> alert(String Titulo, String contenido) async {
-    showDialog(
-        context: context,
-        builder: (buildcontext) {
-          return AlertDialog(
-            title: Text(Titulo),
-            content: Text(contenido),
-            actions: <Widget>[
-              ElevatedButton(
-                onPressed: () {
-                  Navigator.pop(context);
-                  if (bandera == true) {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (_) => Home1(objUser)));
-                  }
-                },
-                child: const Text(
-                  'Aceptar',
-                ),
-              )
-            ],
-          );
-        });
-  }
 
   validarDatos() async {
     try {
@@ -66,9 +42,28 @@ class LoginScreenApp extends State<LoginScreen> {
         }
       }
       if (bandera == true) {
-        alert('Acceso aceptado', '¡Bienvenido a BovinApp!');
+        await showDialog(
+          context: context,
+          builder: (buildcontext) {
+            return AlertDialog(
+              title: const Text('Acceso aceptado'),
+              content: const Text('¡Bienvenido a BovinApp!'),
+              actions: <Widget>[
+                ElevatedButton(
+                  onPressed: () {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (_) => Home1(objUser)));
+                  },
+                  child: const Text(
+                    'Aceptar',
+                  ),
+                )
+              ],
+            );
+          },
+        );
       } else {
-        alert('Error',
+        await DialogUnBoton.alert(context, 'Error',
             '¡Los datos ingresados podrían no ser correctos, reintente de nuevo!');
       }
     } catch (e) {
