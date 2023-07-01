@@ -1,7 +1,7 @@
 import "dart:collection";
-import 'package:BovinApp/Screens/Tareas_Metas/FormularioTareas.dart';
-import 'package:BovinApp/Screens/Tareas_Metas/ListadoTareas.dart';
-import 'package:BovinApp/Screens/Tareas_Metas/services/TareasServices.dart';
+import 'package:BovinApp/Screens/Modules/TareasMetas/Tareas/FormularioTareas.dart';
+import 'package:BovinApp/Screens/Modules/TareasMetas/Tareas/ListadoTareas.dart';
+import 'package:BovinApp/Screens/Modules/TareasMetas/services/TareasServices.dart';
 import "package:flutter/material.dart";
 
 class DetalleTareas extends StatelessWidget {

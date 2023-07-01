@@ -1,6 +1,6 @@
-import 'package:BovinApp/Screens/Tareas_Metas/DetalleTareas.dart';
-import 'package:BovinApp/Screens/Tareas_Metas/FormularioTareas.dart';
-import 'package:BovinApp/Screens/Tareas_Metas/services/TareasServices.dart';
+import 'package:BovinApp/Screens/Modules/TareasMetas/Tareas/DetalleTareas.dart';
+import 'package:BovinApp/Screens/Modules/TareasMetas/Tareas/FormularioTareas.dart';
+import 'package:BovinApp/Screens/Modules/TareasMetas/services/TareasServices.dart';
 import 'package:flutter/material.dart';
 
 class ListadoTareas extends StatefulWidget {

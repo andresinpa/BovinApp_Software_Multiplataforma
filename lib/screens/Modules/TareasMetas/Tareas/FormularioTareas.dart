@@ -1,8 +1,8 @@
 // ignore_for_file: library_private_types_in_public_api
 import 'dart:collection';
 import 'package:BovinApp/DTO/Tareas.dart';
-import 'package:BovinApp/Screens/Tareas_Metas/ListadoTareas.dart';
-import 'package:BovinApp/Screens/Tareas_Metas/services/TareasServices.dart';
+import 'package:BovinApp/Screens/Modules/TareasMetas/Tareas/ListadoTareas.dart';
+import 'package:BovinApp/Screens/Modules/TareasMetas/services/TareasServices.dart';
 import 'package:flutter/material.dart';
 
 class FormularioTareas extends StatefulWidget {

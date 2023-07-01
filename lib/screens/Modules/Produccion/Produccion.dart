@@ -1,4 +1,4 @@
-import 'package:BovinApp/widgets/RoundedButton2.dart';
+import 'package:BovinApp/Widgets/Export/Widgets.dart';
 import 'package:flutter/material.dart';
 
 class Produccion extends StatefulWidget {

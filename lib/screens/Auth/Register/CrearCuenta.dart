@@ -4,11 +4,9 @@ import 'dart:io';
 import 'dart:math';
 import 'package:BovinApp/DTO/Services/EmailService.dart';
 import 'package:BovinApp/DTO/User.dart';
-import 'package:BovinApp/Screens/Auth/Login/BackgroundSimple.dart';
-import 'package:BovinApp/Screens/Auth/Register/ConfirmacionCuentaPage.dart';
-import 'package:BovinApp/Widgets/DialogUnBoton.dart';
-import 'package:BovinApp/Widgets/PasswordInput.dart';
-import 'package:BovinApp/Widgets/TextInputField.dart';
+import 'package:BovinApp/Design/BackgroundSimple.dart';
+import 'package:BovinApp/Screens/Auth/Register/ConfirmacionCuenta.dart';
+import 'package:BovinApp/Widgets/Export/Widgets.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -98,7 +96,7 @@ class CrearCuentaApp extends State<CrearCuenta> {
         password.clear();
         confirmacion.clear();
         Navigator.push(context,
-            MaterialPageRoute(builder: (_) => ConfirmacionCuentaPage(objUser)));
+            MaterialPageRoute(builder: (_) => ConfirmacionCuenta(objUser)));
       }
     } catch (e) {
       print('Error.....$e');

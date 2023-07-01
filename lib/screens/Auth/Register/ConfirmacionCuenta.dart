@@ -1,22 +1,21 @@
 // ignore_for_file: avoid_print, duplicate_ignore, use_build_context_synchronously
 
 import 'package:BovinApp/DTO/User.dart';
-import 'package:BovinApp/Screens/Auth/Login/Background.dart';
+import 'package:BovinApp/Design/Background.dart';
 import 'package:BovinApp/Screens/Auth/Register/ImagenUsuario.dart';
-import 'package:BovinApp/Widgets/DialogUnBoton.dart';
-import 'package:BovinApp/Widgets/TextInputField.dart';
+import 'package:BovinApp/Widgets/Export/Widgets.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-class ConfirmacionCuentaPage extends StatefulWidget {
+class ConfirmacionCuenta extends StatefulWidget {
   final User cadena;
-  const ConfirmacionCuentaPage(this.cadena, {super.key});
+  const ConfirmacionCuenta(this.cadena, {super.key});
   @override
-  ConfirmacionCuentaPageApp createState() => ConfirmacionCuentaPageApp();
+  ConfirmacionCuentaApp createState() => ConfirmacionCuentaApp();
 }
 
-class ConfirmacionCuentaPageApp extends State<ConfirmacionCuentaPage> {
+class ConfirmacionCuentaApp extends State<ConfirmacionCuenta> {
   TextEditingController codigo = TextEditingController();
   final firebase = FirebaseFirestore.instance;
   dynamic uploaded;
@@ -42,6 +41,7 @@ class ConfirmacionCuentaPageApp extends State<ConfirmacionCuentaPage> {
           "PasswordUsuario": widget.cadena.password,
           "UrlAvatarUsuario": uploaded,
         });
+
         await DialogUnBoton.alert(context, 'Solicitud',
             'El codigo ha sido validado, ¡ya puede ingresar a la App!');
       } else {
@@ -164,31 +164,4 @@ class ConfirmacionCuentaPageApp extends State<ConfirmacionCuentaPage> {
       ),
     );
   }
-}
-
-Future<bool?> mostrarAlerta(BuildContext context) {
-  return showDialog<bool>(
-    context: context,
-    builder: (BuildContext context) {
-      return AlertDialog(
-        title: const Text('Confirmación'),
-        content: const Text(
-            '¿Estás seguro de retroceder de pantalla? El código perdera vigencia.'),
-        actions: <Widget>[
-          TextButton(
-            onPressed: () {
-              Navigator.pop(context, false); // Cancelar
-            },
-            child: const Text('Cancelar'),
-          ),
-          TextButton(
-            onPressed: () {
-              Navigator.pop(context, true); // Aceptar
-            },
-            child: const Text('Aceptar'),
-          ),
-        ],
-      );
-    },
-  );
 }

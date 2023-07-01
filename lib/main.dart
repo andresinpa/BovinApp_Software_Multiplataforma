@@ -73,7 +73,8 @@ class MyApp extends StatelessWidget {
         'ConsultaOtros': (context) => const ConsultaOtros(),
         'DetalleTareas': (context) => const DetalleTareas(),
         'FormularioTareas': (context) => const FormularioTareas(),
-        'ListadoTareas': (context) => const ListadoTareas()
+        'ListadoTareas': (context) => const ListadoTareas(),
+        'MiUsuarioYFinca': (context) => const MiUsuarioYFinca(),
       },
     );
   }

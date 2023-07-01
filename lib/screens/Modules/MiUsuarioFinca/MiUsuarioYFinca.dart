@@ -1,14 +1,13 @@
 import 'dart:ui';
 import 'package:BovinApp/DTO/User.dart';
-import 'package:BovinApp/widgets/TextInputField.dart';
+import 'package:BovinApp/Widgets/Export/Widgets.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'Home1_Drawer.dart';
+import '../../Home/Home.dart';
 
 class MiUsuarioYFinca extends StatefulWidget {
-  final User user;
-  const MiUsuarioYFinca(this.user, {super.key});
+  const MiUsuarioYFinca({super.key});
   @override
   MiUsuarioYFincaApp createState() => MiUsuarioYFincaApp();
 }
@@ -18,7 +17,6 @@ class MiUsuarioYFincaApp extends State<MiUsuarioYFinca> {
   TextEditingController nombre = TextEditingController();
   TextEditingController ubicacion = TextEditingController();
   TextEditingController area = TextEditingController();
-
   TextEditingController medida = TextEditingController();
   final db = FirebaseFirestore.instance;
   // ignore: prefer_typing_uninitialized_variables
@@ -30,7 +28,8 @@ class MiUsuarioYFincaApp extends State<MiUsuarioYFinca> {
 
       if (usuarios.docs.isNotEmpty) {
         for (var cursor in usuarios.docs) {
-          if (cursor.get('EmailUsuario') == widget.user.email) {
+          if (cursor.get('EmailUsuario') == 'widget.user.email') {
+            //Corregir
             documento = (cursor.id).toString();
           }
         }
@@ -124,7 +123,7 @@ class MiUsuarioYFincaApp extends State<MiUsuarioYFinca> {
                           ),
                         ),
                         Text(
-                          (widget.user.email),
+                          ('widget.user.email'), //Corregir
                           style: const TextStyle(
                             fontSize: 26,
                           ),
@@ -161,7 +160,7 @@ class MiUsuarioYFincaApp extends State<MiUsuarioYFinca> {
                           ),
                         ),
                         Text(
-                          widget.user.finca,
+                          'widget.user.finca', //Corregir
                           style: const TextStyle(
                             fontSize: 23,
                           ),
@@ -234,7 +233,7 @@ class MiUsuarioYFincaApp extends State<MiUsuarioYFinca> {
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                      builder: (_) => Home1(widget.user)));
+                                      builder: (_) => const Home()));
                             },
                             child: const Text(
                               'Actualizar y Guardar',

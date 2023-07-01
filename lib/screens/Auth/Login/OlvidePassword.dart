@@ -5,11 +5,9 @@ import 'dart:math';
 
 import 'package:BovinApp/DTO/Services/EmailService.dart';
 import 'package:BovinApp/DTO/User.dart';
-import 'package:BovinApp/Screens/Auth/Login/Background.dart';
-import 'package:BovinApp/Screens/Auth/Register/ConfirmacionCuentaPage.dart';
-import 'package:BovinApp/Widgets/DialogUnBoton.dart';
-import 'package:BovinApp/Widgets/PasswordInput.dart';
-import 'package:BovinApp/Widgets/TextInputField.dart';
+import 'package:BovinApp/Design/Background.dart';
+import 'package:BovinApp/Screens/Auth/Register/ConfirmacionCuenta.dart';
+import 'package:BovinApp/Widgets/Export/Widgets.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:crypto/crypto.dart';
 import 'package:flutter/material.dart';
@@ -62,7 +60,7 @@ class _OlvidePasswordState extends State<OlvidePassword> {
         password.clear();
         confirmacion.clear();
         Navigator.push(context,
-            MaterialPageRoute(builder: (_) => ConfirmacionCuentaPage(objUser)));
+            MaterialPageRoute(builder: (_) => ConfirmacionCuenta(objUser)));
       } else {
         await DialogUnBoton.alert(context, 'Error',
             'El correo electrónico ingresado no esta registrado en BovinApp');

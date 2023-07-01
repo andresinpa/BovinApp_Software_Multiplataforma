@@ -1,11 +1,8 @@
 // ignore_for_file: deprecated_member_use, avoid_print, use_build_context_synchronously
 import 'dart:convert';
-import 'package:BovinApp/DTO/User.dart';
-import 'package:BovinApp/Screens/Auth/Login/Background.dart';
-import 'package:BovinApp/Screens/Home/Home1_Drawer.dart';
-import 'package:BovinApp/Widgets/DialogUnBoton.dart';
-import 'package:BovinApp/Widgets/PasswordInput.dart';
-import 'package:BovinApp/Widgets/TextInputField.dart';
+import 'package:BovinApp/Design/Background.dart';
+import 'package:BovinApp/Screens/Home/Home.dart';
+import 'package:BovinApp/Widgets/Export/Widgets.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:crypto/crypto.dart';
 import 'package:flutter/material.dart';
@@ -21,7 +18,6 @@ class LoginScreenApp extends State<LoginScreen> {
   TextEditingController email = TextEditingController();
   TextEditingController password = TextEditingController();
   bool isHovered = false;
-  User objUser = User();
   bool bandera = false;
   String pass = "";
 
@@ -42,26 +38,8 @@ class LoginScreenApp extends State<LoginScreen> {
         }
       }
       if (bandera == true) {
-        await showDialog(
-          context: context,
-          builder: (buildcontext) {
-            return AlertDialog(
-              title: const Text('Acceso aceptado'),
-              content: const Text('¡Bienvenido a BovinApp!'),
-              actions: <Widget>[
-                ElevatedButton(
-                  onPressed: () {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (_) => Home1(objUser)));
-                  },
-                  child: const Text(
-                    'Aceptar',
-                  ),
-                )
-              ],
-            );
-          },
-        );
+        DialogUnBoton.alert(
+            context, 'Acceso aceptado', '¡Bienvenido a BovinApp!');
       } else {
         await DialogUnBoton.alert(context, 'Error',
             '¡Los datos ingresados podrían no ser correctos, reintente de nuevo!');
@@ -144,6 +122,8 @@ class LoginScreenApp extends State<LoginScreen> {
                       pass = (sha256.convert(utf8.encode(password.text)))
                           .toString();
                       validarDatos();
+                      await Navigator.push(context,
+                          MaterialPageRoute(builder: (_) => const Home()));
                     },
                     style: ElevatedButton.styleFrom(
                       shape: RoundedRectangleBorder(
