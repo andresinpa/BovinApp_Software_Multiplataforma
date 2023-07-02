@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 
-class TextInputFieldOtros extends StatelessWidget {
-  const TextInputFieldOtros({
+class TextInputFieldWidth extends StatelessWidget {
+  const TextInputFieldWidth({
     Key? key,
+    required this.controler,
     required this.icon,
     required this.hint,
     required this.inputType,
@@ -10,6 +11,7 @@ class TextInputFieldOtros extends StatelessWidget {
     required this.widthContainer,
   }) : super(key: key);
 
+  final TextEditingController controler;
   final IconData icon;
   final String hint;
   final TextInputType inputType;
@@ -23,15 +25,14 @@ class TextInputFieldOtros extends StatelessWidget {
       padding: const EdgeInsets.symmetric(vertical: 10.0),
       child: SizedBox(
         height: size.height * 0.08,
-        //width: size.width * 0.8,
         width: size.width * widthContainer,
-        child: Padding(
-          padding: const EdgeInsets.all(4.0),
+        child: Center(
           child: TextField(
+            controller: controler,
             decoration: InputDecoration(
               border: InputBorder.none,
               prefixIcon: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 4.0),
+                padding: const EdgeInsets.symmetric(horizontal: 20.0),
                 child: Icon(
                   icon,
                   size: 28,

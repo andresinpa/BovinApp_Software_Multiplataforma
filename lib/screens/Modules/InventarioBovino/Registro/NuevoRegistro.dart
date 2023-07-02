@@ -43,6 +43,11 @@ class NuevoRegistro extends StatefulWidget {
 }
 
 class _NuevoRegistroState extends State<NuevoRegistro> {
+  TextEditingController nombreFinca = TextEditingController();
+  TextEditingController codigoBovino = TextEditingController();
+  TextEditingController nombreBovino = TextEditingController();
+  TextEditingController razaBovino = TextEditingController();
+  TextEditingController categoriaBovino = TextEditingController();
   String dropdownValue = list.first;
   String dropdownValue2 = list2.first;
   @override
@@ -102,33 +107,33 @@ class _NuevoRegistroState extends State<NuevoRegistro> {
                 ),
                 Column(
                   children: [
-                    const TextInputFieldOtros(
+                    TextInputField(
+                      controler: nombreFinca,
                       icon: FontAwesomeIcons.tractor,
                       hint: 'Nombre de la finca',
                       inputType: TextInputType.name,
                       inputAction: TextInputAction.next,
-                      widthContainer: 0.8,
                     ),
-                    const TextInputFieldOtros(
+                    TextInputField(
+                      controler: codigoBovino,
                       icon: FontAwesomeIcons.codeFork,
                       hint: 'Código del bovino',
                       inputType: TextInputType.name,
                       inputAction: TextInputAction.next,
-                      widthContainer: 0.8,
                     ),
-                    const TextInputFieldOtros(
+                    TextInputField(
+                      controler: nombreBovino,
                       icon: FontAwesomeIcons.cow,
                       hint: 'Nombre del bovino',
                       inputType: TextInputType.name,
                       inputAction: TextInputAction.next,
-                      widthContainer: 0.8,
                     ),
-                    const TextInputFieldOtros(
+                    TextInputField(
+                      controler: razaBovino,
                       icon: FontAwesomeIcons.cow,
                       hint: 'Seleccione la Raza',
                       inputType: TextInputType.none,
                       inputAction: TextInputAction.next,
-                      widthContainer: 0.8,
                     ),
                     const SizedBox(
                       width: 10,
@@ -153,12 +158,12 @@ class _NuevoRegistroState extends State<NuevoRegistro> {
                         );
                       }).toList(),
                     ),
-                    const TextInputFieldOtros(
+                    TextInputField(
+                      controler: categoriaBovino,
                       icon: FontAwesomeIcons.shapes,
                       hint: 'Seleccione la categoría',
                       inputType: TextInputType.none,
                       inputAction: TextInputAction.done,
-                      widthContainer: 0.8,
                     ),
                     const SizedBox(
                       width: 10,

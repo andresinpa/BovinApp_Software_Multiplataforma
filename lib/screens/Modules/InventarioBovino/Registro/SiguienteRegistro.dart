@@ -39,6 +39,13 @@ class Siguiente extends StatefulWidget {
 }
 
 class _SiguienteRegistroState extends State<Siguiente> {
+  TextEditingController edadBovino = TextEditingController();
+  TextEditingController ingreso = TextEditingController();
+  TextEditingController codigoMadre = TextEditingController();
+  TextEditingController razaMadre = TextEditingController();
+  TextEditingController codigoPadre = TextEditingController();
+  TextEditingController razaPadre = TextEditingController();
+  TextEditingController lecheDiaria = TextEditingController();
   String dropdownValue = listaEdad.first;
   String dropdownValue2 = listaRazas.first;
   void _showDatePicker() {
@@ -93,7 +100,8 @@ class _SiguienteRegistroState extends State<Siguiente> {
                           const SizedBox(
                             width: 38,
                           ),
-                          const TextInputFieldOtros(
+                          TextInputFieldWidth(
+                            controler: edadBovino,
                             icon: FontAwesomeIcons.cakeCandles,
                             hint: 'Edad',
                             inputType: TextInputType.number,
@@ -134,7 +142,8 @@ class _SiguienteRegistroState extends State<Siguiente> {
                           const SizedBox(
                             width: 38,
                           ),
-                          const TextInputFieldOtros(
+                          TextInputFieldWidth(
+                            controler: ingreso,
                             icon: FontAwesomeIcons.moneyCheckDollar,
                             hint: 'Ingreso a la finca',
                             inputType: TextInputType.none,
@@ -153,19 +162,20 @@ class _SiguienteRegistroState extends State<Siguiente> {
                           ),
                         ],
                       ),
-                      const TextInputFieldOtros(
+                      TextInputField(
+                        controler: codigoMadre,
                         icon: FontAwesomeIcons.key,
                         hint: 'Código de la madre',
                         inputType: TextInputType.number,
                         inputAction: TextInputAction.next,
-                        widthContainer: 0.8,
                       ),
                       Row(
                         children: [
                           const SizedBox(
                             width: 38,
                           ),
-                          const TextInputFieldOtros(
+                          TextInputFieldWidth(
+                            controler: razaMadre,
                             icon: FontAwesomeIcons.cow,
                             hint: 'Raza',
                             inputType: TextInputType.none,
@@ -198,19 +208,20 @@ class _SiguienteRegistroState extends State<Siguiente> {
                           ),
                         ],
                       ),
-                      const TextInputFieldOtros(
+                      TextInputField(
+                        controler: codigoPadre,
                         icon: FontAwesomeIcons.key,
                         hint: 'Código del padre',
                         inputType: TextInputType.number,
                         inputAction: TextInputAction.next,
-                        widthContainer: 0.8,
                       ),
                       Row(
                         children: [
                           const SizedBox(
                             width: 38,
                           ),
-                          const TextInputFieldOtros(
+                          TextInputFieldWidth(
+                            controler: razaPadre,
                             icon: FontAwesomeIcons.cow,
                             hint: 'Raza',
                             inputType: TextInputType.none,
@@ -249,22 +260,23 @@ class _SiguienteRegistroState extends State<Siguiente> {
                         style: TextStyle(fontSize: 20),
                       ),
                       const SizedBox(height: 20),
-                      const Row(
+                      Row(
                         children: [
-                          SizedBox(
+                          const SizedBox(
                             width: 38,
                           ),
-                          TextInputFieldOtros(
+                          TextInputFieldWidth(
+                            controler: lecheDiaria,
                             icon: FontAwesomeIcons.bottleDroplet,
                             hint: 'Leche diaria',
                             inputType: TextInputType.number,
                             inputAction: TextInputAction.next,
                             widthContainer: 0.5,
                           ),
-                          SizedBox(
+                          const SizedBox(
                             width: 40,
                           ),
-                          Text(
+                          const Text(
                             'Litros',
                             style: TextStyle(fontSize: 20),
                           ),

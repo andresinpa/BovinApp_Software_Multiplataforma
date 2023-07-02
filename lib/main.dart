@@ -49,6 +49,7 @@ class MyApp extends StatelessWidget {
         'CrearCuenta': (context) => const CrearCuenta(),
         'NuevoRegistro': (context) => const NuevoRegistro(),
         'SiguienteRegistro': (context) => const SiguienteRegistro(),
+        'Home': (context) => const Home(),
         'InventarioFisico': (context) => const InventarioFisico(),
         'Invitacion': (context) => const Invitacion(),
         'Produccion': (context) => const Produccion(),
