@@ -7,4 +7,4 @@ export '../RoundedButton2.dart';
 export '../DialogDosBotones.dart';
 export '../DialogRetroceder.dart';
 export '../AppBarRetroceder.dart';
-export '../TextFieldDisabled.dart';
+export '../TextInputFieldDisabled.dart';

@@ -13,11 +13,11 @@ class MiUsuarioYFinca extends StatefulWidget {
 }
 
 class MiUsuarioYFincaApp extends State<MiUsuarioYFinca> {
-  TextEditingController usuario = TextEditingController();
   TextEditingController nombre = TextEditingController();
-  TextEditingController ubicacion = TextEditingController();
-  TextEditingController area = TextEditingController();
-  TextEditingController medida = TextEditingController();
+  TextEditingController nombreFinca = TextEditingController();
+  TextEditingController direccionFinca = TextEditingController();
+  TextEditingController areaFinca = TextEditingController();
+  TextEditingController unidadMedida = TextEditingController();
   final db = FirebaseFirestore.instance;
   int currentIndex = 1;
   void onTabSelected(int index) {
@@ -43,9 +43,10 @@ class MiUsuarioYFincaApp extends State<MiUsuarioYFinca> {
         var docRef = db.collection("Usuarios").doc(documento);
         docRef.update({
           "NombreUsuario": nombre.text,
-          "Usuario": usuario.text,
-          "Ubicacion": ubicacion.text,
-          "Area": ("${area.text} ${medida.text}"),
+          "FincaUsuario": nombreFinca.text,
+          "DireccionFinca": direccionFinca.text,
+          "AreaFinca": areaFinca.text,
+          "AreaUnidadMedida": unidadMedida.text,
         });
       }
     } catch (e) {
@@ -110,32 +111,16 @@ class MiUsuarioYFincaApp extends State<MiUsuarioYFinca> {
             ),
             Column(
               children: [
-                const Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      'Correo electronico:   ',
-                      style: TextStyle(
-                        fontSize: 26,
-                      ),
-                    ),
-                    Text(
-                      ('widget.user.email'), //Corregir
-                      style: TextStyle(
-                        fontSize: 26,
-                      ),
-                    ),
-                  ],
+                const TextInputFieldDisabled(
+                  icon: FontAwesomeIcons.circleUser,
+                  hint: 'Correo electrónico',
                 ),
                 const SizedBox(
                   height: 25,
                 ),
-                TextInputField(
+                const TextInputFieldDisabled(
                   icon: FontAwesomeIcons.circleUser,
                   hint: 'Usuario',
-                  inputType: TextInputType.name,
-                  inputAction: TextInputAction.next,
-                  controler: usuario,
                 ),
                 TextInputField(
                   icon: FontAwesomeIcons.envelope,
@@ -147,32 +132,22 @@ class MiUsuarioYFincaApp extends State<MiUsuarioYFinca> {
                 const SizedBox(
                   height: 15,
                 ),
-                const Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      'Nombre de la finca:   ',
-                      style: TextStyle(
-                        fontSize: 23,
-                      ),
-                    ),
-                    Text(
-                      'widget.user.finca', //Corregir
-                      style: TextStyle(
-                        fontSize: 23,
-                      ),
-                    ),
-                  ],
+                TextInputField(
+                  icon: FontAwesomeIcons.locationArrow,
+                  hint: 'Nombre de la Finca',
+                  inputType: TextInputType.name,
+                  inputAction: TextInputAction.next,
+                  controler: nombreFinca,
                 ),
                 const SizedBox(
                   height: 15,
                 ),
                 TextInputField(
                   icon: FontAwesomeIcons.locationArrow,
-                  hint: 'Ubicación de la finca',
+                  hint: 'Dirección de la finca',
                   inputType: TextInputType.name,
                   inputAction: TextInputAction.next,
-                  controler: ubicacion,
+                  controler: direccionFinca,
                 ),
                 Column(
                   children: [
@@ -181,7 +156,7 @@ class MiUsuarioYFincaApp extends State<MiUsuarioYFinca> {
                       hint: 'Mi finca tiene un área de:',
                       inputType: TextInputType.name,
                       inputAction: TextInputAction.done,
-                      controler: area,
+                      controler: areaFinca,
                     ),
                     const SizedBox(
                       height: 15,
@@ -203,7 +178,7 @@ class MiUsuarioYFincaApp extends State<MiUsuarioYFinca> {
 
                         //})
                         // ignore: avoid_print
-                        medida.text = value.toString()
+                        unidadMedida.text = value.toString()
                       },
                       hint: Text(
                         vista,
