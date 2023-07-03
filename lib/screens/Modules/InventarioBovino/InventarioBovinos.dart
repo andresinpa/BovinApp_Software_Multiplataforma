@@ -1,188 +1,43 @@
+import 'package:BovinApp/Design/BackgroundBottom.dart';
+import 'package:BovinApp/Screens/Modules/InventarioBovino/GridDashboard.dart';
+import 'package:BovinApp/Widgets/BottomBar.dart';
+import 'package:BovinApp/Widgets/Export/Widgets.dart';
 import 'package:flutter/material.dart';
 
-class InventarioBovinos extends StatelessWidget {
+class InventarioBovinos extends StatefulWidget {
   const InventarioBovinos({super.key});
   @override
+  InventarioBovinosApp createState() => InventarioBovinosApp();
+}
+
+class InventarioBovinosApp extends State<InventarioBovinos> {
+  int currentIndex = 1;
+  void onTabSelected(int index) {
+    setState(() {
+      currentIndex = index;
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: [
-        Container(
-          decoration: const BoxDecoration(),
-        ),
-        Scaffold(
-          body: Padding(
-            padding: const EdgeInsets.only(top: 25),
-            child: GridView.count(
-              crossAxisCount: 2,
-              children: <Widget>[
-                ///////////////////////////////////////////////////////////////////////////
-                Column(
-                  children: <Widget>[
-                    Container(
-                      padding: const EdgeInsets.all(5.0),
-                      height: 150,
-                      width: 150,
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(16)),
-                      child: GestureDetector(
-                        onTap: () =>
-                            Navigator.pushNamed(context, 'ConsultaVacas'),
-                        child: Image.asset(
-                            'assets/images/inventariobovino/bovino1.png',
-                            fit: BoxFit.cover),
-                      ),
-                    ),
-                    const Padding(
-                      padding: EdgeInsets.symmetric(vertical: 2),
-                      child: Text(
-                        'Vacas',
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold, fontSize: 18),
-                      ),
-                    ),
-                  ],
-                ),
-                ////////////////////////////////////////////////////////////////////////////////////
-                Column(
-                  children: <Widget>[
-                    Container(
-                      padding: const EdgeInsets.all(5.0),
-                      height: 150,
-                      width: 150,
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(16)),
-                      child: GestureDetector(
-                        onTap: () =>
-                            Navigator.pushNamed(context, 'ConsultaToros'),
-                        child: Image.asset(
-                            'assets/images/inventariobovino/bovino2.png',
-                            fit: BoxFit.cover),
-                      ),
-                    ),
-                    const Padding(
-                      padding: EdgeInsets.symmetric(vertical: 2),
-                      child: Text(
-                        'Toros',
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold, fontSize: 18),
-                      ),
-                    ),
-                  ],
-                ),
-                ////////////////////////////////////////////////////////////////////////////////////
-                Column(
-                  children: <Widget>[
-                    Container(
-                      padding: const EdgeInsets.all(5.0),
-                      height: 150,
-                      width: 150,
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(16)),
-                      child: GestureDetector(
-                        onTap: () =>
-                            Navigator.pushNamed(context, 'ConsultaTerneros'),
-                        child: Image.asset(
-                            'assets/images/inventariobovino/bovino3.png',
-                            fit: BoxFit.cover),
-                      ),
-                    ),
-                    const Padding(
-                      padding: EdgeInsets.symmetric(vertical: 2),
-                      child: Text(
-                        'Terneros',
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold, fontSize: 18),
-                      ),
-                    ),
-                  ],
-                ),
-                ////////////////////////////////////////////////////////////////////////////////////
-                Column(
-                  children: <Widget>[
-                    Container(
-                      padding: const EdgeInsets.all(5.0),
-                      height: 150,
-                      width: 150,
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(16)),
-                      child: GestureDetector(
-                        onTap: () =>
-                            Navigator.pushNamed(context, 'ConsultaNovillas'),
-                        child: Image.asset(
-                            'assets/images/inventariobovino/bovino4.png',
-                            fit: BoxFit.cover),
-                      ),
-                    ),
-                    const Padding(
-                      padding: EdgeInsets.symmetric(vertical: 2),
-                      child: Text(
-                        'Novillas',
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold, fontSize: 18),
-                      ),
-                    ),
-                  ],
-                ),
-                ////////////////////////////////////////////////////////////////////////////////////
-                Column(
-                  children: <Widget>[
-                    Container(
-                      padding: const EdgeInsets.all(5.0),
-                      height: 150,
-                      width: 150,
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(16)),
-                      child: GestureDetector(
-                        onTap: () =>
-                            Navigator.pushNamed(context, 'ConsultaBueyes'),
-                        child: Image.asset(
-                            'assets/images/inventariobovino/bovino5.png',
-                            fit: BoxFit.cover),
-                      ),
-                    ),
-                    const Padding(
-                      padding: EdgeInsets.symmetric(vertical: 2),
-                      child: Text(
-                        'Bueyes',
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold, fontSize: 18),
-                      ),
-                    ),
-                  ],
-                ),
-                ////////////////////////////////////////////////////////////////////////////////////
-                Column(
-                  children: <Widget>[
-                    Container(
-                      padding: const EdgeInsets.all(5.0),
-                      height: 150,
-                      width: 150,
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(16)),
-                      child: GestureDetector(
-                        onTap: () =>
-                            Navigator.pushNamed(context, 'NuevoRegistro'),
-                        child: Image.asset(
-                            'assets/images/inventariobovino/bovino6.png',
-                            fit: BoxFit.cover),
-                      ),
-                    ),
-                    const Padding(
-                      padding: EdgeInsets.symmetric(vertical: 2),
-                      child: Text(
-                        'Nuevo Registro',
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold, fontSize: 18),
-                      ),
-                    ),
-                  ],
-                ),
-                ////////////////////////////////////////////////////////////////////////////////////
-              ],
-            ),
+    Size size = MediaQuery.of(context).size;
+    return Scaffold(
+      resizeToAvoidBottomInset: true,
+      appBar: const AppBarRetroceder(title: 'Inventario Bovino'),
+      body: SingleChildScrollView(
+        child: BackgroundBotttom(
+          height: size.height * 0.935,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              SizedBox(height: size.height * 0.1),
+              const GridInvBovino(),
+            ],
           ),
-        )
-      ],
+        ),
+      ),
+      bottomNavigationBar:
+          BottomBar(initialIndex: currentIndex, onTabSelected: onTabSelected),
     );
   }
 }

@@ -1,9 +1,11 @@
+import 'dart:io';
 import 'dart:ui';
 import 'package:BovinApp/Widgets/BottomBar.dart';
 import 'package:BovinApp/Widgets/Export/Widgets.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:image_picker/image_picker.dart';
 import '../../Home/Home.dart';
 
 class MiUsuarioYFinca extends StatefulWidget {
@@ -58,8 +60,17 @@ class MiUsuarioYFincaApp extends State<MiUsuarioYFinca> {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    var lista = ['metros cuadrados', 'fanegadas'];
-    String vista = 'selecciona una opción';
+    var lista = ['Metros cuadrados', 'Fanegadas'];
+    String vista = 'Unidad de medida';
+
+    final ImagePicker _imagePicker = ImagePicker();
+    File? _pickedImage;
+    Future<void> _pickImage(ImageSource source) async {
+      final pickedImage = await _imagePicker.pickImage(source: source);
+      setState(() {
+        _pickedImage = pickedImage != null ? File(pickedImage.path) : null;
+      });
+    }
 
     return Scaffold(
       resizeToAvoidBottomInset: true,
@@ -70,41 +81,37 @@ class MiUsuarioYFincaApp extends State<MiUsuarioYFinca> {
             SizedBox(
               height: size.width * 0.1,
             ),
-            Stack(
-              children: [
-                Center(
-                  child: ClipOval(
-                    child: BackdropFilter(
-                      filter: ImageFilter.blur(
-                        sigmaX: 4,
-                        sigmaY: 4,
-                      ),
-                      child: CircleAvatar(
-                        radius: size.width * 0.15,
-                        child:
-                            Icon(FontAwesomeIcons.user, size: size.width * 0.1),
-                      ),
-                    ),
-                  ),
+            Container(
+              decoration: BoxDecoration(
+                color: const Color(0xffe3ffff),
+                shape: BoxShape.circle,
+                border: Border.all(width: 2, color: const Color(0xff7081cb)),
+              ),
+              child: ClipOval(
+                child: SizedBox(
+                  width: 142,
+                  height: 142,
+                  child: _pickedImage != null
+                      ? Image.file(
+                          _pickedImage!,
+                          fit: BoxFit.cover,
+                        )
+                      : const Icon(Icons.person, size: 75),
                 ),
-                Positioned(
-                  top: size.height * 0.08,
-                  left: size.width * 0.56,
-                  child: Container(
-                    height: size.width * 0.1,
-                    width: size.width * 0.1,
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      border: Border.all(
-                        width: 1,
-                      ),
-                    ),
-                    child: const Icon(
-                      FontAwesomeIcons.arrowUp,
-                    ),
-                  ),
-                ),
-              ],
+              ),
+            ),
+            const SizedBox(height: 20),
+            OutlinedButton.icon(
+              onPressed: () => _pickImage(ImageSource.gallery),
+              icon: const Icon(Icons.image),
+              label: const Text(
+                'Actualizar foto',
+                style: TextStyle(fontWeight: FontWeight.bold),
+              ),
+              style: ButtonStyle(
+                iconColor:
+                    MaterialStateProperty.all<Color>(const Color(0xfff16437)),
+              ),
             ),
             SizedBox(
               height: size.width * 0.1,
@@ -112,35 +119,38 @@ class MiUsuarioYFincaApp extends State<MiUsuarioYFinca> {
             Column(
               children: [
                 const TextInputFieldDisabled(
-                  icon: FontAwesomeIcons.circleUser,
+                  icon: Icons.email_rounded,
                   hint: 'Correo electrónico',
                 ),
-                const SizedBox(
-                  height: 25,
+                SizedBox(
+                  height: size.width * 0.008,
                 ),
                 const TextInputFieldDisabled(
                   icon: FontAwesomeIcons.circleUser,
                   hint: 'Usuario',
                 ),
+                SizedBox(
+                  height: size.width * 0.008,
+                ),
                 TextInputField(
-                  icon: FontAwesomeIcons.envelope,
+                  icon: Icons.man_2_rounded,
                   hint: 'Nombre',
                   inputType: TextInputType.emailAddress,
                   inputAction: TextInputAction.next,
                   controler: nombre,
                 ),
-                const SizedBox(
-                  height: 15,
+                SizedBox(
+                  height: size.width * 0.008,
                 ),
                 TextInputField(
-                  icon: FontAwesomeIcons.locationArrow,
+                  icon: FontAwesomeIcons.houseChimney,
                   hint: 'Nombre de la Finca',
                   inputType: TextInputType.name,
                   inputAction: TextInputAction.next,
                   controler: nombreFinca,
                 ),
-                const SizedBox(
-                  height: 15,
+                SizedBox(
+                  height: size.width * 0.008,
                 ),
                 TextInputField(
                   icon: FontAwesomeIcons.locationArrow,
@@ -149,26 +159,29 @@ class MiUsuarioYFincaApp extends State<MiUsuarioYFinca> {
                   inputAction: TextInputAction.next,
                   controler: direccionFinca,
                 ),
+                SizedBox(
+                  height: size.width * 0.008,
+                ),
                 Column(
                   children: [
                     TextInputField(
-                      icon: FontAwesomeIcons.rectangleXmark,
+                      icon: FontAwesomeIcons.chartArea,
                       hint: 'Mi finca tiene un área de:',
                       inputType: TextInputType.name,
                       inputAction: TextInputAction.done,
                       controler: areaFinca,
                     ),
-                    const SizedBox(
-                      height: 15,
+                    SizedBox(
+                      height: size.width * 0.008,
                     ),
                     DropdownButton(
-                      items: lista.map((String a) {
+                      items: lista.map((String valor) {
                         return DropdownMenuItem(
-                            value: a,
+                            value: valor,
                             child: Text(
-                              a,
+                              valor,
                               style: const TextStyle(
-                                fontSize: 28,
+                                fontSize: 16,
                               ),
                             ));
                       }).toList(),
@@ -183,36 +196,39 @@ class MiUsuarioYFincaApp extends State<MiUsuarioYFinca> {
                       hint: Text(
                         vista,
                         style: const TextStyle(
-                          fontSize: 28,
+                          fontSize: 16,
                         ),
                       ),
                     )
                   ],
                 ),
-                const SizedBox(
-                  height: 15,
+                SizedBox(
+                  height: size.width * 0.1,
                 ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Container(
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(16),
-                      ),
-                      child: TextButton(
-                        onPressed: () async {
-                          insertarDatos();
-                          Navigator.push(context,
-                              MaterialPageRoute(builder: (_) => const Home()));
-                        },
-                        child: const Text(
-                          'Actualizar y Guardar',
-                        ),
-                      ),
+                Center(
+                  child: ElevatedButton(
+                    onPressed: () async {
+                      insertarDatos();
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (_) => const Home()));
+                    },
+                    style: ElevatedButton.styleFrom(
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(20.0)),
+                      padding: const EdgeInsets.all(0),
+                      minimumSize: Size(size.width * 0.6, 60.0),
+                      elevation: 2,
                     ),
-                  ],
+                    child: const Text(
+                      'Actualizar y Guardar',
+                      style:
+                          TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                    ),
+                  ),
                 ),
-                const SizedBox(height: 20),
+                SizedBox(
+                  height: size.width * 0.1,
+                ),
               ],
             ),
           ],

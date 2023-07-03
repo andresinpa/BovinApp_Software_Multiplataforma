@@ -2,10 +2,11 @@ import 'package:flutter/material.dart';
 
 class BackgroundBotttom extends StatelessWidget {
   final Widget child;
-
+  final double height;
   const BackgroundBotttom({
     Key? key,
     required this.child,
+    required this.height,
   }) : super(key: key);
 
   @override
@@ -14,7 +15,7 @@ class BackgroundBotttom extends StatelessWidget {
     if (size.width <= 414) {
       return SizedBox(
         width: double.infinity,
-        height: size.height * 0.935,
+        height: height,
         child: Stack(
           alignment: Alignment.center,
           children: <Widget>[

@@ -49,6 +49,7 @@ class HomeApp extends State<Home> {
       ),
       body: SingleChildScrollView(
         child: BackgroundBotttom(
+          height: size.height * 0.935,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
