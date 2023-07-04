@@ -46,7 +46,7 @@ class _GridInvBovinoState extends State<GridInvBovino> {
         title: 'Nuevo Registro',
         img: 'assets/images/inventariobovino/bovino6.png',
         onPressed: () {
-          Navigator.pushNamed(context, 'RazasBovinosUbate');
+          Navigator.pushNamed(context, 'NuevoRegistro');
         });
 
     List<Items> myList = [item1, item2, item3, item4, item5, item6];
