@@ -26,15 +26,7 @@ class Registro extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
-        appBar: AppBar(title: const Text('BovinApp')),
-        body: const Padding(
-          padding: EdgeInsets.only(left: 8.0),
-          child: NuevoRegistro(),
-        ),
-      ),
-    );
+    return const NuevoRegistro();
   }
 }
 
@@ -147,23 +139,39 @@ class _NuevoRegistroState extends State<NuevoRegistro> {
                     inputAction: TextInputAction.next,
                   ),
                   SizedBox(
-                    height: size.width * 0.008,
+                    height: size.width * 0.05,
                   ),
                   Column(
                     children: [
-                      TextInputField(
-                        controler: razaBovino,
-                        icon: FontAwesomeIcons.cow,
-                        hint: 'Seleccione la Raza',
-                        inputType: TextInputType.none,
-                        inputAction: TextInputAction.next,
+                      const Align(
+                        alignment: Alignment.center,
+                        child: Center(
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Icon(FontAwesomeIcons
+                                  .certificate), // Icono deseado
+                              SizedBox(
+                                  width:
+                                      10), // Espacio entre el icono y el texto
+                              Text(
+                                'Seleccione la Raza',
+                                style: TextStyle(
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.black54),
+                              ),
+                            ],
+                          ),
+                        ),
                       ),
                       SizedBox(
-                        height: size.width * 0.008,
+                        height: size.width * 0.05,
                       ),
                       DropdownButton<String>(
                         value: dropdownValue,
-                        icon: const Icon(Icons.arrow_downward),
+                        icon: const Icon(Icons.arrow_downward,
+                            color: Color(0xfff16437)),
                         elevation: 16,
                         underline: Container(
                           height: 2,
@@ -182,19 +190,37 @@ class _NuevoRegistroState extends State<NuevoRegistro> {
                           );
                         }).toList(),
                       ),
-                      TextInputField(
-                        controler: categoriaBovino,
-                        icon: FontAwesomeIcons.shapes,
-                        hint: 'Seleccione la categoría',
-                        inputType: TextInputType.none,
-                        inputAction: TextInputAction.done,
+                      SizedBox(
+                        height: size.width * 0.05,
                       ),
-                      const SizedBox(
-                        width: 10,
+                      const Align(
+                        alignment: Alignment.center,
+                        child: Center(
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Icon(FontAwesomeIcons.shapes), // Icono deseado
+                              SizedBox(
+                                  width:
+                                      10), // Espacio entre el icono y el texto
+                              Text(
+                                'Seleccione la categoría',
+                                style: TextStyle(
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.black54),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        height: size.width * 0.05,
                       ),
                       DropdownButton<String>(
                         value: dropdownValue2,
-                        icon: const Icon(Icons.arrow_downward),
+                        icon: const Icon(Icons.arrow_downward,
+                            color: Color(0xfff16437)),
                         elevation: 16,
                         underline: Container(
                           height: 2,

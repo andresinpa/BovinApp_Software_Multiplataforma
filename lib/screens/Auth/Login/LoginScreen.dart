@@ -38,8 +38,29 @@ class LoginScreenApp extends State<LoginScreen> {
         }
       }
       if (bandera == true) {
-        DialogUnBoton.alert(
-            context, 'Acceso aceptado', '¡Bienvenido a BovinApp!');
+        showDialog(
+          context: context,
+          barrierDismissible: false,
+          builder: (context) => AlertDialog(
+            title: const Text('Acceso aceptado'),
+            content: const Text('¡Bienvenido a BovinApp!'),
+            actions: [
+              ElevatedButton(
+                onPressed: () {
+                  Navigator.pop(context); // Cerrar el diálogo
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (_) =>
+                          const Home(), // Reemplaza 'OtraPagina' con el nombre de la página a la que deseas redirigir
+                    ),
+                  );
+                },
+                child: const Text('Aceptar'),
+              ),
+            ],
+          ),
+        );
       } else {
         await DialogUnBoton.alert(context, 'Error',
             '¡Los datos ingresados podrían no ser correctos, reintente de nuevo!');
@@ -122,8 +143,6 @@ class LoginScreenApp extends State<LoginScreen> {
                       pass = (sha256.convert(utf8.encode(password.text)))
                           .toString();
                       validarDatos();
-                      await Navigator.push(context,
-                          MaterialPageRoute(builder: (_) => const Home()));
                     },
                     style: ElevatedButton.styleFrom(
                       shape: RoundedRectangleBorder(

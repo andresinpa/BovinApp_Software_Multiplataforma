@@ -1,5 +1,5 @@
 import 'package:BovinApp/Design/BackgroundBottom.dart';
-import 'package:BovinApp/Screens/Modules/InventarioBovino/GridDashboard.dart';
+import 'package:BovinApp/Screens/Modules/InventarioBovino/GridInvBovino.dart';
 import 'package:BovinApp/Widgets/BottomBar.dart';
 import 'package:BovinApp/Widgets/Export/Widgets.dart';
 import 'package:flutter/material.dart';
