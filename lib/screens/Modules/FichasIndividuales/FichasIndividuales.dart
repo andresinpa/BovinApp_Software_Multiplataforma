@@ -93,6 +93,7 @@ class _FichasIndividualesState extends State<FichasIndividuales> {
 
                   // ignore: prefer_const_constructors
                   TextInputField(
+                    maxLines: 1,
                     icon: FontAwesomeIcons.magnifyingGlass,
                     hint: 'Buscar',
                     inputType: TextInputType.name,

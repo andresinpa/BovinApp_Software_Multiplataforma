@@ -94,6 +94,7 @@ class LoginScreenApp extends State<LoginScreen> {
                 ),
                 SizedBox(height: size.height * 0.03),
                 TextInputField(
+                  maxLines: 1,
                   icon: FontAwesomeIcons.envelope,
                   hint: 'Correo electrónico',
                   inputType: TextInputType.emailAddress,

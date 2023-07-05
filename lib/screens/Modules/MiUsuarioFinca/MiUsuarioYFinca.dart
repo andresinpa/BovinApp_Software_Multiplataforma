@@ -133,6 +133,7 @@ class MiUsuarioYFincaApp extends State<MiUsuarioYFinca> {
                   height: size.width * 0.008,
                 ),
                 TextInputField(
+                  maxLines: 1,
                   icon: Icons.man_2_rounded,
                   hint: 'Nombre',
                   inputType: TextInputType.emailAddress,
@@ -143,6 +144,7 @@ class MiUsuarioYFincaApp extends State<MiUsuarioYFinca> {
                   height: size.width * 0.008,
                 ),
                 TextInputField(
+                  maxLines: 1,
                   icon: FontAwesomeIcons.houseChimney,
                   hint: 'Nombre de la Finca',
                   inputType: TextInputType.name,
@@ -153,6 +155,7 @@ class MiUsuarioYFincaApp extends State<MiUsuarioYFinca> {
                   height: size.width * 0.008,
                 ),
                 TextInputField(
+                  maxLines: 1,
                   icon: FontAwesomeIcons.locationArrow,
                   hint: 'Dirección de la finca',
                   inputType: TextInputType.name,
@@ -165,6 +168,7 @@ class MiUsuarioYFincaApp extends State<MiUsuarioYFinca> {
                 Column(
                   children: [
                     TextInputField(
+                      maxLines: 1,
                       icon: FontAwesomeIcons.chartArea,
                       hint: 'Mi finca tiene un área de:',
                       inputType: TextInputType.name,

@@ -107,6 +107,7 @@ class ConfirmacionCuentaApp extends State<ConfirmacionCuenta> {
                       // ignore: prefer_const_constructors
                       SizedBox(height: size.height * 0.03),
                       TextInputField(
+                        maxLines: 1,
                         icon: FontAwesomeIcons.cow,
                         hint: 'Código',
                         inputType: const TextInputType.numberWithOptions(

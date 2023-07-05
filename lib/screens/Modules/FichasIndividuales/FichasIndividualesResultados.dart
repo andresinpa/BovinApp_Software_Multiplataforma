@@ -319,6 +319,7 @@ class _FichasIndividualesResultadosState
                       height: 20,
                     ),
                     TextInputField(
+                      maxLines: 1,
                       icon: FontAwesomeIcons.bottleWater,
                       hint: 'Produccion de leche diaria',
                       inputType: TextInputType.number,

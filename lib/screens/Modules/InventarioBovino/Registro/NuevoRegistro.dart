@@ -112,6 +112,7 @@ class _NuevoRegistroState extends State<NuevoRegistro> {
               Column(
                 children: [
                   TextInputField(
+                    maxLines: 1,
                     controler: nombreFinca,
                     icon: FontAwesomeIcons.tractor,
                     hint: 'Nombre de la finca',
@@ -122,6 +123,7 @@ class _NuevoRegistroState extends State<NuevoRegistro> {
                     height: size.width * 0.008,
                   ),
                   TextInputField(
+                    maxLines: 1,
                     controler: codigoBovino,
                     icon: FontAwesomeIcons.codeFork,
                     hint: 'Código del bovino',
@@ -132,6 +134,7 @@ class _NuevoRegistroState extends State<NuevoRegistro> {
                     height: size.width * 0.008,
                   ),
                   TextInputField(
+                    maxLines: 1,
                     controler: nombreBovino,
                     icon: FontAwesomeIcons.cow,
                     hint: 'Nombre del bovino',

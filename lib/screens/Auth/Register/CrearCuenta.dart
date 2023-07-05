@@ -174,6 +174,7 @@ class CrearCuentaApp extends State<CrearCuenta> {
                     height: size.width * 0.1,
                   ),
                   TextInputField(
+                    maxLines: 1,
                     icon: FontAwesomeIcons.user,
                     hint: 'Nombres',
                     inputType: TextInputType.name,
@@ -181,6 +182,7 @@ class CrearCuentaApp extends State<CrearCuenta> {
                     controler: nombre,
                   ),
                   TextInputField(
+                    maxLines: 1,
                     icon: FontAwesomeIcons.userLarge,
                     hint: 'Apellidos',
                     inputType: TextInputType.name,
@@ -188,6 +190,7 @@ class CrearCuentaApp extends State<CrearCuenta> {
                     controler: apellido,
                   ),
                   TextInputField(
+                    maxLines: 1,
                     icon: FontAwesomeIcons.circleUser,
                     hint: 'Usuario',
                     inputType: TextInputType.name,
@@ -195,6 +198,7 @@ class CrearCuentaApp extends State<CrearCuenta> {
                     controler: usuario,
                   ),
                   TextInputField(
+                    maxLines: 1,
                     icon: FontAwesomeIcons.envelope,
                     hint: 'Correo electrónico',
                     inputType: TextInputType.emailAddress,
@@ -202,6 +206,7 @@ class CrearCuentaApp extends State<CrearCuenta> {
                     controler: email,
                   ),
                   TextInputField(
+                    maxLines: 1,
                     icon: FontAwesomeIcons.houseChimney,
                     hint: 'Nombre de su finca',
                     inputType: TextInputType.name,
@@ -209,6 +214,7 @@ class CrearCuentaApp extends State<CrearCuenta> {
                     controler: finca,
                   ),
                   TextInputField(
+                    maxLines: 1,
                     icon: FontAwesomeIcons.arrowUp19,
                     hint: 'Cabezas de ganado',
                     inputType: TextInputType.number,

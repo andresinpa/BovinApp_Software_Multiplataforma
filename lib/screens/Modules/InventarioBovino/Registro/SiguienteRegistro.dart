@@ -161,6 +161,7 @@ class _SiguienteRegistroState extends State<Siguiente> {
                     height: size.width * 0.01,
                   ),
                   TextInputField(
+                    maxLines: 1,
                     controler: codigoMadre,
                     icon: FontAwesomeIcons.key,
                     hint: 'Código de la madre',
@@ -222,6 +223,7 @@ class _SiguienteRegistroState extends State<Siguiente> {
                     height: size.width * 0.01,
                   ),
                   TextInputField(
+                    maxLines: 1,
                     controler: codigoPadre,
                     icon: FontAwesomeIcons.key,
                     hint: 'Código del padre',
