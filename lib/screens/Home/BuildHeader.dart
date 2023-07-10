@@ -1,12 +1,17 @@
 // ignore_for_file: prefer_interpolation_to_compose_strings
 
-import 'package:BovinApp/DTO/User.dart';
+import 'package:BovinApp/DTO/Services/UserProvider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
-Widget buildHeader(BuildContext context, User objUser) {
+Widget buildHeader(BuildContext context) {
   final FirebaseStorage storage = FirebaseStorage.instance;
+  // Obtén la instancia de UserProvider en cualquier pantalla
+  final userProvider = Provider.of<UserProvider>(context, listen: false);
+  // Obtén la instancia de User
+  final objUser = userProvider.user;
   return FutureBuilder<DocumentSnapshot>(
     future: getDataFromFirestore(objUser.usuario),
     builder: (context, snapshot) {
@@ -106,6 +111,5 @@ Future<String> getImageUrl(String imagePath, FirebaseStorage storage) async {
 
   // Obtén la URL del archivo
   String imageUrl = await ref.getDownloadURL();
-  print('la imagen es: ' + imageUrl);
   return imageUrl;
 }

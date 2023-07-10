@@ -1,7 +1,5 @@
 // ignore_for_file: library_private_types_in_public_api
 
-import 'package:BovinApp/DTO/User.dart';
-import 'package:BovinApp/Screens/Screens.dart';
 import 'package:flutter/material.dart';
 
 class BottomBar extends StatefulWidget {
@@ -20,7 +18,6 @@ class BottomBar extends StatefulWidget {
 
 class _BottomBarState extends State<BottomBar> {
   int currentIndex = 0;
-  User objUser = User();
   @override
   void initState() {
     super.initState();
@@ -37,15 +34,7 @@ class _BottomBarState extends State<BottomBar> {
           widget.onTabSelected(index);
           switch (index) {
             case 0:
-              print(objUser.apellido + objUser.usuario);
-              // Navigator.push(
-              //   context,
-              //   MaterialPageRoute(
-              //     builder: (_) => Home(
-              //       objUser: objUser,
-              //     ),
-              //   ),
-              // );
+              Navigator.pushNamed(context, 'Home');
               break;
             case 1:
               break;

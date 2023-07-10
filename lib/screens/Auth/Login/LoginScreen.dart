@@ -1,6 +1,6 @@
 // ignore_for_file: deprecated_member_use, avoid_print, use_build_context_synchronously
 import 'dart:convert';
-import 'package:BovinApp/DTO/User.dart';
+import 'package:BovinApp/DTO/Services/UserProvider.dart';
 import 'package:BovinApp/Design/Background.dart';
 import 'package:BovinApp/Screens/Home/Home.dart';
 import 'package:BovinApp/Widgets/Export/Widgets.dart';
@@ -8,6 +8,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:crypto/crypto.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:provider/provider.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -21,69 +22,72 @@ class LoginScreenApp extends State<LoginScreen> {
   bool isHovered = false;
   bool bandera = false;
   String pass = "";
-  User objUser = User();
-
-  validarDatos() async {
-    try {
-      CollectionReference ref =
-          FirebaseFirestore.instance.collection('Usuarios');
-      QuerySnapshot usuarios = await ref.get();
-      if (usuarios.docs.isNotEmpty) {
-        for (var cursor in usuarios.docs) {
-          if (cursor.get('EmailUsuario') == email.text) {
-            if (cursor.get('PasswordUsuario') == pass) {
-              bandera = true;
-              objUser.email = cursor.get('EmailUsuario');
-              objUser.usuario = cursor.get('Usuario');
-              objUser.nombre = cursor.get('NombreUsuario');
-              objUser.apellido = cursor.get('ApellidosUsuario');
-              objUser.finca = cursor.get('FincaUsuario');
-              objUser.ganado = cursor.get('GanadoUsuario');
-              objUser.password = cursor.get('PasswordUsuario');
-              objUser.imagenLocal = cursor.get('UrlAvatarUsuario');
-              email.clear();
-              password.clear();
-            }
-          }
-        }
-      }
-      if (bandera == true) {
-        showDialog(
-          context: context,
-          barrierDismissible: false,
-          builder: (context) => AlertDialog(
-            title: const Text('Acceso aceptado'),
-            content: const Text('¡Bienvenido a BovinApp!'),
-            actions: [
-              ElevatedButton(
-                onPressed: () {
-                  Navigator.pop(context); // Cerrar el diálogo
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (_) => Home(
-                        objUser: objUser,
-                      ), // Reemplaza 'OtraPagina' con el nombre de la página a la que deseas redirigir
-                    ),
-                  );
-                },
-                child: const Text('Aceptar'),
-              ),
-            ],
-          ),
-        );
-      } else {
-        await DialogUnBoton.alert(context, 'Error',
-            '¡Los datos ingresados podrían no ser correctos, reintente de nuevo!');
-      }
-    } catch (e) {
-      print('Error....$e');
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
+
+    // Obtén la instancia de UserProvider en cualquier pantalla
+    final userProvider = Provider.of<UserProvider>(context, listen: false);
+    // Obtén la instancia de User
+    final objUser = userProvider.user;
+
+    validarDatos() async {
+      try {
+        CollectionReference ref =
+            FirebaseFirestore.instance.collection('Usuarios');
+        QuerySnapshot usuarios = await ref.get();
+        if (usuarios.docs.isNotEmpty) {
+          for (var cursor in usuarios.docs) {
+            if (cursor.get('EmailUsuario') == email.text) {
+              if (cursor.get('PasswordUsuario') == pass) {
+                bandera = true;
+                objUser.email = cursor.get('EmailUsuario');
+                objUser.usuario = cursor.get('Usuario');
+                objUser.nombre = cursor.get('NombreUsuario');
+                objUser.apellido = cursor.get('ApellidosUsuario');
+                objUser.finca = cursor.get('FincaUsuario');
+                objUser.ganado = cursor.get('GanadoUsuario');
+                objUser.password = cursor.get('PasswordUsuario');
+                objUser.imagenLocal = cursor.get('UrlAvatarUsuario');
+                email.clear();
+                password.clear();
+              }
+            }
+          }
+        }
+        if (bandera == true) {
+          showDialog(
+            context: context,
+            barrierDismissible: false,
+            builder: (context) => AlertDialog(
+              title: const Text('Acceso aceptado'),
+              content: const Text('¡Bienvenido a BovinApp!'),
+              actions: [
+                ElevatedButton(
+                  onPressed: () {
+                    Navigator.pop(context); // Cerrar el diálogo
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (_) => const Home(),
+                      ),
+                    );
+                  },
+                  child: const Text('Aceptar'),
+                ),
+              ],
+            ),
+          );
+        } else {
+          await DialogUnBoton.alert(context, 'Error',
+              '¡Los datos ingresados podrían no ser correctos, reintente de nuevo!');
+        }
+      } catch (e) {
+        print('Error....$e');
+      }
+    }
+
     return Scaffold(
       resizeToAvoidBottomInset: true,
       body: SingleChildScrollView(

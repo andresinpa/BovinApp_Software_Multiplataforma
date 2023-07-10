@@ -52,6 +52,7 @@ class MyApp extends StatelessWidget {
         '/': (context) => const LoginScreen(),
         'OlvidePassword': (context) => const OlvidePassword(),
         'CrearCuenta': (context) => const CrearCuenta(),
+        'Home': (context) => const Home(),
         'NuevoRegistro': (context) => const NuevoRegistro(),
         'SiguienteRegistro': (context) => const SiguienteRegistro(),
         'InventarioFisico': (context) => const InventarioFisico(),
