@@ -1,11 +1,13 @@
 import 'dart:convert';
 
 import 'package:BovinApp/DTO/FirebaseOptions.dart';
+import 'package:BovinApp/DTO/Services/UserProvider.dart';
 import 'package:BovinApp/Screens/Screens.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:json_theme/json_theme.dart';
+import 'package:provider/provider.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -29,7 +31,10 @@ void main() async {
     DeviceOrientation.portraitUp,
     DeviceOrientation.portraitDown,
   ]);
-  runApp(MyApp(theme: themeNormal));
+  runApp(ChangeNotifierProvider(
+    create: (context) => UserProvider(),
+    child: MyApp(theme: themeNormal),
+  ));
 }
 
 class MyApp extends StatelessWidget {
