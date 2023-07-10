@@ -213,8 +213,7 @@ class MiUsuarioYFincaApp extends State<MiUsuarioYFinca> {
                   child: ElevatedButton(
                     onPressed: () async {
                       insertarDatos();
-                      Navigator.push(context,
-                          MaterialPageRoute(builder: (_) => const Home()));
+                      //Navigator.push(context,MaterialPageRoute(builder: (_) => const Home()));
                     },
                     style: ElevatedButton.styleFrom(
                       shape: RoundedRectangleBorder(

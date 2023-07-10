@@ -1,3 +1,4 @@
+import 'package:BovinApp/DTO/User.dart';
 import 'package:BovinApp/Design/BackgroundBottom.dart';
 import 'package:BovinApp/Screens/Home/BuildHeader.dart';
 import 'package:BovinApp/Screens/Home/DrawerItems.dart';
@@ -6,7 +7,8 @@ import 'package:BovinApp/Widgets/DialogDosBotones.dart';
 import 'package:flutter/material.dart';
 
 class Home extends StatefulWidget {
-  const Home({super.key});
+  final User objUser;
+  const Home({super.key, required this.objUser});
   @override
   HomeApp createState() => HomeApp();
 }
@@ -22,7 +24,7 @@ class HomeApp extends State<Home> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[
-              buildHeader(context),
+              buildHeader(context, widget.objUser),
               buildMenuItems(context),
             ],
           ),

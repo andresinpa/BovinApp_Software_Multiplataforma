@@ -1,5 +1,6 @@
 // ignore_for_file: deprecated_member_use, avoid_print, use_build_context_synchronously
 import 'dart:convert';
+import 'package:BovinApp/DTO/User.dart';
 import 'package:BovinApp/Design/Background.dart';
 import 'package:BovinApp/Screens/Home/Home.dart';
 import 'package:BovinApp/Widgets/Export/Widgets.dart';
@@ -20,6 +21,7 @@ class LoginScreenApp extends State<LoginScreen> {
   bool isHovered = false;
   bool bandera = false;
   String pass = "";
+  User objUser = User();
 
   validarDatos() async {
     try {
@@ -31,6 +33,14 @@ class LoginScreenApp extends State<LoginScreen> {
           if (cursor.get('EmailUsuario') == email.text) {
             if (cursor.get('PasswordUsuario') == pass) {
               bandera = true;
+              objUser.email = cursor.get('EmailUsuario');
+              objUser.usuario = cursor.get('Usuario');
+              objUser.nombre = cursor.get('NombreUsuario');
+              objUser.apellido = cursor.get('ApellidosUsuario');
+              objUser.finca = cursor.get('FincaUsuario');
+              objUser.ganado = cursor.get('GanadoUsuario');
+              objUser.password = cursor.get('PasswordUsuario');
+              objUser.imagenLocal = cursor.get('UrlAvatarUsuario');
               email.clear();
               password.clear();
             }
@@ -51,8 +61,9 @@ class LoginScreenApp extends State<LoginScreen> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (_) =>
-                          const Home(), // Reemplaza 'OtraPagina' con el nombre de la página a la que deseas redirigir
+                      builder: (_) => Home(
+                        objUser: objUser,
+                      ), // Reemplaza 'OtraPagina' con el nombre de la página a la que deseas redirigir
                     ),
                   );
                 },

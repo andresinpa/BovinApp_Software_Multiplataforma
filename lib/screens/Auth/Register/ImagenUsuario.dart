@@ -6,7 +6,8 @@ import 'package:firebase_storage/firebase_storage.dart';
 final FirebaseStorage storage = FirebaseStorage.instance;
 Future<String> uploadImage(File image, usuario) async {
   print(image.path);
-  Reference ref = storage.ref().child('$usuario').child('Registro');
+  Reference ref =
+      storage.ref().child('BovinApp').child('$usuario').child('Registro');
   final UploadTask uploadTask = ref.putFile(image);
   print(uploadTask);
 
