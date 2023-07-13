@@ -28,24 +28,7 @@ class _BottomBarState extends State<BottomBar> {
   Widget build(BuildContext context) {
     return BottomNavigationBar(
       currentIndex: currentIndex,
-      onTap: (index) {
-        setState(() {
-          currentIndex = index;
-          widget.onTabSelected(index);
-          switch (index) {
-            case 0:
-              Navigator.pushNamed(context, 'Home');
-              break;
-            case 1:
-              break;
-            case 2:
-              Navigator.pushNamed(context, 'MisTareasMetas');
-              break;
-            default:
-              break;
-          }
-        });
-      },
+      onTap: setStateBottom,
       items: const [
         BottomNavigationBarItem(
           icon: Icon(Icons.agriculture_rounded),
@@ -63,5 +46,24 @@ class _BottomBarState extends State<BottomBar> {
         // BottomNavigationBarItem(icon: Icon(Icons.settings)),
       ],
     );
+  }
+
+  void setStateBottom(int index) {
+    setState(() {
+      currentIndex = index;
+      widget.onTabSelected(index);
+      switch (index) {
+        case 0:
+          Navigator.pop(context);
+          break;
+        case 1:
+          break;
+        case 2:
+          Navigator.pushNamed(context, 'MisTareasMetas');
+          break;
+        default:
+          break;
+      }
+    });
   }
 }

@@ -38,9 +38,9 @@ Widget buildMenuItems(BuildContext context) {
             title: const Text('Acerca de'),
             onTap: () {}),
         ListTile(
-            leading: const Icon(Icons.update_rounded),
+            leading: const Icon(Icons.delete_forever),
             iconColor: const Color(0xff1d38ae),
-            title: const Text('Actualizaciones'),
+            title: const Text('Eliminar mi cuenta'),
             onTap: () {}),
         Center(
             child:

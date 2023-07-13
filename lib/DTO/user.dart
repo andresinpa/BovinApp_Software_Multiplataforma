@@ -8,4 +8,8 @@ class User {
   String password = '';
   String codigo = '';
   dynamic imagenLocal = '';
+  String imagenCloudStorage = '';
+  String direccionFinca = '';
+  String areaFinca = '';
+  String areaUnidadMedida = '';
 }

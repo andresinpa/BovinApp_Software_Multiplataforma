@@ -153,17 +153,27 @@ class CrearCuentaApp extends State<CrearCuenta> {
                                 _pickedImage!,
                                 fit: BoxFit.cover,
                               )
-                            : const Icon(Icons.person, size: 75),
+                            : const CircleAvatar(
+                                radius: 65,
+                                backgroundImage: NetworkImage(
+                                    'https://firebasestorage.googleapis.com/v0/b/bovinapp-project.appspot.com/o/BovinApp%2Favatar.png?alt=media&token=aaa46974-ff9d-471d-a10c-87b8d626a2a9'),
+                              ),
                       ),
                     ),
                   ),
                   const SizedBox(height: 20),
                   OutlinedButton.icon(
-                    onPressed: () => _pickImage(ImageSource.gallery),
+                    onPressed: () => {
+                      _pickedImage == null
+                          ? _pickImage(ImageSource.gallery)
+                          : setState(() {
+                              _pickedImage = null;
+                            }),
+                    },
                     icon: const Icon(Icons.image),
-                    label: const Text(
-                      'Añadir foto',
-                      style: TextStyle(fontWeight: FontWeight.bold),
+                    label: Text(
+                      _pickedImage != null ? 'Quitar Foto' : 'Agregar foto',
+                      style: const TextStyle(fontWeight: FontWeight.bold),
                     ),
                     style: ButtonStyle(
                       iconColor: MaterialStateProperty.all<Color>(

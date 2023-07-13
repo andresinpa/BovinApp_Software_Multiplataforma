@@ -8,3 +8,5 @@ export '../DialogDosBotones.dart';
 export '../DialogRetroceder.dart';
 export '../AppBarRetroceder.dart';
 export '../TextInputFieldDisabled.dart';
+export '../DialogAccionOnPressed.dart';
+export '../AppBarSencillo.dart';

@@ -26,7 +26,8 @@ class ConfirmacionCuentaApp extends State<ConfirmacionCuenta> {
           widget.cadena.finca != '' ||
           widget.cadena.ganado != '') {
         if (widget.cadena.imagenLocal == '') {
-          uploaded = '';
+          uploaded =
+              'https://firebasestorage.googleapis.com/v0/b/bovinapp-project.appspot.com/o/BovinApp%2Favatar.png?alt=media&token=aaa46974-ff9d-471d-a10c-87b8d626a2a9';
         } else {
           uploaded = await uploadImage(
               widget.cadena.imagenLocal, widget.cadena.usuario);
@@ -40,8 +41,11 @@ class ConfirmacionCuentaApp extends State<ConfirmacionCuenta> {
           "GanadoUsuario": widget.cadena.ganado,
           "PasswordUsuario": widget.cadena.password,
           "UrlAvatarUsuario": uploaded,
+          "DireccionFinca": widget.cadena.direccionFinca,
+          "AreaFinca": widget.cadena.areaFinca,
+          "AreaUnidadMedida": widget.cadena.areaUnidadMedida,
         });
-
+        widget.cadena.imagenCloudStorage = uploaded;
         await DialogUnBoton.alert(context, 'Solicitud',
             'El codigo ha sido validado, ¡ya puede ingresar a la App!');
       } else {

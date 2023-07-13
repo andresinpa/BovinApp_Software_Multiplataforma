@@ -1,12 +1,14 @@
 import 'dart:io';
-import 'dart:ui';
+import 'package:BovinApp/DTO/Services/UserProvider.dart';
+import 'package:BovinApp/DTO/User.dart';
+import 'package:BovinApp/Screens/Auth/Register/ImagenUsuario.dart';
 import 'package:BovinApp/Widgets/BottomBar.dart';
 import 'package:BovinApp/Widgets/Export/Widgets.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:image_picker/image_picker.dart';
-import '../../Home/Home.dart';
+import 'package:provider/provider.dart';
 
 class MiUsuarioYFinca extends StatefulWidget {
   const MiUsuarioYFinca({super.key});
@@ -16,70 +18,152 @@ class MiUsuarioYFinca extends StatefulWidget {
 
 class MiUsuarioYFincaApp extends State<MiUsuarioYFinca> {
   TextEditingController nombre = TextEditingController();
+  TextEditingController apellidos = TextEditingController();
   TextEditingController nombreFinca = TextEditingController();
   TextEditingController direccionFinca = TextEditingController();
   TextEditingController areaFinca = TextEditingController();
   TextEditingController unidadMedida = TextEditingController();
   final db = FirebaseFirestore.instance;
+  dynamic uploaded = '';
   int currentIndex = 1;
+
+  final ImagePicker _imagePicker = ImagePicker();
+  File? _pickedImage;
+  bool delete = false;
+
+  late User objUser;
+
+  @override
+  void initState() {
+    super.initState();
+    final userProvider = Provider.of<UserProvider>(context, listen: false);
+    objUser = userProvider.user;
+
+    if (objUser.apellido != '') {
+      apellidos.text = objUser.apellido;
+    }
+    if (objUser.areaFinca != '') {
+      areaFinca.text = objUser.areaFinca;
+    }
+    if (objUser.direccionFinca != '') {
+      direccionFinca.text = objUser.direccionFinca;
+    }
+    if (objUser.finca != '') {
+      nombreFinca.text = objUser.finca;
+    }
+    if (objUser.nombre != '') {
+      nombre.text = objUser.nombre;
+    }
+    if (objUser.areaUnidadMedida != '') {
+      unidadMedida.text = objUser.areaUnidadMedida;
+    } else {
+      unidadMedida.text = 'Unidad de medida';
+    }
+    if (objUser.imagenCloudStorage ==
+        'https://firebasestorage.googleapis.com/v0/b/bovinapp-project.appspot.com/o/BovinApp%2Favatar.png?alt=media&token=aaa46974-ff9d-471d-a10c-87b8d626a2a9') {
+      delete = true;
+      uploaded = objUser.imagenCloudStorage;
+    } else {
+      uploaded = objUser.imagenCloudStorage;
+    }
+  }
+
+  Future<void> _pickImage(ImageSource source) async {
+    final pickedImage = await _imagePicker.pickImage(source: source);
+    setState(() {
+      _pickedImage = pickedImage != null ? File(pickedImage.path) : null;
+      if (_pickedImage == null) {
+        delete = false;
+      }
+    });
+  }
+
   void onTabSelected(int index) {
     setState(() {
       currentIndex = index;
     });
   }
 
-  // ignore: prefer_typing_uninitialized_variables
-  var documento;
-  insertarDatos() async {
-    try {
-      CollectionReference ref = db.collection('Usuarios');
-      QuerySnapshot usuarios = await ref.get();
-
-      if (usuarios.docs.isNotEmpty) {
-        for (var cursor in usuarios.docs) {
-          if (cursor.get('EmailUsuario') == 'widget.user.email') {
-            //Corregir
-            documento = (cursor.id).toString();
-          }
-        }
-        var docRef = db.collection("Usuarios").doc(documento);
-        docRef.update({
-          "NombreUsuario": nombre.text,
-          "FincaUsuario": nombreFinca.text,
-          "DireccionFinca": direccionFinca.text,
-          "AreaFinca": areaFinca.text,
-          "AreaUnidadMedida": unidadMedida.text,
-        });
-      }
-    } catch (e) {
-      // ignore: avoid_print
-      print("Error ----->$e");
-    }
-  }
+  var lista = ['Unidad de medida', 'Metros cuadrados', 'Fanegadas'];
 
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    var lista = ['Metros cuadrados', 'Fanegadas'];
-    String vista = 'Unidad de medida';
 
-    final ImagePicker _imagePicker = ImagePicker();
-    File? _pickedImage;
-    Future<void> _pickImage(ImageSource source) async {
-      final pickedImage = await _imagePicker.pickImage(source: source);
-      setState(() {
-        _pickedImage = pickedImage != null ? File(pickedImage.path) : null;
-      });
+    insertarDatos() async {
+      try {
+        if (_pickedImage == null) {
+          objUser.imagenLocal = '';
+        } else {
+          objUser.imagenLocal = _pickedImage;
+        }
+        if (objUser.imagenLocal == '' || objUser.imagenLocal == null) {
+          delete
+              ? uploaded =
+                  'https://firebasestorage.googleapis.com/v0/b/bovinapp-project.appspot.com/o/BovinApp%2Favatar.png?alt=media&token=aaa46974-ff9d-471d-a10c-87b8d626a2a9'
+              : uploaded = objUser.imagenCloudStorage;
+        } else {
+          uploaded = await uploadImage(objUser.imagenLocal, objUser.usuario);
+        }
+        var docRef = db.collection("Usuarios").doc(objUser.usuario);
+        docRef.update({
+          "NombreUsuario": nombre.text,
+          "ApellidosUsuario": apellidos.text,
+          "FincaUsuario": nombreFinca.text,
+          "DireccionFinca": direccionFinca.text,
+          "AreaFinca": areaFinca.text,
+          "AreaUnidadMedida": unidadMedida.text,
+          "UrlAvatarUsuario": uploaded,
+        });
+        objUser.nombre = nombre.text;
+        objUser.apellido = apellidos.text;
+        objUser.finca = nombreFinca.text;
+        objUser.imagenCloudStorage = uploaded;
+        objUser.direccionFinca = direccionFinca.text;
+        objUser.areaFinca = areaFinca.text;
+        objUser.areaUnidadMedida = unidadMedida.text;
+      } catch (e) {
+        // ignore: avoid_print
+        print("Error ----->$e");
+      }
     }
 
     return Scaffold(
       resizeToAvoidBottomInset: true,
-      appBar: const AppBarRetroceder(title: 'Mi Usuario y Finca'),
+      appBar: const AppBarSencillo(title: 'Mi Usuario y Finca'),
       body: SingleChildScrollView(
         child: Column(
           children: [
             SizedBox(
               height: size.width * 0.1,
+            ),
+            OutlinedButton.icon(
+              onPressed: delete
+                  ? null
+                  : () => {
+                        DialogAccionOnPressed.alert(context, 'Alerta',
+                            '¡Al eliminar la foto no se podrá recuperar!', () {
+                          uploaded =
+                              'https://firebasestorage.googleapis.com/v0/b/bovinapp-project.appspot.com/o/BovinApp%2Favatar.png?alt=media&token=aaa46974-ff9d-471d-a10c-87b8d626a2a9';
+                          setState(() {
+                            _pickedImage = null;
+                          });
+                          delete = true;
+                        }),
+                      },
+              icon: const Icon(Icons.delete),
+              label: const Text(
+                'Eliminar foto',
+                style: TextStyle(fontWeight: FontWeight.bold),
+              ),
+              style: ButtonStyle(
+                iconColor: MaterialStateProperty.all<Color>(delete
+                    ? Colors.blueGrey
+                    : const Color.fromARGB(255, 179, 14, 14)),
+              ),
+            ),
+            SizedBox(
+              height: size.width * 0.03,
             ),
             Container(
               decoration: BoxDecoration(
@@ -96,17 +180,38 @@ class MiUsuarioYFincaApp extends State<MiUsuarioYFinca> {
                           _pickedImage!,
                           fit: BoxFit.cover,
                         )
-                      : const Icon(Icons.person, size: 75),
+                      : CircleAvatar(
+                          radius: 65,
+                          backgroundImage: NetworkImage(
+                              delete ? uploaded : objUser.imagenCloudStorage),
+                        ),
                 ),
               ),
             ),
             const SizedBox(height: 20),
             OutlinedButton.icon(
-              onPressed: () => _pickImage(ImageSource.gallery),
+              onPressed: () => {
+                if (_pickedImage == null)
+                  {
+                    _pickImage(ImageSource.gallery),
+                    delete = true,
+                  }
+                else
+                  {
+                    setState(() {
+                      _pickedImage = null;
+                      delete = false;
+                      if (objUser.imagenCloudStorage ==
+                          'https://firebasestorage.googleapis.com/v0/b/bovinapp-project.appspot.com/o/BovinApp%2Favatar.png?alt=media&token=aaa46974-ff9d-471d-a10c-87b8d626a2a9') {
+                        delete = true;
+                      }
+                    }),
+                  }
+              },
               icon: const Icon(Icons.image),
-              label: const Text(
-                'Actualizar foto',
-                style: TextStyle(fontWeight: FontWeight.bold),
+              label: Text(
+                _pickedImage != null ? 'Mantener mi foto' : 'Actualizar foto',
+                style: const TextStyle(fontWeight: FontWeight.bold),
               ),
               style: ButtonStyle(
                 iconColor:
@@ -114,34 +219,33 @@ class MiUsuarioYFincaApp extends State<MiUsuarioYFinca> {
               ),
             ),
             SizedBox(
-              height: size.width * 0.1,
+              height: size.width * 0.03,
             ),
             Column(
               children: [
-                const TextInputFieldDisabled(
+                TextInputFieldDisabled(
                   icon: Icons.email_rounded,
-                  hint: 'Correo electrónico',
+                  hint: objUser.email,
                 ),
-                SizedBox(
-                  height: size.width * 0.008,
-                ),
-                const TextInputFieldDisabled(
+                TextInputFieldDisabled(
                   icon: FontAwesomeIcons.circleUser,
-                  hint: 'Usuario',
-                ),
-                SizedBox(
-                  height: size.width * 0.008,
+                  hint: objUser.usuario,
                 ),
                 TextInputField(
                   maxLines: 1,
                   icon: Icons.man_2_rounded,
                   hint: 'Nombre',
-                  inputType: TextInputType.emailAddress,
+                  inputType: TextInputType.name,
                   inputAction: TextInputAction.next,
                   controler: nombre,
                 ),
-                SizedBox(
-                  height: size.width * 0.008,
+                TextInputField(
+                  maxLines: 1,
+                  icon: Icons.man_4_rounded,
+                  hint: 'Apellidos',
+                  inputType: TextInputType.name,
+                  inputAction: TextInputAction.next,
+                  controler: apellidos,
                 ),
                 TextInputField(
                   maxLines: 1,
@@ -151,19 +255,13 @@ class MiUsuarioYFincaApp extends State<MiUsuarioYFinca> {
                   inputAction: TextInputAction.next,
                   controler: nombreFinca,
                 ),
-                SizedBox(
-                  height: size.width * 0.008,
-                ),
                 TextInputField(
-                  maxLines: 1,
+                  maxLines: 2,
                   icon: FontAwesomeIcons.locationArrow,
                   hint: 'Dirección de la finca',
                   inputType: TextInputType.name,
                   inputAction: TextInputAction.next,
                   controler: direccionFinca,
-                ),
-                SizedBox(
-                  height: size.width * 0.008,
                 ),
                 Column(
                   children: [
@@ -171,14 +269,12 @@ class MiUsuarioYFincaApp extends State<MiUsuarioYFinca> {
                       maxLines: 1,
                       icon: FontAwesomeIcons.chartArea,
                       hint: 'Mi finca tiene un área de:',
-                      inputType: TextInputType.name,
+                      inputType: TextInputType.number,
                       inputAction: TextInputAction.done,
                       controler: areaFinca,
                     ),
-                    SizedBox(
-                      height: size.width * 0.008,
-                    ),
                     DropdownButton(
+                      value: unidadMedida.text,
                       items: lista.map((String valor) {
                         return DropdownMenuItem(
                             value: valor,
@@ -189,16 +285,13 @@ class MiUsuarioYFincaApp extends State<MiUsuarioYFinca> {
                               ),
                             ));
                       }).toList(),
-                      onChanged: (value) => {
-                        //setState(() {
-                        //vista = value;
-
-                        //})
-                        // ignore: avoid_print
-                        unidadMedida.text = value.toString()
+                      onChanged: (valor) {
+                        setState(() {
+                          unidadMedida.text = valor.toString();
+                        });
                       },
                       hint: Text(
-                        vista,
+                        unidadMedida.text,
                         style: const TextStyle(
                           fontSize: 16,
                         ),
@@ -212,8 +305,47 @@ class MiUsuarioYFincaApp extends State<MiUsuarioYFinca> {
                 Center(
                   child: ElevatedButton(
                     onPressed: () async {
-                      insertarDatos();
-                      //Navigator.push(context,MaterialPageRoute(builder: (_) => const Home()));
+                      if (nombre.text == objUser.nombre &&
+                          apellidos.text == objUser.apellido &&
+                          nombreFinca.text == objUser.finca &&
+                          direccionFinca.text == objUser.direccionFinca &&
+                          areaFinca.text == objUser.areaFinca &&
+                          unidadMedida.text == objUser.areaUnidadMedida) {
+                        DialogDosBotones.alert(
+                            context,
+                            'Error',
+                            'Aún no has hecho cambios para actualizar, ¿deseas salir de esta pestaña?',
+                            'Home');
+                      } else {
+                        if (nombre.text.length < 3) {
+                          DialogUnBoton.alert(context, 'Alerta',
+                              'El campo de nombre debe tener más de dos caracteres');
+                        } else if (apellidos.text.length < 3) {
+                          DialogUnBoton.alert(context, 'Alerta',
+                              'El campo de apellidos debe tener más de dos caracteres');
+                        } else if (nombreFinca.text.isEmpty) {
+                          DialogUnBoton.alert(context, 'Alerta',
+                              'Debe ingresar el nombre de la finca');
+                        } else if (unidadMedida.text == 'Unidad de medida' &&
+                            areaFinca.text.isNotEmpty) {
+                          DialogUnBoton.alert(context, 'Alerta',
+                              'Si agrega un valor para el área de la finca debe asignarle una unidad de medida');
+                        } else if ((areaFinca.text.isEmpty ||
+                                areaFinca.text == '0' ||
+                                areaFinca.text == '0 ') &&
+                            unidadMedida.text != 'Unidad de medida') {
+                          DialogUnBoton.alert(context, 'Alerta',
+                              'Si asigna una unidad de medida debe existir un valor para el área de la finca');
+                        } else {
+                          DialogAccionOnPressed.alert(context, 'Alerta',
+                              '¿Desea guardar todos los cambios realizados?',
+                              () {
+                            insertarDatos();
+                            objUser.imagenLocal = '';
+                            Navigator.pop(context);
+                          });
+                        }
+                      }
                     },
                     style: ElevatedButton.styleFrom(
                       shape: RoundedRectangleBorder(

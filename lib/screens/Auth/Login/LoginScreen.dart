@@ -49,9 +49,13 @@ class LoginScreenApp extends State<LoginScreen> {
                 objUser.finca = cursor.get('FincaUsuario');
                 objUser.ganado = cursor.get('GanadoUsuario');
                 objUser.password = cursor.get('PasswordUsuario');
-                objUser.imagenLocal = cursor.get('UrlAvatarUsuario');
+                objUser.imagenCloudStorage = cursor.get('UrlAvatarUsuario');
+                objUser.areaFinca = cursor.get('AreaFinca');
+                objUser.direccionFinca = cursor.get('DireccionFinca');
+                objUser.areaUnidadMedida = cursor.get('AreaUnidadMedida');
                 email.clear();
                 password.clear();
+                break;
               }
             }
           }
