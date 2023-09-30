@@ -2,7 +2,7 @@
     package="com.example.bovinapp">
     <uses-permission android:name="android.permission.INTERNET"/>
    <application
-        android:label="bovinapp"
+        android:label="BovinApp"
         android:name="${applicationName}"
         android:icon="@mipmap/launcher_icon">
         <activity
