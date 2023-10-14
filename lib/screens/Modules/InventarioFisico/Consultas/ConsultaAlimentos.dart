@@ -1,7 +1,27 @@
+import 'dart:io';
+import 'dart:ui';
+import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:BovinApp/DTO/Services/UserProvider.dart';
+import 'package:BovinApp/DTO/User.dart';
+import 'package:provider/provider.dart';
 
-class ConsultaAlimentos extends StatelessWidget {
+class ConsultaAlimentos extends StatefulWidget {
   const ConsultaAlimentos({super.key});
+  ConsultaAlimentosApp createState() => ConsultaAlimentosApp();
+}
+
+class ConsultaAlimentosApp extends State<ConsultaAlimentos> {
+  final db = FirebaseFirestore.instance;
+  late User objUser;
+
+  @override
+  void initState() {
+    super.initState();
+    final userProvider = Provider.of<UserProvider>(context, listen: false);
+    objUser = userProvider.user;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -13,358 +33,91 @@ class ConsultaAlimentos extends StatelessWidget {
           decoration: const BoxDecoration(),
         ),
         Scaffold(
-          body: SingleChildScrollView(
-            child: Column(
-              children: [
-                SizedBox(
-                  height: size.width * 0.2,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    SizedBox(
-                      width: size.width * 0.4,
-                      child: const Text(
-                        'Bueyes',
-                        style: TextStyle(
-                          fontSize: 35,
-                        ),
-                      ),
-                    ),
+          appBar: AppBar(
+            title: Text('Lista de Documentos'),
+          ),
+          body: StreamBuilder<QuerySnapshot>(
+            stream: db
+                .collection('Usuarios')
+                .doc(objUser.usuario)
+                .collection('InventarioFisico')
+                .snapshots(),
+            builder: (context, snapshot) {
+              // Obtén los documentos de la colección
+              final documentos = snapshot.data?.docs ?? [];
+              // Separa los documentos en dos listas según el valor de "categoria"
+              final categoriaAlimentos = documentos
+                  .where((doc) => doc['ClasificacionProducto'] == 'Alimentos')
+                  .toList();
+              if (categoriaAlimentos.isEmpty) {
+                // Muestra un mensaje si no hay información en la categoría.
+                return Text('No hay información disponible.');
+              } else {
+                return ListView(
+                  children: <Widget>[
+                    _buildCategoria("Alimentos", categoriaAlimentos),
                   ],
-                ),
-                SizedBox(
-                  height: size.width * 0.05,
-                ),
-                Column(
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        SizedBox(
-                          width: size.width * 0.3,
-                          child: const Text(
-                            'Nombre:',
-                            style: TextStyle(
-                              fontSize: 28,
-                            ),
-                          ),
-                        ),
-                        SizedBox(
-                          width: size.width * 0.3,
-                          child: const Text(
-                            'Carlota',
-                            style: TextStyle(
-                              fontSize: 28,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(
-                      height: 25,
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        SizedBox(
-                          width: size.width * 0.3,
-                          child: const Text(
-                            'Código:',
-                            style: TextStyle(
-                              fontSize: 28,
-                            ),
-                          ),
-                        ),
-                        SizedBox(
-                          width: size.width * 0.2,
-                          child: const Text(
-                            '25',
-                            style: TextStyle(
-                              fontSize: 28,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        SizedBox(
-                          width: size.width * 0.3,
-                          child: const Text(
-                            'Raza:',
-                            style: TextStyle(
-                              fontSize: 26,
-                            ),
-                          ),
-                        ),
-                        SizedBox(
-                          width: size.width * 0.3,
-                          child: const Text(
-                            'Normando',
-                            style: TextStyle(
-                              fontSize: 26,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(
-                      height: 25,
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        SizedBox(
-                          width: size.width * 0.3,
-                          child: const Text(
-                            'Edad:',
-                            style: TextStyle(
-                              fontSize: 26,
-                            ),
-                          ),
-                        ),
-                        SizedBox(
-                          width: size.width * 0.2,
-                          child: const Text(
-                            '3 años',
-                            style: TextStyle(
-                              fontSize: 26,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-                const SizedBox(
-                  height: 40,
-                ),
-                Column(
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        SizedBox(
-                          width: size.width * 0.3,
-                          child: const Text(
-                            'Nombre:',
-                            style: TextStyle(
-                              fontSize: 28,
-                            ),
-                          ),
-                        ),
-                        SizedBox(
-                          width: size.width * 0.3,
-                          child: const Text(
-                            'lola',
-                            style: TextStyle(
-                              fontSize: 28,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(
-                      height: 25,
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        SizedBox(
-                          width: size.width * 0.3,
-                          child: const Text(
-                            'Código:',
-                            style: TextStyle(
-                              fontSize: 28,
-                            ),
-                          ),
-                        ),
-                        SizedBox(
-                          width: size.width * 0.2,
-                          child: const Text(
-                            '5',
-                            style: TextStyle(
-                              fontSize: 28,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        SizedBox(
-                          width: size.width * 0.3,
-                          child: const Text(
-                            'Raza:',
-                            style: TextStyle(
-                              fontSize: 26,
-                            ),
-                          ),
-                        ),
-                        SizedBox(
-                          width: size.width * 0.3,
-                          child: const Text(
-                            'Normando',
-                            style: TextStyle(
-                              fontSize: 26,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(
-                      height: 25,
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        SizedBox(
-                          width: size.width * 0.3,
-                          child: const Text(
-                            'Edad:',
-                            style: TextStyle(
-                              fontSize: 26,
-                            ),
-                          ),
-                        ),
-                        SizedBox(
-                          width: size.width * 0.2,
-                          child: const Text(
-                            '1 años',
-                            style: TextStyle(
-                              fontSize: 26,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-                const SizedBox(
-                  height: 40,
-                ),
-                Column(
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        SizedBox(
-                          width: size.width * 0.3,
-                          child: const Text(
-                            'Nombre:',
-                            style: TextStyle(
-                              fontSize: 28,
-                            ),
-                          ),
-                        ),
-                        SizedBox(
-                          width: size.width * 0.3,
-                          child: const Text(
-                            'fyora',
-                            style: TextStyle(
-                              fontSize: 28,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(
-                      height: 25,
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        SizedBox(
-                          width: size.width * 0.3,
-                          child: const Text(
-                            'Código:',
-                            style: TextStyle(
-                              fontSize: 28,
-                            ),
-                          ),
-                        ),
-                        SizedBox(
-                          width: size.width * 0.2,
-                          child: const Text(
-                            '2',
-                            style: TextStyle(
-                              fontSize: 28,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        SizedBox(
-                          width: size.width * 0.3,
-                          child: const Text(
-                            'Raza:',
-                            style: TextStyle(
-                              fontSize: 26,
-                            ),
-                          ),
-                        ),
-                        SizedBox(
-                          width: size.width * 0.3,
-                          child: const Text(
-                            'Jersey',
-                            style: TextStyle(
-                              fontSize: 26,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(
-                      height: 25,
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        SizedBox(
-                          width: size.width * 0.3,
-                          child: const Text(
-                            'Edad:',
-                            style: TextStyle(
-                              fontSize: 26,
-                            ),
-                          ),
-                        ),
-                        SizedBox(
-                          width: size.width * 0.2,
-                          child: const Text(
-                            '5 años',
-                            style: TextStyle(
-                              fontSize: 26,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-                const SizedBox(
-                  height: 40,
-                ),
-                const SizedBox(height: 20),
-              ],
+                );
+              }
+            },
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildCategoria(String title, List<QueryDocumentSnapshot> documentos) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Text(
+            title,
+            style: TextStyle(
+              fontSize: 48,
+              fontWeight: FontWeight.bold,
             ),
           ),
         ),
+        ListView.builder(
+          shrinkWrap: true,
+          itemCount: documentos.length,
+          itemBuilder: (context, index) {
+            final documento = documentos[index];
+            final nombre = documento['NombreProducto'];
+            final codigo = documento['CodigoProducto'];
+            final utilidad = documento['UtilidadProducto'];
+            final precio = documento['PrecioProducto'];
+
+            return Card(
+              elevation: 3, // Agrega una sombra alrededor del elemento.
+              margin: EdgeInsets.all(10), // Márgenes alrededor del elemento.
+              child: ListTile(
+                contentPadding:
+                    EdgeInsets.all(10), // Espacio interno del ListTile.
+                leading: CircleAvatar(
+                  // Agrega una imagen o avatar en la parte izquierda.
+                  backgroundColor: Colors.blue, // Color de fondo del avatar.
+                  child: Text(nombre[0], style: TextStyle(color: Colors.white)),
+                ),
+                title: Text(
+                  nombre,
+                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                ),
+                subtitle: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text("Código: $codigo"),
+                    Text("Utilidad: $utilidad"),
+                    Text("Precio: $precio"),
+                  ],
+                ),
+                // Puedes personalizar el icono según tus necesidades.
+              ),
+            );
+          },
+        )
       ],
     );
   }
