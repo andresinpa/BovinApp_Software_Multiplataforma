@@ -1,6 +1,4 @@
-import 'dart:io';
 import 'dart:ui';
-import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:BovinApp/DTO/Services/UserProvider.dart';
@@ -25,7 +23,6 @@ class ConsultaMaquinariaApp extends State<ConsultaMaquinaria> {
 
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
 
     return Stack(
       children: [
@@ -44,7 +41,7 @@ class ConsultaMaquinariaApp extends State<ConsultaMaquinaria> {
                 .snapshots(),
             builder: (context, snapshot) {
               // Obtén los documentos de la colección
-              final documentos = snapshot?.data?.docs ?? [];
+              final documentos = snapshot.data?.docs ?? [];
               // Separa los documentos en dos listas según el valor de "categoria"
               final categoriaMaquinaria = documentos
                   .where((doc) => doc['ClasificacionProducto'] == 'Maquinaria')

@@ -23,7 +23,6 @@ class ConsultaVacasApp extends State<ConsultasVacas> {
 
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
 
     return Stack(
       children: [
@@ -42,7 +41,7 @@ class ConsultaVacasApp extends State<ConsultasVacas> {
                 .snapshots(),
             builder: (context, snapshot) {
               // Obtén los documentos de la colección
-              final documentos = snapshot?.data?.docs ?? [];
+              final documentos = snapshot.data?.docs ?? [];
               // Separa los documentos en dos listas según el valor de "categoria"
               final categoriaVacas = documentos
                   .where((doc) => doc['CategoriaBovino'] == 'Vacas')

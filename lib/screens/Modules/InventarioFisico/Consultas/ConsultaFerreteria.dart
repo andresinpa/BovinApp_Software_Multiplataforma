@@ -1,6 +1,4 @@
-import 'dart:io';
 import 'dart:ui';
-import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:BovinApp/DTO/Services/UserProvider.dart';
@@ -25,7 +23,6 @@ class ConsultaFerreteriaApp extends State<ConsultaFerreteria> {
 
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
 
     return Stack(
       children: [

@@ -1,6 +1,5 @@
 import 'package:BovinApp/DTO/Bovino.dart';
 import 'package:BovinApp/Screens/Auth/Register/ImagenUsuario.dart';
-import 'package:BovinApp/Screens/Screens.dart';
 import 'package:BovinApp/Widgets/BottomBar.dart';
 import 'package:BovinApp/Widgets/Export/Widgets.dart';
 import 'package:flutter/material.dart';

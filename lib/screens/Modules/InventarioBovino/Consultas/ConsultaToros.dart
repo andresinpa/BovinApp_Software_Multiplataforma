@@ -23,7 +23,6 @@ class ConsultaTorosApp extends State<ConsultasToros> {
 
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
 
     return Stack(
       children: [
