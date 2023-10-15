@@ -1,6 +1,12 @@
 import 'package:BovinApp/Widgets/Export/Widgets.dart';
+import 'package:BovinApp/screens/Modules/FichasIndividuales/FichasIndividualesResultados.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:BovinApp/DTO/Services/UserProvider.dart';
+import 'package:BovinApp/DTO/User.dart';
+import 'package:provider/provider.dart';
+import 'package:BovinApp/DTO/Bovino.dart';
 
 class FichasIndividuales extends StatefulWidget {
   const FichasIndividuales({super.key});
@@ -9,16 +15,82 @@ class FichasIndividuales extends StatefulWidget {
   State<FichasIndividuales> createState() => _FichasIndividualesState();
 }
 
+const List<String> clasificacion = [
+  'Vacas',
+  'Toros',
+  'Terneros',
+  'Novillas',
+  'Bueyes'
+];
+const List<String> Raza = ['Holstein', 'Normando', 'Montbeliarde', 'Jersey'];
+
 class _FichasIndividualesState extends State<FichasIndividuales> {
   TextEditingController buscar = TextEditingController();
+
+  String razaBovino = Raza.first;
+  String clasificacionBovino = clasificacion.first;
+  bool bandera = true;
+  Bovino objBovino = Bovino();
+  late User objUser;
+
+  @override
+  void initState() {
+    super.initState();
+    final userProvider = Provider.of<UserProvider>(context, listen: false);
+    objUser = userProvider.user;
+  }
+
+  validarDatos() async {
+    try {
+      CollectionReference ref = FirebaseFirestore.instance
+          .collection('Usuarios')
+          .doc(objUser.usuario)
+          .collection('InventarioBovino');
+      QuerySnapshot bovinos = await ref.get();
+      if (bovinos.docs.isNotEmpty) {
+        for (var cursor in bovinos.docs) {
+          if ((cursor.get('CodigoBovino') == buscar.text ||
+                  cursor.get('NombreBovino') == buscar.text) &&
+              (cursor.get('CategoriaBovino') == clasificacionBovino) &&
+              (cursor.get('RazaBovino') == razaBovino)) {
+            objBovino.codigoBovino = cursor.get('CodigoBovino');
+            objBovino.nombreBovino = cursor.get('NombreBovino');
+            objBovino.categoriaBovino = cursor.get('CategoriaBovino');
+            objBovino.razaBovino = cursor.get('RazaBovino');
+            objBovino.edadBovino = cursor.get('EdadBovino');
+            objBovino.codigoMadre = cursor.get('CodigoMadre');
+            objBovino.razaMadre = cursor.get('RazaMadre');
+            objBovino.codigoPadre = cursor.get('CodigoPadre');
+            objBovino.razaPadre = cursor.get('RazaPadre');
+            objBovino.lecheDiaria = cursor.get('lecheDiaria');
+            objBovino.ingreso = cursor.get('IngresoBovino');
+
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (_) => FichasIndividualesResultados(objBovino)));
+            print('encontrado');
+            bandera = false;
+            break;
+          } else {
+            bandera = true;
+          }
+        }
+      }
+      if (bandera == true) {
+        await DialogUnBoton.alert(
+            context, ' No Encontrado', '¡Bovino no encontrado!');
+        print('no encontrado');
+      }
+    } catch (e) {
+      print("error ---->$e");
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    var clasificacion = ['Vacas', 'Toros', 'Terneros', 'Novillas', 'Bueyes'];
-    var Raza = ['Holstein', 'Normando', 'Montbeliarde', 'Jersey'];
-    String vistaClasificacion = 'Vacas';
-    String vistaRaza = 'Holstein';
+
     return Stack(
       children: [
         Scaffold(
@@ -124,32 +196,32 @@ class _FichasIndividualesState extends State<FichasIndividuales> {
                           ),
                         ),
                       ),
-                      DropdownButton(
-                        items: clasificacion.map((String a) {
-                          return DropdownMenuItem(
-                              value: a,
-                              child: Text(
-                                a,
-                                style: const TextStyle(
-                                  fontSize: 22,
-                                ),
-                              ));
-                        }).toList(),
-                        onChanged: (value) => {
-                          //setState(() {
-                          //vista = value;
-
-                          //})
-                          // ignore: avoid_print
-                          print(value)
-                        },
-                        hint: Text(
-                          vistaClasificacion,
-                          style: const TextStyle(
-                            fontSize: 22,
-                          ),
+                      DropdownButton<String>(
+                        value: clasificacionBovino,
+                        icon: const Icon(Icons.arrow_downward,
+                            color: Color(0xfff16437)),
+                        elevation: 16,
+                        style: const TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                            color: Color.fromARGB(255, 0, 0, 0)),
+                        underline: Container(
+                          height: 2,
                         ),
-                      )
+                        onChanged: (String? value) {
+                          // This is called when the user selects an item.
+                          setState(() {
+                            clasificacionBovino = value!;
+                          });
+                        },
+                        items: clasificacion
+                            .map<DropdownMenuItem<String>>((String value) {
+                          return DropdownMenuItem<String>(
+                            value: value,
+                            child: Text(value),
+                          );
+                        }).toList(),
+                      ),
                     ],
                   ),
                   const SizedBox(
@@ -167,46 +239,56 @@ class _FichasIndividualesState extends State<FichasIndividuales> {
                           ),
                         ),
                       ),
-                      DropdownButton(
-                        items: Raza.map((String a) {
-                          return DropdownMenuItem(
-                              value: a,
-                              child: Text(
-                                a,
-                                style: const TextStyle(
-                                  fontSize: 22,
-                                ),
-                              ));
-                        }).toList(),
-                        onChanged: (value) => {
-                          //setState(() {
-                          //vista = value;
-
-                          //})
-                          // ignore: avoid_print
-                          print(value)
-                        },
-                        hint: Text(
-                          vistaRaza,
-                          style: const TextStyle(
-                            fontSize: 22,
-                          ),
+                      DropdownButton<String>(
+                        value: razaBovino,
+                        icon: const Icon(Icons.arrow_downward,
+                            color: Color(0xfff16437)),
+                        elevation: 16,
+                        style: const TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                            color: Color.fromARGB(255, 0, 0, 0)),
+                        underline: Container(
+                          height: 2,
                         ),
-                      )
+                        onChanged: (String? value) {
+                          // This is called when the user selects an item.
+                          setState(() {
+                            razaBovino = value!;
+                          });
+                        },
+                        items:
+                            Raza.map<DropdownMenuItem<String>>((String value) {
+                          return DropdownMenuItem<String>(
+                            value: value,
+                            child: Text(value),
+                          );
+                        }).toList(),
+                      ),
                     ],
                   ),
                   const SizedBox(
                     height: 25,
                   ),
 
-                  GestureDetector(
-                    onTap: () {
-                      Navigator.pushNamed(
-                          context, 'FichasIndividualesResultados');
-                    },
-                    child: const RoundedButton(
-                        buttonName: 'Buscar',
-                        rute: 'FichasIndividualesResultados'),
+                  Center(
+                    child: ElevatedButton(
+                      onPressed: () async {
+                        validarDatos();
+                      },
+                      style: ElevatedButton.styleFrom(
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(60.0)),
+                        padding: const EdgeInsets.all(0),
+                        minimumSize: Size(size.width * 0.5, 50.0),
+                        elevation: 2,
+                      ),
+                      child: const Text(
+                        'Buscar',
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold, fontSize: 18),
+                      ),
+                    ),
                   ),
                 ],
               ),

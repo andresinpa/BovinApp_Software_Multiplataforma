@@ -92,7 +92,7 @@ class _SiguienteRegistroState extends State<SiguienteRegistro> {
           "NombreBovino": widget.cadena.nombreBovino,
           "CategoriaBovino": widget.cadena.categoriaBovino,
           "RazaBovino": widget.cadena.razaBovino,
-          "EdadBovino": (edadBovino.text + edad),
+          "EdadBovino": (edadBovino.text),
           "IngresoBovino": ingreso.text,
           "CodigoMadre": codigoMadre.text,
           "RazaMadre": razaMadre,

@@ -60,8 +60,6 @@ class MyApp extends StatelessWidget {
         'MisTareasMetas': (context) => const MisTareasMetas(),
         'InventarioBovinos': (context) => const InventarioBovinos(),
         'FichasIndividuales': (context) => const FichasIndividuales(),
-        'FichasIndividualesResultados': (context) =>
-            const FichasIndividualesResultados(),
         'ConsultaVacas': (context) => const ConsultasVacas(),
         'ConsultaToros': (context) => const ConsultasToros(),
         'ConsultaTerneros': (context) => const ConsultaTerneros(),

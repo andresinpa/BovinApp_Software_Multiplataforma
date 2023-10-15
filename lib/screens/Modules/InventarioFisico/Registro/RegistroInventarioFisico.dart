@@ -189,9 +189,9 @@ class _NuevoRegistroInventarioFisicoState
                   ),
                   TextInputField(
                     maxLines: 1,
-                    icon: FontAwesomeIcons.dollarSign,
+                    icon: FontAwesomeIcons.cow,
                     hint: 'Nombre Producto',
-                    inputType: TextInputType.number,
+                    inputType: TextInputType.name,
                     inputAction: TextInputAction.next,
                     controler: nombreProducto,
                   ),
