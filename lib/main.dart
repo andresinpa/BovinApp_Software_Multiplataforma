@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:BovinApp/DTO/FirebaseOptions.dart';
 import 'package:BovinApp/DTO/Services/UserProvider.dart';
-import 'package:BovinApp/Screens/Screens.dart';
+import 'package:BovinApp/screens/screens.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -54,15 +54,12 @@ class MyApp extends StatelessWidget {
         'CrearCuenta': (context) => const CrearCuenta(),
         'Home': (context) => const Home(),
         'NuevoRegistro': (context) => const NuevoRegistro(),
-        'SiguienteRegistro': (context) => const SiguienteRegistro(),
         'InventarioFisico': (context) => const InventarioFisico(),
         'Invitacion': (context) => const Invitacion(),
         'Produccion': (context) => const Produccion(),
         'MisTareasMetas': (context) => const MisTareasMetas(),
         'InventarioBovinos': (context) => const InventarioBovinos(),
         'FichasIndividuales': (context) => const FichasIndividuales(),
-        'FichasIndividualesResultados': (context) =>
-            const FichasIndividualesResultados(),
         'ConsultaVacas': (context) => const ConsultasVacas(),
         'ConsultaToros': (context) => const ConsultasToros(),
         'ConsultaTerneros': (context) => const ConsultaTerneros(),
@@ -81,6 +78,11 @@ class MyApp extends StatelessWidget {
         'FormularioTareas': (context) => const FormularioTareas(),
         'ListadoTareas': (context) => const ListadoTareas(),
         'MiUsuarioYFinca': (context) => const MiUsuarioYFinca(),
+        'RegistroLecheGeneral': (context) =>
+            const NuevoRegistroProduccionLeche(),
+        'RegistroLecheBovino': (context) =>
+            const NuevoRegistroProduccionBovino(),
+        'ProduccionLecheHato': (context) => const ProduccionLecheHato(),
       },
     );
   }

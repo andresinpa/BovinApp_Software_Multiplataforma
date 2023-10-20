@@ -5,12 +5,12 @@ import 'package:BovinApp/DTO/Services/UserProvider.dart';
 import 'package:BovinApp/DTO/User.dart';
 import 'package:provider/provider.dart';
 
-class ConsultaTerneros extends StatefulWidget {
-  const ConsultaTerneros({super.key});
-  ConsultaTernerosApp createState() => ConsultaTernerosApp();
+class ProduccionLecheHato extends StatefulWidget {
+  const ProduccionLecheHato({super.key});
+  ProduccionLecheHatoApp createState() => ProduccionLecheHatoApp();
 }
 
-class ConsultaTernerosApp extends State<ConsultaTerneros> {
+class ProduccionLecheHatoApp extends State<ProduccionLecheHato> {
   final db = FirebaseFirestore.instance;
   late User objUser;
 
@@ -23,7 +23,6 @@ class ConsultaTernerosApp extends State<ConsultaTerneros> {
 
   @override
   Widget build(BuildContext context) {
-
     return Stack(
       children: [
         Container(
@@ -37,24 +36,23 @@ class ConsultaTernerosApp extends State<ConsultaTerneros> {
             stream: db
                 .collection('Usuarios')
                 .doc(objUser.usuario)
-                .collection('InventarioBovino')
+                .collection('ProduccionLeche')
                 .snapshots(),
             builder: (context, snapshot) {
               // Obtén los documentos de la colección
               final documentos = snapshot.data?.docs ?? [];
               // Separa los documentos en dos listas según el valor de "categoria"
-              final categoriaTerneros = documentos
-                  .where((doc) => doc['CategoriaBovino'] == 'Terneros')
-                  .toList();
-              if (categoriaTerneros.isEmpty) {
+              final produccionHato = documentos.toList();
+              if (produccionHato.isEmpty) {
                 // Muestra un mensaje si no hay información en la categoría.
                 return Text('No hay información disponible.');
+              } else {
+                return ListView(
+                  children: <Widget>[
+                    _buildCategoria("Producción Leche Hato", produccionHato),
+                  ],
+                );
               }
-              return ListView(
-                children: <Widget>[
-                  _buildCategoria("Terneros", categoriaTerneros),
-                ],
-              );
             },
           ),
         ),
@@ -81,10 +79,9 @@ class ConsultaTernerosApp extends State<ConsultaTerneros> {
           itemCount: documentos.length,
           itemBuilder: (context, index) {
             final documento = documentos[index];
-            final nombre = documento['NombreBovino'];
-            final codigo = documento['CodigoBovino'];
-            final raza = documento['RazaBovino'];
-            final edad = documento['EdadBovino'];
+            final lecheM = documento['Leche Mañana'];
+            final lecheT = documento['Leche Tarde'];
+            final nombreDocumento = documento.id;
 
             return Card(
               elevation: 3, // Agrega una sombra alrededor del elemento.
@@ -94,21 +91,21 @@ class ConsultaTernerosApp extends State<ConsultaTerneros> {
                     EdgeInsets.all(10), // Espacio interno del ListTile.
                 leading: CircleAvatar(
                   // Agrega una imagen o avatar en la parte izquierda.
-                  backgroundColor: Colors.blue, // Color de fondo del avatar.
-                  child: Text(nombre[0], style: TextStyle(color: Colors.white)),
+                  backgroundColor: Color.fromARGB(
+                      255, 236, 158, 68), // Color de fondo del avatar.
                 ),
                 title: Text(
-                  nombre,
+                  ("Fecha: $nombreDocumento"),
                   style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                 ),
                 subtitle: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text("Código: $codigo"),
-                    Text("Raza: $raza"),
-                    Text("Edad: $edad años"),
+                    Text("Leche Mañana: $lecheM"),
+                    Text("Leche Tarde: $lecheT"),
                   ],
                 ),
+                // Puedes personalizar el icono según tus necesidades.
               ),
             );
           },

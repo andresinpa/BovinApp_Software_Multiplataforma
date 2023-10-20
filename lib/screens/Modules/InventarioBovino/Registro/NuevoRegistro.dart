@@ -1,16 +1,26 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'dart:io';
 import 'dart:ui';
+import 'dart:async';
+import 'package:BovinApp/DTO/Bovino.dart';
 import 'package:BovinApp/Widgets/BottomBar.dart';
 import 'package:BovinApp/Widgets/Export/Widgets.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:BovinApp/screens/Modules/InventarioBovino/Registro/SiguienteRegistro.dart';
+import 'package:BovinApp/DTO/Services/UserProvider.dart';
+import 'package:BovinApp/DTO/User.dart';
+import 'package:provider/provider.dart';
 
 const List<String> list = [
   'Holstein',
   'Normando',
   'Montbeliarde',
   'Jersey',
+  'Cruzado',
 ];
 
 const List<String> list2 = [
@@ -38,31 +48,77 @@ class NuevoRegistro extends StatefulWidget {
 }
 
 class _NuevoRegistroState extends State<NuevoRegistro> {
+  final ImagePicker _imagePicker = ImagePicker();
+  File? _pickedImage;
+  Future<void> _pickImage(ImageSource source) async {
+    final pickedImage = await _imagePicker.pickImage(source: source);
+    setState(() {
+      _pickedImage = pickedImage != null ? File(pickedImage.path) : null;
+    });
+  }
+
   TextEditingController nombreFinca = TextEditingController();
   TextEditingController codigoBovino = TextEditingController();
   TextEditingController nombreBovino = TextEditingController();
-  TextEditingController razaBovino = TextEditingController();
-  TextEditingController categoriaBovino = TextEditingController();
-  String dropdownValue = list.first;
-  String dropdownValue2 = list2.first;
+  String razaBovino = list.first;
+  String categoriaBovino = list2.first;
   int currentIndex = 1;
+  bool bandera = true;
+  Bovino objBovino = Bovino();
   void onTabSelected(int index) {
     setState(() {
       currentIndex = index;
     });
   }
 
+  late User objUser;
+
+  @override
+  void initState() {
+    super.initState();
+    final userProvider = Provider.of<UserProvider>(context, listen: false);
+    objUser = userProvider.user;
+  }
+
+  validarDatos() async {
+    try {
+      CollectionReference ref = FirebaseFirestore.instance
+          .collection('Usuarios')
+          .doc(objUser.usuario)
+          .collection('InventarioBovino');
+      QuerySnapshot bovinos = await ref.get();
+      if (bovinos.docs.isNotEmpty) {
+        for (var cursor in bovinos.docs) {
+          if (cursor.get('CodigoBovino') == codigoBovino.text) {
+            await DialogUnBoton.alert(context, 'Error',
+                '¡El codigo del Bovino ya ha sido registrado!');
+            bandera = false;
+          }
+        }
+      }
+      if (bandera == true) {
+        objBovino.codigoBovino = codigoBovino.text;
+        objBovino.nombreBovino = nombreBovino.text;
+        objBovino.razaBovino = razaBovino;
+        objBovino.categoriaBovino = categoriaBovino;
+        if (_pickedImage == null) {
+          objBovino.imageLocal = '';
+        } else {
+          objBovino.imageLocal = _pickedImage;
+        }
+        codigoBovino.clear();
+        nombreBovino.clear();
+        Navigator.push(context,
+            MaterialPageRoute(builder: (_) => SiguienteRegistro(objBovino)));
+      }
+    } catch (e) {
+      print('Error.....$e');
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    final ImagePicker _imagePicker = ImagePicker();
-    File? _pickedImage;
-    Future<void> _pickImage(ImageSource source) async {
-      final pickedImage = await _imagePicker.pickImage(source: source);
-      setState(() {
-        _pickedImage = pickedImage != null ? File(pickedImage.path) : null;
-      });
-    }
 
     return Scaffold(
       resizeToAvoidBottomInset: true,
@@ -113,17 +169,6 @@ class _NuevoRegistroState extends State<NuevoRegistro> {
                 children: [
                   TextInputField(
                     maxLines: 1,
-                    controler: nombreFinca,
-                    icon: FontAwesomeIcons.tractor,
-                    hint: 'Nombre de la finca',
-                    inputType: TextInputType.name,
-                    inputAction: TextInputAction.next,
-                  ),
-                  SizedBox(
-                    height: size.width * 0.008,
-                  ),
-                  TextInputField(
-                    maxLines: 1,
                     controler: codigoBovino,
                     icon: FontAwesomeIcons.codeFork,
                     hint: 'Código del bovino',
@@ -172,7 +217,7 @@ class _NuevoRegistroState extends State<NuevoRegistro> {
                         height: size.width * 0.05,
                       ),
                       DropdownButton<String>(
-                        value: dropdownValue,
+                        value: razaBovino,
                         icon: const Icon(Icons.arrow_downward,
                             color: Color(0xfff16437)),
                         elevation: 16,
@@ -182,7 +227,7 @@ class _NuevoRegistroState extends State<NuevoRegistro> {
                         onChanged: (String? value) {
                           // This is called when the user selects an item.
                           setState(() {
-                            dropdownValue = value!;
+                            razaBovino = value!;
                           });
                         },
                         items:
@@ -221,7 +266,7 @@ class _NuevoRegistroState extends State<NuevoRegistro> {
                         height: size.width * 0.05,
                       ),
                       DropdownButton<String>(
-                        value: dropdownValue2,
+                        value: categoriaBovino,
                         icon: const Icon(Icons.arrow_downward,
                             color: Color(0xfff16437)),
                         elevation: 16,
@@ -231,7 +276,7 @@ class _NuevoRegistroState extends State<NuevoRegistro> {
                         onChanged: (String? value) {
                           // This is called when the user selects an item.
                           setState(() {
-                            dropdownValue2 = value!;
+                            categoriaBovino = value!;
                           });
                         },
                         items:
@@ -245,7 +290,7 @@ class _NuevoRegistroState extends State<NuevoRegistro> {
                       const SizedBox(height: 20),
                       TextButton(
                         onPressed: () async {
-                          Navigator.pushNamed(context, 'SiguienteRegistro');
+                          validarDatos();
                         },
                         style: TextButton.styleFrom(
                           side: const BorderSide(color: Colors.deepOrange),

@@ -1,46 +1,56 @@
+import 'package:BovinApp/DTO/Bovino.dart';
+import 'package:BovinApp/Screens/Auth/Register/ImagenUsuario.dart';
 import 'package:BovinApp/Widgets/BottomBar.dart';
 import 'package:BovinApp/Widgets/Export/Widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:BovinApp/DTO/Services/UserProvider.dart';
+import 'package:BovinApp/DTO/User.dart';
+import 'package:provider/provider.dart';
 
 const List<String> listaEdad = [
   'Meses',
   'Años',
 ];
 
-const List<String> listaRazas = [
+const List<String> listarazas = [
   'Holstein',
   'Normando',
   'Montbeliarde',
   'Jersey',
 ];
 
-class SiguienteRegistro extends StatelessWidget {
-  const SiguienteRegistro({super.key});
+class SiguienteRegistro extends StatefulWidget {
+  final Bovino cadena;
+  const SiguienteRegistro(this.cadena, {super.key});
 
   @override
-  Widget build(BuildContext context) {
-    return const Siguiente();
-  }
+  State<SiguienteRegistro> createState() => _SiguienteRegistroState();
 }
 
-class Siguiente extends StatefulWidget {
-  const Siguiente({super.key});
-
-  @override
-  State<Siguiente> createState() => _SiguienteRegistroState();
-}
-
-class _SiguienteRegistroState extends State<Siguiente> {
+class _SiguienteRegistroState extends State<SiguienteRegistro> {
   TextEditingController edadBovino = TextEditingController();
   TextEditingController ingreso = TextEditingController();
   TextEditingController codigoMadre = TextEditingController();
-  TextEditingController razaMadre = TextEditingController();
   TextEditingController codigoPadre = TextEditingController();
-  TextEditingController razaPadre = TextEditingController();
   TextEditingController lecheDiaria = TextEditingController();
-  String dropdownValue = listaEdad.first;
-  String dropdownValue2 = listaRazas.first;
+  String edad = listaEdad.first;
+  String razaMadre = listarazas.first;
+  String razaPadre = listarazas.first;
+  Bovino bovino = Bovino();
+  dynamic uploaded;
+
+  late User objUser;
+
+  @override
+  void initState() {
+    super.initState();
+    final userProvider = Provider.of<UserProvider>(context, listen: false);
+    objUser = userProvider.user;
+  }
+
+  final firebase = FirebaseFirestore.instance;
   void _showDatePicker() {
     showDatePicker(
       context: context,
@@ -55,6 +65,49 @@ class _SiguienteRegistroState extends State<Siguiente> {
     setState(() {
       currentIndex = index;
     });
+  }
+
+  validarDatos() async {
+    try {
+      if (widget.cadena.codigoBovino != '' ||
+          widget.cadena.nombreBovino != '' ||
+          widget.cadena.razaBovino != '' ||
+          widget.cadena.categoriaBovino != '') {
+        if (widget.cadena.imageLocal == '') {
+          uploaded =
+              'https://firebasestorage.googleapis.com/v0/b/bovinapp-project.appspot.com/o/BovinApp%2Favatar.png?alt=media&token=aaa46974-ff9d-471d-a10c-87b8d626a2a9';
+        } else {
+          uploaded = await uploadImage(
+              widget.cadena.imageLocal, widget.cadena.codigoBovino);
+        }
+
+        // Obtén una referencia al documento
+        CollectionReference documentReference = firebase
+            .collection('Usuarios')
+            .doc(objUser.usuario)
+            .collection('InventarioBovino');
+
+        await documentReference.doc(widget.cadena.codigoBovino).set({
+          "NombreBovino": widget.cadena.nombreBovino,
+          "CategoriaBovino": widget.cadena.categoriaBovino,
+          "RazaBovino": widget.cadena.razaBovino,
+          "EdadBovino": (edadBovino.text),
+          "IngresoBovino": ingreso.text,
+          "CodigoMadre": codigoMadre.text,
+          "RazaMadre": razaMadre,
+          "CodigoPadre": codigoPadre.text,
+          "RazaPadre": razaPadre,
+          "lecheDiaria": lecheDiaria.text,
+          "CodigoBovino": widget.cadena.codigoBovino,
+        });
+        widget.cadena.imagenCloudStorage = uploaded;
+        await DialogUnBoton.alert(
+            context, 'Exitoso', 'Registro de Bovino exitoso');
+      }
+      print('se envio la información');
+    } catch (e) {
+      print("error ----->$e");
+    }
   }
 
   @override
@@ -101,7 +154,7 @@ class _SiguienteRegistroState extends State<Siguiente> {
                         width: 55,
                       ),
                       DropdownButton<String>(
-                        value: dropdownValue,
+                        value: edad,
                         icon: const Icon(Icons.arrow_downward,
                             color: Color(0xfff16437)),
                         elevation: 16,
@@ -115,7 +168,7 @@ class _SiguienteRegistroState extends State<Siguiente> {
                         onChanged: (String? value) {
                           // This is called when the user selects an item.
                           setState(() {
-                            dropdownValue = value!;
+                            edad = value!;
                           });
                         },
                         items: listaEdad
@@ -193,7 +246,7 @@ class _SiguienteRegistroState extends State<Siguiente> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         DropdownButton<String>(
-                          value: dropdownValue2,
+                          value: razaMadre,
                           icon: const Icon(Icons.arrow_downward,
                               color: Color(0xfff16437)),
                           elevation: 16,
@@ -205,10 +258,10 @@ class _SiguienteRegistroState extends State<Siguiente> {
                           onChanged: (String? value) {
                             // This is called when the user selects an item.
                             setState(() {
-                              dropdownValue2 = value!;
+                              razaMadre = value!;
                             });
                           },
-                          items: listaRazas
+                          items: listarazas
                               .map<DropdownMenuItem<String>>((String value) {
                             return DropdownMenuItem<String>(
                               value: value,
@@ -255,7 +308,7 @@ class _SiguienteRegistroState extends State<Siguiente> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         DropdownButton<String>(
-                          value: dropdownValue2,
+                          value: razaPadre,
                           icon: const Icon(Icons.arrow_downward,
                               color: Color(0xfff16437)),
                           elevation: 16,
@@ -267,10 +320,10 @@ class _SiguienteRegistroState extends State<Siguiente> {
                           onChanged: (String? value) {
                             // This is called when the user selects an item.
                             setState(() {
-                              dropdownValue2 = value!;
+                              razaPadre = value!;
                             });
                           },
-                          items: listaRazas
+                          items: listarazas
                               .map<DropdownMenuItem<String>>((String value) {
                             return DropdownMenuItem<String>(
                               value: value,
@@ -322,7 +375,10 @@ class _SiguienteRegistroState extends State<Siguiente> {
                   ),
                   Center(
                     child: ElevatedButton(
-                      onPressed: () async {},
+                      onPressed: () async {
+                        validarDatos();
+                        Navigator.pushNamed(context, 'InventarioBovinos');
+                      },
                       style: ElevatedButton.styleFrom(
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(60.0)),

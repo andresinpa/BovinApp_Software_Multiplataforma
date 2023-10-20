@@ -2,9 +2,14 @@ import 'dart:io';
 import 'dart:ui';
 import 'package:BovinApp/Widgets/BottomBar.dart';
 import 'package:BovinApp/Widgets/Export/Widgets.dart';
+import 'package:BovinApp/screens/Auth/Register/ImagenUsuario.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:BovinApp/DTO/Services/UserProvider.dart';
+import 'package:BovinApp/DTO/User.dart';
+import 'package:provider/provider.dart';
 
 class NuevoRegistroInventarioFisico extends StatefulWidget {
   const NuevoRegistroInventarioFisico({super.key});
@@ -16,35 +21,97 @@ class NuevoRegistroInventarioFisico extends StatefulWidget {
 
 class _NuevoRegistroInventarioFisicoState
     extends State<NuevoRegistroInventarioFisico> {
-  TextEditingController usuario = TextEditingController();
-  TextEditingController nombreFinca = TextEditingController();
+  TextEditingController nombreProducto = TextEditingController();
   TextEditingController ingreso = TextEditingController();
   TextEditingController codigoProducto = TextEditingController();
   TextEditingController fechaObtencion = TextEditingController();
   TextEditingController precio = TextEditingController();
   TextEditingController utilidad = TextEditingController();
   TextEditingController descripcion = TextEditingController();
+  dynamic uploaded;
+  dynamic imageLocal;
+  bool bandera = true;
+  final firebase = FirebaseFirestore.instance;
+  var clasificacion = [
+    'Ferreteria',
+    'Alimentos',
+    'Medicamentos',
+    'Maquinaria',
+    'Insumos',
+  ];
+  String vistaClasificacion = 'Ferreteria';
+
+  final ImagePicker _imagePicker = ImagePicker();
+  File? _pickedImage;
+  Future<void> _pickImage(ImageSource source) async {
+    final pickedImage = await _imagePicker.pickImage(source: source);
+    setState(() {
+      _pickedImage = pickedImage != null ? File(pickedImage.path) : null;
+    });
+  }
+
+  late User objUser;
+
+  @override
+  void initState() {
+    super.initState();
+    final userProvider = Provider.of<UserProvider>(context, listen: false);
+    objUser = userProvider.user;
+  }
+
+  validarDatos() async {
+    try {
+      CollectionReference ref = FirebaseFirestore.instance
+          .collection('Usuarios')
+          .doc(objUser.usuario)
+          .collection('InventarioFisico');
+      QuerySnapshot productos = await ref.get();
+      if (productos.docs.isNotEmpty) {
+        for (var cursor in productos.docs) {
+          if (cursor.get('CodigoProducto') == codigoProducto.text) {
+            await DialogUnBoton.alert(context, 'Error',
+                '¡El codigo del producto ya ha sido registrado!');
+            bandera = false;
+            break;
+          } else {
+            bandera = true;
+          }
+        }
+      }
+      if (bandera == true) {
+        if (_pickedImage == null) {
+          imageLocal = '';
+          uploaded =
+              'https://firebasestorage.googleapis.com/v0/b/bovinapp-project.appspot.com/o/BovinApp%2Favatar.png?alt=media&token=aaa46974-ff9d-471d-a10c-87b8d626a2a9';
+        } else {
+          imageLocal = _pickedImage;
+          uploaded = await uploadImage(imageLocal, codigoProducto.text);
+        }
+        await firebase
+            .collection('Usuarios')
+            .doc(objUser.usuario)
+            .collection('InventarioFisico')
+            .doc(codigoProducto.text)
+            .set({
+          "NombreProducto": nombreProducto.text,
+          "Ingreso": ingreso.text,
+          "CodigoProducto": codigoProducto.text,
+          "FechaObtencion": fechaObtencion.text,
+          "PrecioProducto": precio.text,
+          "UtilidadProducto": utilidad.text,
+          "DescripcionProducto": descripcion.text,
+          "ClasificacionProducto": vistaClasificacion,
+        });
+      }
+      print('Se envio la información');
+    } catch (e) {
+      print("error ---->$e");
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    var clasificacion = [
-      'Ferretería',
-      'Alimentos',
-      'Medicamentos',
-      'Maquinaria',
-      'Insumos'
-    ];
-    String vistaClasificacion = 'Ferretería';
-
-    final ImagePicker _imagePicker = ImagePicker();
-    File? _pickedImage;
-    Future<void> _pickImage(ImageSource source) async {
-      final pickedImage = await _imagePicker.pickImage(source: source);
-      setState(() {
-        _pickedImage = pickedImage != null ? File(pickedImage.path) : null;
-      });
-    }
 
     void _showDatePicker() {
       showDatePicker(
@@ -109,20 +176,6 @@ class _NuevoRegistroInventarioFisicoState
               ),
               Column(
                 children: [
-                  const TextInputFieldDisabled(
-                    icon: FontAwesomeIcons.user,
-                    hint: 'Usuario',
-                  ),
-                  SizedBox(
-                    height: size.width * 0.008,
-                  ),
-                  const TextInputFieldDisabled(
-                    icon: FontAwesomeIcons.houseChimney,
-                    hint: 'Nombre de la finca',
-                  ),
-                  SizedBox(
-                    height: size.width * 0.008,
-                  ),
                   TextInputField(
                     maxLines: 1,
                     icon: FontAwesomeIcons.key,
@@ -130,6 +183,17 @@ class _NuevoRegistroInventarioFisicoState
                     inputType: TextInputType.name,
                     inputAction: TextInputAction.next,
                     controler: codigoProducto,
+                  ),
+                  SizedBox(
+                    height: size.width * 0.008,
+                  ),
+                  TextInputField(
+                    maxLines: 1,
+                    icon: FontAwesomeIcons.cow,
+                    hint: 'Nombre Producto',
+                    inputType: TextInputType.name,
+                    inputAction: TextInputAction.next,
+                    controler: nombreProducto,
                   ),
                   SizedBox(
                     height: size.width * 0.008,
@@ -249,7 +313,10 @@ class _NuevoRegistroInventarioFisicoState
                   ),
                   Center(
                     child: ElevatedButton(
-                      onPressed: () async {},
+                      onPressed: () async {
+                        validarDatos();
+                        Navigator.pushNamed(context, 'InventarioFisico');
+                      },
                       style: ElevatedButton.styleFrom(
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(60.0)),
