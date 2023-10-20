@@ -1,72 +1,237 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:BovinApp/DTO/Bovino.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:BovinApp/DTO/Services/UserProvider.dart';
+import 'package:BovinApp/DTO/User.dart';
+import 'package:provider/provider.dart';
+import 'package:BovinApp/Widgets/Export/Widgets.dart';
 
-class FichasIndividualesResultados extends StatelessWidget {
+const List<String> listaEdad = [
+  'Meses',
+  'Años',
+];
+
+const List<String> list2 = [
+  'Vacas',
+  'Toros',
+  'Terneros',
+  'Novillas',
+  'Bueyes',
+];
+
+class FichasIndividualesResultados extends StatefulWidget {
   final Bovino cadena;
 
-  const FichasIndividualesResultados(this.cadena, {super.key});
+  FichasIndividualesResultados(this.cadena, {super.key});
+
+  @override
+  _FichasIndividualesResultadosState createState() =>
+      _FichasIndividualesResultadosState();
+}
+
+class _FichasIndividualesResultadosState
+    extends State<FichasIndividualesResultados> {
+  String clasificacionBovino = 'Vaca';
+  String edad = 'Meses';
+  TextEditingController edadBovino = TextEditingController();
+  final firebase = FirebaseFirestore.instance;
+  late User objUser;
+
+  @override
+  void initState() {
+    super.initState();
+    clasificacionBovino = widget.cadena.categoriaBovino;
+    edadBovino.text = widget.cadena.edadBovino;
+    final userProvider = Provider.of<UserProvider>(context, listen: false);
+    objUser = userProvider.user;
+  }
+
+  validarDatos() async {
+    try {
+      if (widget.cadena.codigoBovino != '' ||
+          widget.cadena.nombreBovino != '' ||
+          widget.cadena.razaBovino != '' ||
+          widget.cadena.categoriaBovino != '') {
+        // Obtén una referencia al documento
+        CollectionReference documentReference = firebase
+            .collection('Usuarios')
+            .doc(objUser.usuario)
+            .collection('InventarioBovino');
+
+        await documentReference.doc(widget.cadena.codigoBovino).set({
+          "NombreBovino": widget.cadena.nombreBovino,
+          "CategoriaBovino": clasificacionBovino,
+          "EdadBovino": edadBovino.text,
+          "lecheDiaria": widget.cadena.lecheDiaria,
+          "RazaBovino": widget.cadena.razaBovino,
+          "IngresoBovino": widget.cadena.ingreso,
+          "CodigoMadre": widget.cadena.codigoMadre,
+          "RazaMadre": widget.cadena.razaMadre,
+          "CodigoPadre": widget.cadena.codigoPadre,
+          "RazaPadre": widget.cadena.razaPadre,
+          "CodigoBovino": widget.cadena.codigoBovino,
+        });
+        await DialogUnBoton.alert(
+            context, 'Exitoso', 'Registro de Bovino exitoso');
+      }
+      print('se envio la información');
+    } catch (e) {
+      print("error ----->$e");
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
         title: Text('Ficha Individual'),
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            CircleAvatar(
-              radius: 100,
-              backgroundColor: Colors.blue[100],
-              child: Icon(
-                FontAwesomeIcons.cow,
-                size: 80,
-                color: Colors.blue,
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              CircleAvatar(
+                radius: 100,
+                backgroundColor: Colors.blue[100],
+                child: Icon(
+                  FontAwesomeIcons.cow,
+                  size: 80,
+                  color: Colors.blue,
+                ),
               ),
-            ),
-            SizedBox(height: 16),
-            Text(
-              cadena.nombreBovino,
-              style: TextStyle(
-                fontSize: 28,
-                fontWeight: FontWeight.bold,
+              SizedBox(height: 16),
+              Text(
+                widget.cadena.nombreBovino,
+                style: TextStyle(
+                  fontSize: 28,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
-            ),
-            SizedBox(height: 8),
-            Text(
-              'Código: ${cadena.codigoBovino}',
-              style: TextStyle(
-                fontSize: 20,
+              SizedBox(height: 8),
+              Text(
+                'Código: ${widget.cadena.codigoBovino}',
+                style: TextStyle(
+                  fontSize: 20,
+                ),
               ),
-            ),
-            SizedBox(height: 16),
-            _buildInfoRow('Raza:', cadena.razaBovino),
-            _buildInfoRow('Edad:', cadena.edadBovino),
-            _buildInfoRow('Clasificación:', cadena.categoriaBovino),
-            _buildInfoRow('Fecha de nacimiento o de ingreso:', cadena.ingreso),
-            _buildInfoRow('Código del padre:', cadena.codigoPadre),
-            _buildInfoRow('Raza del padre:', cadena.razaPadre),
-            _buildInfoRow('Código de la madre:', cadena.codigoMadre),
-            _buildInfoRow('Raza de la madre:', cadena.razaMadre),
-            SizedBox(height: 16),
-            TextFormField(
-              maxLines: 1,
-              decoration: InputDecoration(
-                icon: Icon(FontAwesomeIcons.bottleWater),
-                hintText: 'Producción de leche diaria',
+              SizedBox(height: 16),
+              _buildInfoRow('Raza:', widget.cadena.razaBovino),
+              _buildInfoRow(
+                  'Fecha de nacimiento o de ingreso:', widget.cadena.ingreso),
+              _buildInfoRow('Código del padre:', widget.cadena.codigoPadre),
+              _buildInfoRow('Raza del padre:', widget.cadena.razaPadre),
+              _buildInfoRow('Código de la madre:', widget.cadena.codigoMadre),
+              _buildInfoRow('Raza de la madre:', widget.cadena.razaMadre),
+              _buildInfoRow('leche diaria:', widget.cadena.lecheDiaria),
+              SizedBox(height: 16),
+              SizedBox(
+                height: size.width * 0.05,
               ),
-            ),
-            SizedBox(height: 16),
-            ElevatedButton(
-              onPressed: () {
-                Navigator.pushNamed(context, 'FichasIndividuales');
-              },
-              child: Text('Actualizar y Guardar'),
-            ),
-          ],
+              const Align(
+                alignment: Alignment.center,
+                child: Center(
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(FontAwesomeIcons.shapes), // Icono deseado
+                      SizedBox(width: 10), // Espacio entre el icono y el texto
+                      Text(
+                        'Seleccione la categoría',
+                        style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.black54),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              SizedBox(
+                height: size.width * 0.05,
+              ),
+              DropdownButton<String>(
+                value: clasificacionBovino,
+                icon:
+                    const Icon(Icons.arrow_downward, color: Color(0xfff16437)),
+                elevation: 16,
+                underline: Container(
+                  height: 2,
+                ),
+                onChanged: (String? value) {
+                  // This is called when the user selects an item.
+                  setState(() {
+                    clasificacionBovino = value!;
+                  });
+                },
+                items: list2.map<DropdownMenuItem<String>>((String value) {
+                  return DropdownMenuItem<String>(
+                    value: value,
+                    child: Text(value),
+                  );
+                }).toList(),
+              ),
+              Column(
+                children: [
+                  Row(
+                    children: [
+                      const SizedBox(
+                        width: 38,
+                      ),
+                      TextInputFieldWidth(
+                        controler: edadBovino,
+                        icon: FontAwesomeIcons.cakeCandles,
+                        hint: 'Edad',
+                        inputType: TextInputType.text,
+                        inputAction: TextInputAction.next,
+                        widthContainer: 0.4,
+                      ),
+                      const SizedBox(
+                        width: 55,
+                      ),
+                      DropdownButton<String>(
+                        value: edad,
+                        icon: const Icon(Icons.arrow_downward,
+                            color: Color(0xfff16437)),
+                        elevation: 16,
+                        style: const TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                            color: Color.fromARGB(255, 0, 0, 0)),
+                        underline: Container(
+                          height: 2,
+                        ),
+                        onChanged: (String? value) {
+                          // This is called when the user selects an item.
+                          setState(() {
+                            edad = value!;
+                          });
+                        },
+                        items: listaEdad
+                            .map<DropdownMenuItem<String>>((String value) {
+                          return DropdownMenuItem<String>(
+                            value: value,
+                            child: Text(value),
+                          );
+                        }).toList(),
+                      ),
+                    ],
+                  ),
+                  SizedBox(height: 16),
+                  ElevatedButton(
+                    onPressed: () {
+                      validarDatos();
+                      Navigator.pushNamed(context, 'FichasIndividuales');
+                    },
+                    child: Text('Actualizar y Guardar'),
+                  ),
+                ],
+              ),
+            ],
+          ),
         ),
       ),
     );

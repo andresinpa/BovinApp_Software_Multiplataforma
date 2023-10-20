@@ -22,12 +22,12 @@ const List<String> clasificacion = [
   'Novillas',
   'Bueyes'
 ];
-const List<String> Raza = ['Holstein', 'Normando', 'Montbeliarde', 'Jersey'];
+const List<String> raza = ['Holstein', 'Normando', 'Montbeliarde', 'Jersey'];
 
 class _FichasIndividualesState extends State<FichasIndividuales> {
   TextEditingController buscar = TextEditingController();
 
-  String razaBovino = Raza.first;
+  String razaBovino = raza.first;
   String clasificacionBovino = clasificacion.first;
   bool bandera = true;
   Bovino objBovino = Bovino();
@@ -258,7 +258,7 @@ class _FichasIndividualesState extends State<FichasIndividuales> {
                           });
                         },
                         items:
-                            Raza.map<DropdownMenuItem<String>>((String value) {
+                            raza.map<DropdownMenuItem<String>>((String value) {
                           return DropdownMenuItem<String>(
                             value: value,
                             child: Text(value),
