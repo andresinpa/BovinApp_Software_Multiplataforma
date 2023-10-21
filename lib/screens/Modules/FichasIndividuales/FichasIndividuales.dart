@@ -1,5 +1,8 @@
+// ignore_for_file: use_build_context_synchronously, avoid_print
+
+import 'package:BovinApp/Screens/Modules/FichasIndividuales/FichasIndividualesResultados.dart';
+import 'package:BovinApp/Widgets/BottomBar.dart';
 import 'package:BovinApp/Widgets/Export/Widgets.dart';
-import 'package:BovinApp/screens/Modules/FichasIndividuales/FichasIndividualesResultados.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -25,6 +28,13 @@ const List<String> clasificacion = [
 const List<String> raza = ['Holstein', 'Normando', 'Montbeliarde', 'Jersey'];
 
 class _FichasIndividualesState extends State<FichasIndividuales> {
+  int currentIndex = 1;
+  void onTabSelected(int index) {
+    setState(() {
+      currentIndex = index;
+    });
+  }
+
   TextEditingController buscar = TextEditingController();
 
   String razaBovino = raza.first;
@@ -94,205 +104,207 @@ class _FichasIndividualesState extends State<FichasIndividuales> {
     return Stack(
       children: [
         Scaffold(
-            appBar: AppBar(
-              leading: IconButton(
-                icon: const Icon(Icons.arrow_back_ios),
-                onPressed: () {
-                  Navigator.pop(context);
-                },
-              ),
-              title: const Text(
-                'BovinApp',
-                style: TextStyle(
-                  fontSize: 24,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              centerTitle: true,
+          appBar: AppBar(
+            leading: IconButton(
+              icon: const Icon(Icons.arrow_back_ios),
+              onPressed: () {
+                Navigator.pop(context);
+              },
             ),
-            body: SingleChildScrollView(
-                child: Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  SizedBox(
-                    height: size.width * 0.1,
-                  ),
-                  const Image(
-                    image: AssetImage('assets/images/home1/home3.png'),
-                    width: 100,
-                    height: 100,
-                  ),
-                  SizedBox(
-                    height: size.width * 0.1,
-                  ),
-                  SizedBox(
-                    width: size.width * 0.6,
-                    child: const Text(
-                      'Fichas Individuales',
-                      style: TextStyle(
-                        fontSize: 28,
-                      ),
-                    ),
-                  ),
-                  SizedBox(
-                    height: size.width * 0.1,
-                  ),
-                  SizedBox(
-                    width: size.width * 0.8,
-                    child: const Text(
-                      'Datos Generales',
-                      style: TextStyle(
-                        fontSize: 24,
-                      ),
-                    ),
-                  ),
-                  SizedBox(
-                    height: size.width * 0.1,
-                  ),
-                  SizedBox(
-                    width: size.width * 0.8,
-                    child: const Text(
-                      'Ingrese el nombre o codigo del bovino',
-                      style: TextStyle(
-                        fontSize: 20,
-                      ),
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 20,
-                  ),
-
-                  // ignore: prefer_const_constructors
-                  TextInputField(
-                    maxLines: 1,
-                    icon: FontAwesomeIcons.magnifyingGlass,
-                    hint: 'Buscar',
-                    inputType: TextInputType.name,
-                    inputAction: TextInputAction.done,
-                    controler: buscar,
-                  ),
-                  SizedBox(
-                    width: size.width * 0.8,
-                    child: const Text(
-                      'Buscar por:',
-                      style: TextStyle(
-                        fontSize: 22,
-                      ),
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      SizedBox(
-                        width: size.width * 0.5,
-                        child: const Text(
-                          'Clasificación',
-                          style: TextStyle(
-                            fontSize: 22,
-                          ),
-                        ),
-                      ),
-                      DropdownButton<String>(
-                        value: clasificacionBovino,
-                        icon: const Icon(Icons.arrow_downward,
-                            color: Color(0xfff16437)),
-                        elevation: 16,
-                        style: const TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold,
-                            color: Color.fromARGB(255, 0, 0, 0)),
-                        underline: Container(
-                          height: 2,
-                        ),
-                        onChanged: (String? value) {
-                          // This is called when the user selects an item.
-                          setState(() {
-                            clasificacionBovino = value!;
-                          });
-                        },
-                        items: clasificacion
-                            .map<DropdownMenuItem<String>>((String value) {
-                          return DropdownMenuItem<String>(
-                            value: value,
-                            child: Text(value),
-                          );
-                        }).toList(),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(
-                    height: 15,
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      SizedBox(
-                        width: size.width * 0.4,
-                        child: const Text(
-                          'Raza',
-                          style: TextStyle(
-                            fontSize: 22,
-                          ),
-                        ),
-                      ),
-                      DropdownButton<String>(
-                        value: razaBovino,
-                        icon: const Icon(Icons.arrow_downward,
-                            color: Color(0xfff16437)),
-                        elevation: 16,
-                        style: const TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold,
-                            color: Color.fromARGB(255, 0, 0, 0)),
-                        underline: Container(
-                          height: 2,
-                        ),
-                        onChanged: (String? value) {
-                          // This is called when the user selects an item.
-                          setState(() {
-                            razaBovino = value!;
-                          });
-                        },
-                        items:
-                            raza.map<DropdownMenuItem<String>>((String value) {
-                          return DropdownMenuItem<String>(
-                            value: value,
-                            child: Text(value),
-                          );
-                        }).toList(),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(
-                    height: 25,
-                  ),
-
-                  Center(
-                    child: ElevatedButton(
-                      onPressed: () async {
-                        validarDatos();
-                      },
-                      style: ElevatedButton.styleFrom(
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(60.0)),
-                        padding: const EdgeInsets.all(0),
-                        minimumSize: Size(size.width * 0.5, 50.0),
-                        elevation: 2,
-                      ),
-                      child: const Text(
-                        'Buscar',
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold, fontSize: 18),
-                      ),
-                    ),
-                  ),
-                ],
+            title: const Text(
+              'BovinApp',
+              style: TextStyle(
+                fontSize: 24,
+                fontWeight: FontWeight.bold,
               ),
-            )))
+            ),
+            centerTitle: true,
+          ),
+          body: SingleChildScrollView(
+              child: Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                SizedBox(
+                  height: size.width * 0.1,
+                ),
+                const Image(
+                  image: AssetImage('assets/images/home1/home3.png'),
+                  width: 100,
+                  height: 100,
+                ),
+                SizedBox(
+                  height: size.width * 0.1,
+                ),
+                SizedBox(
+                  width: size.width * 0.6,
+                  child: const Text(
+                    'Fichas Individuales',
+                    style: TextStyle(
+                      fontSize: 28,
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  height: size.width * 0.1,
+                ),
+                SizedBox(
+                  width: size.width * 0.8,
+                  child: const Text(
+                    'Datos Generales',
+                    style: TextStyle(
+                      fontSize: 24,
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  height: size.width * 0.1,
+                ),
+                SizedBox(
+                  width: size.width * 0.8,
+                  child: const Text(
+                    'Ingrese el nombre o codigo del bovino',
+                    style: TextStyle(
+                      fontSize: 20,
+                    ),
+                  ),
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
+
+                // ignore: prefer_const_constructors
+                TextInputField(
+                  maxLines: 1,
+                  icon: FontAwesomeIcons.magnifyingGlass,
+                  hint: 'Buscar',
+                  inputType: TextInputType.name,
+                  inputAction: TextInputAction.done,
+                  controler: buscar,
+                ),
+                SizedBox(
+                  width: size.width * 0.8,
+                  child: const Text(
+                    'Buscar por:',
+                    style: TextStyle(
+                      fontSize: 22,
+                    ),
+                  ),
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    SizedBox(
+                      width: size.width * 0.5,
+                      child: const Text(
+                        'Clasificación',
+                        style: TextStyle(
+                          fontSize: 22,
+                        ),
+                      ),
+                    ),
+                    DropdownButton<String>(
+                      value: clasificacionBovino,
+                      icon: const Icon(Icons.arrow_downward,
+                          color: Color(0xfff16437)),
+                      elevation: 16,
+                      style: const TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                          color: Color.fromARGB(255, 0, 0, 0)),
+                      underline: Container(
+                        height: 2,
+                      ),
+                      onChanged: (String? value) {
+                        // This is called when the user selects an item.
+                        setState(() {
+                          clasificacionBovino = value!;
+                        });
+                      },
+                      items: clasificacion
+                          .map<DropdownMenuItem<String>>((String value) {
+                        return DropdownMenuItem<String>(
+                          value: value,
+                          child: Text(value),
+                        );
+                      }).toList(),
+                    ),
+                  ],
+                ),
+                const SizedBox(
+                  height: 15,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    SizedBox(
+                      width: size.width * 0.4,
+                      child: const Text(
+                        'Raza',
+                        style: TextStyle(
+                          fontSize: 22,
+                        ),
+                      ),
+                    ),
+                    DropdownButton<String>(
+                      value: razaBovino,
+                      icon: const Icon(Icons.arrow_downward,
+                          color: Color(0xfff16437)),
+                      elevation: 16,
+                      style: const TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                          color: Color.fromARGB(255, 0, 0, 0)),
+                      underline: Container(
+                        height: 2,
+                      ),
+                      onChanged: (String? value) {
+                        // This is called when the user selects an item.
+                        setState(() {
+                          razaBovino = value!;
+                        });
+                      },
+                      items: raza.map<DropdownMenuItem<String>>((String value) {
+                        return DropdownMenuItem<String>(
+                          value: value,
+                          child: Text(value),
+                        );
+                      }).toList(),
+                    ),
+                  ],
+                ),
+                const SizedBox(
+                  height: 25,
+                ),
+
+                Center(
+                  child: ElevatedButton(
+                    onPressed: () async {
+                      validarDatos();
+                    },
+                    style: ElevatedButton.styleFrom(
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(60.0)),
+                      padding: const EdgeInsets.all(0),
+                      minimumSize: Size(size.width * 0.5, 50.0),
+                      elevation: 2,
+                    ),
+                    child: const Text(
+                      'Buscar',
+                      style:
+                          TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          )),
+          bottomNavigationBar: BottomBar(
+              initialIndex: currentIndex, onTabSelected: onTabSelected),
+        )
       ],
     );
   }

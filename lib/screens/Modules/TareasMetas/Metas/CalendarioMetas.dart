@@ -1,3 +1,4 @@
+import 'package:BovinApp/Widgets/BottomBar.dart';
 import 'package:flutter/material.dart';
 import 'package:clean_calendar/clean_calendar.dart';
 
@@ -49,14 +50,17 @@ class MetasTareas extends StatefulWidget {
 }
 
 class _MetasTareasState extends State<MetasTareas> {
+  int currentIndex = 1;
+  void onTabSelected(int index) {
+    setState(() {
+      currentIndex = index;
+    });
+  }
+
   List<DateTime> selectedDates = [];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        elevation: 2,
-        title: const Text("Calendar"),
-      ),
       body: Center(
         child: ListView(
           children: [
@@ -96,40 +100,6 @@ class _MetasTareasState extends State<MetasTareas> {
             ),
             const SizedBox(
               height: 20,
-            ),
-            CleanCalendar(
-              datePickerCalendarView: DatePickerCalendarView.weekView,
-              enableDenseViewForDates: true,
-              enableDenseSplashForDates: true,
-              datesForStreaks: [
-                DateTime(2023, 01, 5),
-                DateTime(2023, 01, 6),
-                DateTime(2023, 01, 7),
-                DateTime(2023, 01, 9),
-                DateTime(2023, 01, 10),
-                DateTime(2023, 01, 11),
-                DateTime(2023, 01, 13),
-                DateTime(2023, 01, 20),
-                DateTime(2023, 01, 21),
-                DateTime(2023, 01, 23),
-                DateTime(2023, 01, 24),
-                DateTime(2023, 01, 25),
-              ],
-              dateSelectionMode: DatePickerSelectionMode.singleOrMultiple,
-              onCalendarViewDate: (DateTime calendarViewDate) {
-                // print(calendarViewDate);
-              },
-              selectedDates: selectedDates,
-              onSelectedDates: (List<DateTime> value) {
-                setState(() {
-                  if (selectedDates.contains(value.first)) {
-                    selectedDates.remove(value.first);
-                  } else {
-                    selectedDates.add(value.first);
-                  }
-                });
-                // print(selectedDates);
-              },
             ),
             CleanCalendar(
               headerProperties: HeaderProperties(
@@ -175,43 +145,43 @@ class _MetasTareasState extends State<MetasTareas> {
               },
               startWeekday: WeekDay.monday,
               weekdaysSymbol: const Weekdays(
-                sunday: "s",
-                monday: "m",
-                tuesday: "t",
-                wednesday: "w",
-                thursday: "t",
-                friday: "f",
-                saturday: "s",
+                sunday: "D",
+                monday: "L",
+                tuesday: "M",
+                wednesday: "Mi",
+                thursday: "J",
+                friday: "V",
+                saturday: "S",
               ),
               monthsSymbol: const Months(
-                  january: "Jan",
+                  january: "Ene",
                   february: "Feb",
                   march: "Mar",
-                  april: "Apr",
+                  april: "Abr",
                   may: "May",
                   june: "Jun",
                   july: "Jul",
-                  august: "Aug",
+                  august: "Ago",
                   september: "Sep",
                   october: "Oct",
                   november: "Nov",
-                  december: "Dec"),
+                  december: "Dic"),
               weekdaysProperties: WeekdaysProperties(
                 generalWeekdaysDecoration:
                     WeekdaysDecoration(weekdayTextColor: Colors.red),
                 sundayDecoration: WeekdaysDecoration(
-                    weekdayTextColor: Colors.green,
-                    weekdayTextStyle:
-                        Theme.of(context).textTheme.headlineMedium),
+                  weekdayTextColor: Colors.green,
+                ),
                 saturdayDecoration: WeekdaysDecoration(
-                    weekdayTextColor: Colors.green,
-                    weekdayTextStyle:
-                        Theme.of(context).textTheme.headlineMedium),
+                  weekdayTextColor: Colors.green,
+                ),
               ),
             ),
           ],
         ),
       ),
+      bottomNavigationBar:
+          BottomBar(initialIndex: currentIndex, onTabSelected: onTabSelected),
     );
   }
 }

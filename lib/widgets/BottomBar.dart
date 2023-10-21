@@ -1,4 +1,4 @@
-// ignore_for_file: library_private_types_in_public_api
+// ignore_for_file: library_private_types_in_public_api, avoid_print
 
 import 'package:flutter/material.dart';
 
@@ -49,20 +49,28 @@ class _BottomBarState extends State<BottomBar> {
   }
 
   void setStateBottom(int index) {
-    setState(() {
-      currentIndex = index;
-      widget.onTabSelected(index);
-      switch (index) {
-        case 0:
-          Navigator.pop(context);
-          break;
-        case 1:
-          break;
-        case 2:
-          Navigator.pushNamed(context, 'MisTareasMetas');
-          break;
-        default:
-          break;
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      try {
+        setState(() {
+          currentIndex = index;
+          widget.onTabSelected(index);
+          switch (index) {
+            case 0:
+              Navigator.pushNamed(context, 'Home');
+              break;
+            case 1:
+              // Handle the navigation for tab 1
+              break;
+            case 2:
+              Navigator.pushNamed(context, 'MisTareasMetas');
+              break;
+            default:
+              // Handle the default case
+              break;
+          }
+        });
+      } catch (e) {
+        print(e);
       }
     });
   }

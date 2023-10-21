@@ -86,7 +86,7 @@ class _NuevoRegistroProduccionBovinoState
 
     return Scaffold(
       resizeToAvoidBottomInset: true,
-      appBar: const AppBarRetroceder(title: 'Registro diario leche hato'),
+      appBar: const AppBarRetroceder(title: 'Registro diario'),
       body: SingleChildScrollView(
         child: Center(
           child: Column(

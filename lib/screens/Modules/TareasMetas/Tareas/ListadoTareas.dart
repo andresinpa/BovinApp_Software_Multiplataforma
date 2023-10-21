@@ -1,6 +1,7 @@
 import 'package:BovinApp/Screens/Modules/TareasMetas/Tareas/DetalleTareas.dart';
 import 'package:BovinApp/Screens/Modules/TareasMetas/Tareas/FormularioTareas.dart';
 import 'package:BovinApp/Screens/Modules/TareasMetas/services/TareasServices.dart';
+import 'package:BovinApp/Widgets/BottomBar.dart';
 import 'package:flutter/material.dart';
 
 class ListadoTareas extends StatefulWidget {
@@ -14,6 +15,13 @@ class ListadoTareas extends StatefulWidget {
 }
 
 class _ListadoTareasState extends State<ListadoTareas> {
+  int currentIndex = 1;
+  void onTabSelected(int index) {
+    setState(() {
+      currentIndex = index;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -135,6 +143,8 @@ class _ListadoTareasState extends State<ListadoTareas> {
           Icons.add,
         ),
       ),
+      bottomNavigationBar:
+          BottomBar(initialIndex: currentIndex, onTabSelected: onTabSelected),
     );
   }
 }
