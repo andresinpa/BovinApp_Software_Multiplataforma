@@ -33,7 +33,7 @@ class _GridProduccionState extends State<GridProduccion> {
         title: 'Carne y ventas',
         img: 'assets/images/produccion/produccion1.png',
         onPressed: () {
-          Navigator.pushNamed(context, 'ConsultaMaquinaria');
+          Navigator.pushNamed(context, 'ProduccionCarne');
         });
 
     List<Items> myList = [item1, item2, item3, item4];
