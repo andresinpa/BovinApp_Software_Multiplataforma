@@ -43,8 +43,8 @@ class _GridDashboardState extends State<GridDashboard> {
           Navigator.pushNamed(context, 'Produccion');
         });
     Items item6 = Items(
-        title: 'Razas de bovinos en Ubaté',
-        img: 'assets/images/home1/home6.png',
+        title: 'Informes de mi finca',
+        img: 'assets/images/home1/home7.png',
         onPressed: () {
           Navigator.pushNamed(context, 'RazasBovinosUbate');
         });

@@ -12,26 +12,26 @@ class _GridProduccionState extends State<GridProduccion> {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     Items item1 = Items(
-        title: 'Leche Bovino',
+        title: 'Leche del Bovino',
         img: 'assets/images/produccion/produccion2.png',
         onPressed: () {
           Navigator.pushNamed(context, 'RegistroLecheBovino');
         });
     Items item2 = Items(
-        title: 'Leche Hato',
+        title: 'Leche del Hato',
         img: 'assets/images/produccion/produccion4.png',
         onPressed: () {
           Navigator.pushNamed(context, 'RegistroLecheGeneral');
         });
     Items item3 = Items(
         title: 'Consulta Produccion Leche',
-        img: 'assets/images/produccion/produccion3.png',
+        img: 'assets/images/home2/home1.png',
         onPressed: () {
           Navigator.pushNamed(context, 'ProduccionLecheHato');
         });
     Items item4 = Items(
-        title: 'Maquinaria',
-        img: 'assets/images/inventario/Inventario4.png',
+        title: 'Carne y ventas',
+        img: 'assets/images/produccion/produccion1.png',
         onPressed: () {
           Navigator.pushNamed(context, 'ConsultaMaquinaria');
         });

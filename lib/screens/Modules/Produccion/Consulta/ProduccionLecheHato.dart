@@ -1,4 +1,5 @@
-import 'dart:ui';
+// ignore_for_file: file_names
+
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:BovinApp/DTO/Services/UserProvider.dart';
@@ -7,6 +8,7 @@ import 'package:provider/provider.dart';
 
 class ProduccionLecheHato extends StatefulWidget {
   const ProduccionLecheHato({super.key});
+  @override
   ProduccionLecheHatoApp createState() => ProduccionLecheHatoApp();
 }
 
@@ -30,7 +32,7 @@ class ProduccionLecheHatoApp extends State<ProduccionLecheHato> {
         ),
         Scaffold(
           appBar: AppBar(
-            title: Text('Lista de Documentos'),
+            title: const Text('Lista de Documentos'),
           ),
           body: StreamBuilder<QuerySnapshot>(
             stream: db
@@ -45,7 +47,7 @@ class ProduccionLecheHatoApp extends State<ProduccionLecheHato> {
               final produccionHato = documentos.toList();
               if (produccionHato.isEmpty) {
                 // Muestra un mensaje si no hay información en la categoría.
-                return Text('No hay información disponible.');
+                return const Text('No hay información disponible.');
               } else {
                 return ListView(
                   children: <Widget>[
@@ -68,7 +70,7 @@ class ProduccionLecheHatoApp extends State<ProduccionLecheHato> {
           padding: const EdgeInsets.all(8.0),
           child: Text(
             title,
-            style: TextStyle(
+            style: const TextStyle(
               fontSize: 48,
               fontWeight: FontWeight.bold,
             ),
@@ -81,22 +83,23 @@ class ProduccionLecheHatoApp extends State<ProduccionLecheHato> {
             final documento = documentos[index];
             final lecheM = documento['Leche Mañana'];
             final lecheT = documento['Leche Tarde'];
+
             final nombreDocumento = documento.id;
 
             return Card(
               elevation: 3, // Agrega una sombra alrededor del elemento.
-              margin: EdgeInsets.all(10), // Márgenes alrededor del elemento.
+              margin: const EdgeInsets.all(10), // Márgenes alrededor del elemento.
               child: ListTile(
                 contentPadding:
-                    EdgeInsets.all(10), // Espacio interno del ListTile.
-                leading: CircleAvatar(
+                    const EdgeInsets.all(10), // Espacio interno del ListTile.
+                leading: const CircleAvatar(
                   // Agrega una imagen o avatar en la parte izquierda.
                   backgroundColor: Color.fromARGB(
                       255, 236, 158, 68), // Color de fondo del avatar.
                 ),
                 title: Text(
                   ("Fecha: $nombreDocumento"),
-                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                  style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                 ),
                 subtitle: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,

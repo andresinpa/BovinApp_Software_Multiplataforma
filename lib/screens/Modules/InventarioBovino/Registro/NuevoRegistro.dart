@@ -4,13 +4,14 @@ import 'dart:io';
 import 'dart:ui';
 import 'dart:async';
 import 'package:BovinApp/DTO/Bovino.dart';
+import 'package:BovinApp/Screens/Modules/InventarioBovino/Registro/SiguienteRegistro.dart';
 import 'package:BovinApp/Widgets/BottomBar.dart';
 import 'package:BovinApp/Widgets/Export/Widgets.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:BovinApp/screens/Modules/InventarioBovino/Registro/SiguienteRegistro.dart';
+
 import 'package:BovinApp/DTO/Services/UserProvider.dart';
 import 'package:BovinApp/DTO/User.dart';
 import 'package:provider/provider.dart';
