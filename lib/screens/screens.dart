@@ -31,3 +31,4 @@ export 'Modules/Produccion/Registro/ProduccionRegistroLecheGeneral.dart';
 export 'Modules/Produccion/Registro/ProduccionRegistroBovino.dart';
 export 'Modules/Produccion/Consulta/ProduccionLecheHato.dart';
 export 'Modules/Produccion/Registro/ProduccionCarne.dart';
+export 'Modules/Produccion/Consulta/ProduccionConsultaCarne.dart';

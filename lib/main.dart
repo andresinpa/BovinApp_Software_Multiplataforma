@@ -84,6 +84,7 @@ class MyApp extends StatelessWidget {
             const NuevoRegistroProduccionBovino(),
         'ProduccionLecheHato': (context) => const ProduccionLecheHato(),
         'ProduccionCarne': (context) => const NuevoRegistroProduccionCarne(),
+        'ProduccionConsultaCarne': (context) => const ProduccionConsultacarne(),
       },
     );
   }

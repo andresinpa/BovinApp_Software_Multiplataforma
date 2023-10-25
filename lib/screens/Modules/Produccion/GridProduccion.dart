@@ -35,8 +35,14 @@ class _GridProduccionState extends State<GridProduccion> {
         onPressed: () {
           Navigator.pushNamed(context, 'ProduccionCarne');
         });
+    Items item5 = Items(
+        title: 'Produccion carne',
+        img: 'assets/images/produccion/produccion1.png',
+        onPressed: () {
+          Navigator.pushNamed(context, 'ProduccionConsultaCarne');
+        });
 
-    List<Items> myList = [item1, item2, item3, item4];
+    List<Items> myList = [item1, item2, item3, item4, item5];
     var color = 0xffffccbc;
     return Flexible(
       child: GridView.count(
