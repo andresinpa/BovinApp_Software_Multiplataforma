@@ -2,16 +2,18 @@ import 'dart:convert';
 
 import 'package:BovinApp/DTO/FirebaseOptions.dart';
 import 'package:BovinApp/DTO/Services/UserProvider.dart';
-import 'package:BovinApp/screens/screens.dart';
+import 'package:BovinApp/Screens/screens.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:json_theme/json_theme.dart';
 import 'package:provider/provider.dart';
+import 'package:intl/date_symbol_data_local.dart'; // Importa la biblioteca de localización
 
 void main() async {
+  initializeDateFormatting('es_ES', null);
   WidgetsFlutterBinding.ensureInitialized();
-
+ 
   //TEMA CLARO
   final themeStrNormal =
       await rootBundle.loadString('assets/themes/theme_normal.json');
@@ -57,7 +59,7 @@ class MyApp extends StatelessWidget {
         'InventarioFisico': (context) => const InventarioFisico(),
         'Invitacion': (context) => const Invitacion(),
         'Produccion': (context) => const Produccion(),
-        'MisTareasMetas': (context) => const MisTareasMetas(),
+        'MisTareasMetas': (context) => const Calendar(),
         'InventarioBovinos': (context) => const InventarioBovinos(),
         'FichasIndividuales': (context) => const FichasIndividuales(),
         'ConsultaVacas': (context) => const ConsultasVacas(),

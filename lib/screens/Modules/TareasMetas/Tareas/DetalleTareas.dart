@@ -1,12 +1,34 @@
+// ignore_for_file: file_names
+
 import "dart:collection";
+import 'package:BovinApp/DTO/Services/UserProvider.dart';
+import 'package:BovinApp/DTO/User.dart';
 import 'package:BovinApp/Screens/Modules/TareasMetas/Tareas/FormularioTareas.dart';
 import 'package:BovinApp/Screens/Modules/TareasMetas/Tareas/ListadoTareas.dart';
 import 'package:BovinApp/Screens/Modules/TareasMetas/services/TareasServices.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import "package:flutter/material.dart";
+import 'package:provider/provider.dart';
 
-class DetalleTareas extends StatelessWidget {
+class DetalleTareas extends StatefulWidget {
   const DetalleTareas({Key? key}) : super(key: key);
   static const nombrePagina = "DetalleTareas";
+
+  @override
+  State<DetalleTareas> createState() => _DetalleTareasState();
+}
+
+class _DetalleTareasState extends State<DetalleTareas> {
+    final firebase = FirebaseFirestore.instance;
+
+  late User objUser;
+
+  @override
+  void initState() {
+    super.initState();
+    final userProvider = Provider.of<UserProvider>(context, listen: false);
+    objUser = userProvider.user;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -61,7 +83,7 @@ class DetalleTareas extends StatelessWidget {
                               tarea['NombreTarea'],
                               tarea['DescripcionTarea'],
                               tarea['FechaCreacion'],
-                              false)
+                              false, firebase, objUser.usuario)
                           .then((_) => {
                                 Navigator.popAndPushNamed(
                                     context, ListadoTareas.nombrePagina)
@@ -71,8 +93,8 @@ class DetalleTareas extends StatelessWidget {
                               tarea['uid'],
                               tarea['NombreTarea'],
                               tarea['DescripcionTarea'],
-                              tarea['FechaCreacion'],
-                              true)
+                              tarea['FechaCreacion'],true,
+                              firebase, objUser.usuario)
                           .then((_) => {
                                 Navigator.popAndPushNamed(
                                     context, ListadoTareas.nombrePagina)
