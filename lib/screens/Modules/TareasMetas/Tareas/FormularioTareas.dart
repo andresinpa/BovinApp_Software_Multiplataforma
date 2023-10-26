@@ -1,9 +1,13 @@
 // ignore_for_file: library_private_types_in_public_api
 import 'dart:collection';
+import 'package:BovinApp/DTO/Services/UserProvider.dart';
 import 'package:BovinApp/DTO/Tareas.dart';
+import 'package:BovinApp/DTO/User.dart';
 import 'package:BovinApp/Screens/Modules/TareasMetas/Tareas/ListadoTareas.dart';
 import 'package:BovinApp/Screens/Modules/TareasMetas/services/TareasServices.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class FormularioTareas extends StatefulWidget {
   const FormularioTareas({Key? key}) : super(key: key);
@@ -14,6 +18,19 @@ class FormularioTareas extends StatefulWidget {
 }
 
 class _FormularioTareasState extends State<FormularioTareas> {
+
+  final firebase = FirebaseFirestore.instance;
+
+  late User objUser;
+
+  @override
+  void initState() {
+    super.initState();
+    final userProvider = Provider.of<UserProvider>(context, listen: false);
+    objUser = userProvider.user;
+  }
+
+
   final idForm = GlobalKey<FormState>();
   Tareas objTareas = Tareas();
   TextEditingController nombreTarea = TextEditingController();
@@ -125,14 +142,15 @@ class _FormularioTareasState extends State<FormularioTareas> {
                     nombreTarea.text,
                     descripcionTarea.text,
                     tarea!['FechaCreacion'],
-                    tarea!['EstadoTarea'])
+                    tarea!['EstadoTarea'], firebase, objUser.usuario)
                 .then((_) => {
                       Navigator.popAndPushNamed(
                           context, ListadoTareas.nombrePagina)
                     });
           } else {
+
             await addTareas(nombreTarea.text, descripcionTarea.text,
-                    fechaCreacion, estadoTarea)
+                    fechaCreacion, estadoTarea, firebase, objUser.usuario)
                 .then((_) => {
                       Navigator.popAndPushNamed(
                           context, ListadoTareas.nombrePagina)

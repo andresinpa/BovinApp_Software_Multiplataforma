@@ -1,8 +1,12 @@
+import 'package:BovinApp/DTO/Services/UserProvider.dart';
+import 'package:BovinApp/DTO/User.dart';
 import 'package:BovinApp/Screens/Modules/TareasMetas/Tareas/DetalleTareas.dart';
 import 'package:BovinApp/Screens/Modules/TareasMetas/Tareas/FormularioTareas.dart';
 import 'package:BovinApp/Screens/Modules/TareasMetas/services/TareasServices.dart';
 import 'package:BovinApp/Widgets/BottomBar.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class ListadoTareas extends StatefulWidget {
   const ListadoTareas({super.key});
@@ -15,6 +19,19 @@ class ListadoTareas extends StatefulWidget {
 }
 
 class _ListadoTareasState extends State<ListadoTareas> {
+
+  final firebase = FirebaseFirestore.instance;
+
+  late User objUser;
+
+  @override
+  void initState() {
+    super.initState();
+    final userProvider = Provider.of<UserProvider>(context, listen: false);
+    objUser = userProvider.user;
+  }
+
+
   int currentIndex = 1;
   void onTabSelected(int index) {
     setState(() {
@@ -29,7 +46,7 @@ class _ListadoTareasState extends State<ListadoTareas> {
         title: const Text('Mis tareas 📋'),
       ),
       body: FutureBuilder(
-        future: getTareas(),
+        future: getTareas(firebase, objUser.usuario),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(child: CircularProgressIndicator());
@@ -39,8 +56,11 @@ class _ListadoTareasState extends State<ListadoTareas> {
             final tareas = (snapshot.data as List<dynamic>);
             return Column(
               children: [
+                SizedBox(
+                  height: MediaQuery.of(context).size.height * 0.07,
+                ),
                 Padding(
-                  padding: const EdgeInsets.all(6.0),
+                  padding: const EdgeInsets.all(10.0),
                   child: Image.asset('assets/images/tareas/tareas.png',
                       fit: BoxFit.contain),
                 ),
@@ -51,7 +71,7 @@ class _ListadoTareasState extends State<ListadoTareas> {
                         final tarea = tareas[index];
                         return Dismissible(
                           onDismissed: (direction) async {
-                            await deleteTarea(tarea['uid']);
+                            await deleteTarea(tarea['uid'], firebase, objUser.usuario);
                             tareas.remove(index);
                           },
                           confirmDismiss: (direction) async {
