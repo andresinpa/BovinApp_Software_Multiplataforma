@@ -1,5 +1,8 @@
+// ignore_for_file: file_names
+
 import 'package:flutter/material.dart';
 
+/// The class GridInvFisico is a StatefulWidget in Dart.
 class GridInvFisico extends StatefulWidget {
   const GridInvFisico({super.key});
 
@@ -7,7 +10,12 @@ class GridInvFisico extends StatefulWidget {
   State<GridInvFisico> createState() => _GridInvFisicoState();
 }
 
+/// The `_GridInvFisicoState` class is a stateful widget that builds a grid view with different items,
+/// each containing an image and a title, and handles navigation to different screens when an item is
+/// pressed.
 class _GridInvFisicoState extends State<GridInvFisico> {
+  /// The `build` method in the `_GridInvFisicoState` class is responsible for creating the user
+  /// interface for the `GridInvFisico` widget.
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -90,6 +98,7 @@ class _GridInvFisicoState extends State<GridInvFisico> {
   }
 }
 
+/// The class "Items" represents an item with a title, image, and an optional onPressed function.
 class Items {
   String title;
   String img;

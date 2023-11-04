@@ -13,12 +13,16 @@ import 'package:crypto/crypto.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
+/// The `OlvidePassword` class is a stateful widget in Dart.
 class OlvidePassword extends StatefulWidget {
   const OlvidePassword({Key? key}) : super(key: key);
   @override
   State<OlvidePassword> createState() => _OlvidePasswordState();
 }
 
+/// The `_OlvidePasswordState` class is a stateful widget in Dart that handles the logic for password
+/// recovery functionality, including validating user input and sending an email with a confirmation
+/// code.
 class _OlvidePasswordState extends State<OlvidePassword> {
   TextEditingController email = TextEditingController();
   TextEditingController password = TextEditingController();
@@ -29,6 +33,8 @@ class _OlvidePasswordState extends State<OlvidePassword> {
   String usuario = '';
   String passSha256 = "";
 
+  /// The function `validarDatos()` checks if a given email exists in a Firestore collection, and if it
+  /// does, it sends a confirmation code to that email.
   validarDatos() async {
     try {
       CollectionReference ref =
@@ -70,6 +76,19 @@ class _OlvidePasswordState extends State<OlvidePassword> {
     }
   }
 
+  /// This function builds a Flutter widget for a password recovery screen with input fields for email,
+  /// new password, and password confirmation, along with a button to submit the form.
+  ///
+  /// Args:
+  ///   context (BuildContext): The `context` parameter is a required parameter in the `build` method of a
+  /// Flutter widget. It represents the build context of the widget, which provides access to various
+  /// properties and methods related to the widget's position in the widget tree.
+  ///
+  /// Returns:
+  ///   The code is returning a Scaffold widget with a SingleChildScrollView as its body. The
+  /// SingleChildScrollView contains a Background widget, which in turn contains a Column widget. The
+  /// Column widget contains several child widgets including Text, TextInputField, PasswordInput, and
+  /// ElevatedButton.
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -168,6 +187,8 @@ class _OlvidePasswordState extends State<OlvidePassword> {
     );
   }
 
+  /// The function performs various validations on user input fields such as email, password, and
+  /// confirmation, and displays appropriate alerts if any of the validations fail.
   void validacionesDeEntrada() async {
     if (email.text.isNotEmpty &&
         password.text.isNotEmpty &&

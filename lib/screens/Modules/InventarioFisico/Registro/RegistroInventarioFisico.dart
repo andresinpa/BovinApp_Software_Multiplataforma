@@ -1,5 +1,6 @@
+// ignore_for_file: file_names, use_build_context_synchronously, avoid_print, no_leading_underscores_for_local_identifiers
+
 import 'dart:io';
-import 'dart:ui';
 import 'package:BovinApp/Widgets/BottomBar.dart';
 import 'package:BovinApp/Widgets/Export/Widgets.dart';
 import 'package:BovinApp/screens/Auth/Register/ImagenUsuario.dart';
@@ -11,6 +12,7 @@ import 'package:BovinApp/DTO/Services/UserProvider.dart';
 import 'package:BovinApp/DTO/User.dart';
 import 'package:provider/provider.dart';
 
+/// The class NuevoRegistroInventarioFisico is a StatefulWidget in Dart.
 class NuevoRegistroInventarioFisico extends StatefulWidget {
   const NuevoRegistroInventarioFisico({super.key});
 
@@ -19,6 +21,9 @@ class NuevoRegistroInventarioFisico extends StatefulWidget {
       _NuevoRegistroInventarioFisicoState();
 }
 
+/// The `_NuevoRegistroInventarioFisicoState` class is a stateful widget that allows users to create a
+/// new inventory item by providing various details such as product name, code, price, classification,
+/// description, etc.
 class _NuevoRegistroInventarioFisicoState
     extends State<NuevoRegistroInventarioFisico> {
   TextEditingController nombreProducto = TextEditingController();
@@ -31,7 +36,14 @@ class _NuevoRegistroInventarioFisicoState
   dynamic uploaded;
   dynamic imageLocal;
   bool bandera = true;
+
+  /// The above code is importing the `FirebaseFirestore` class from the `firebase` package and creating
+  /// an instance of it called `firebase`.
   final firebase = FirebaseFirestore.instance;
+
+  /// The above code is declaring a variable called "clasificacion" and assigning it an array of strings.
+  /// The array contains different categories such as 'Ferreteria', 'Alimentos', 'Medicamentos',
+  /// 'Maquinaria', and 'Insumos'.
   var clasificacion = [
     'Ferreteria',
     'Alimentos',
@@ -41,8 +53,18 @@ class _NuevoRegistroInventarioFisicoState
   ];
   String vistaClasificacion = 'Ferreteria';
 
+  /// The above code is declaring a variable `_imagePicker` of type `ImagePicker` and initializing it with
+  /// a new instance of the `ImagePicker` class. It also declares a nullable variable `_pickedImage` of
+  /// type `File`.
   final ImagePicker _imagePicker = ImagePicker();
   File? _pickedImage;
+
+  /// The function `_pickImage` allows the user to pick an image from a specified source and updates the
+  /// state with the selected image.
+  ///
+  /// Args:
+  ///   source (ImageSource): The `source` parameter is of type `ImageSource` and is used to specify the
+  /// source from where the image should be picked. It can have one of the following values:
   Future<void> _pickImage(ImageSource source) async {
     final pickedImage = await _imagePicker.pickImage(source: source);
     setState(() {
@@ -52,6 +74,8 @@ class _NuevoRegistroInventarioFisicoState
 
   late User objUser;
 
+  /// The initState function retrieves the user object from the UserProvider using the Provider package in
+  /// Dart.
   @override
   void initState() {
     super.initState();
@@ -59,8 +83,14 @@ class _NuevoRegistroInventarioFisicoState
     objUser = userProvider.user;
   }
 
+  /// The function `validarDatos()` checks if a product code already exists in a Firestore collection
+  /// and if not, it adds the product information to the collection.
   validarDatos() async {
     try {
+      /// The above code is creating a reference to a collection in Firestore called "Usuarios". It then
+      /// retrieves a specific document within that collection using the value of the "objUser.usuario"
+      /// variable. Finally, it retrieves a subcollection called "InventarioFisico" within that document
+      /// and stores the result in the "productos" variable.
       CollectionReference ref = FirebaseFirestore.instance
           .collection('Usuarios')
           .doc(objUser.usuario)
@@ -87,6 +117,13 @@ class _NuevoRegistroInventarioFisicoState
           imageLocal = _pickedImage;
           uploaded = await uploadImage(imageLocal, codigoProducto.text);
         }
+
+        /// The above code is using the Firebase Firestore database to add a new document to the
+        /// "InventarioFisico" collection under a specific user's document in the "Usuarios" collection.
+        /// The document contains various fields such as "NombreProducto", "Ingreso", "CodigoProducto",
+        /// "FechaObtencion", "PrecioProducto", "UtilidadProducto", "DescripcionProducto", and
+        /// "ClasificacionProducto". The values for these fields are obtained from the corresponding
+        /// text inputs.
         await firebase
             .collection('Usuarios')
             .doc(objUser.usuario)
@@ -109,10 +146,22 @@ class _NuevoRegistroInventarioFisicoState
     }
   }
 
+  /// This function builds a form for creating a new product with various input fields and a bottom
+  /// navigation bar.
+  ///
+  /// Args:
+  ///   context (BuildContext): The `context` parameter is the current build context of the widget tree.
+  /// It is typically used to access the theme, media queries, and other properties of the current
+  /// context.
+  ///
+  /// Returns:
+  ///   The code is returning a Scaffold widget.
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
 
+    /// The `_showDatePicker` function displays a date picker dialog with the current date as the initial
+    /// date and a range from 2008 to the current date.
     void _showDatePicker() {
       showDatePicker(
         context: context,
@@ -122,6 +171,10 @@ class _NuevoRegistroInventarioFisicoState
       );
     }
 
+    /// The `onTabSelected` function updates the `currentIndex` variable with the selected tab index.
+    ///
+    /// Args:
+    ///   index (int): The `index` parameter is an integer that represents the index of the selected tab.
     int currentIndex = 1;
     void onTabSelected(int index) {
       setState(() {

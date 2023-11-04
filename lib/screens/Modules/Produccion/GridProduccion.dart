@@ -1,5 +1,8 @@
+// ignore_for_file: file_names
+
 import 'package:flutter/material.dart';
 
+/// The class GridProduccion is a StatefulWidget in Dart.
 class GridProduccion extends StatefulWidget {
   const GridProduccion({super.key});
 
@@ -7,7 +10,12 @@ class GridProduccion extends StatefulWidget {
   State<GridProduccion> createState() => _GridProduccionState();
 }
 
+/// The `_GridProduccionState` class builds a flexible grid view with multiple items, each containing an
+/// image and a title, and handles navigation to different screens when an item is pressed.
+
 class _GridProduccionState extends State<GridProduccion> {
+  /// The `build` method in the `_GridProduccionState` class is responsible for creating the user
+  /// interface for the `GridProduccion` widget.
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -44,6 +52,8 @@ class _GridProduccionState extends State<GridProduccion> {
 
     List<Items> myList = [item1, item2, item3, item4, item5];
     var color = 0xffffccbc;
+
+    /// The code is returning a `Flexible` widget that contains a `GridView.count` widget.
     return Flexible(
       child: GridView.count(
         childAspectRatio: 1.0,
@@ -83,6 +93,7 @@ class _GridProduccionState extends State<GridProduccion> {
   }
 }
 
+/// The class "Items" represents an item with a title, image, and an optional onPressed function.
 class Items {
   String title;
   String img;

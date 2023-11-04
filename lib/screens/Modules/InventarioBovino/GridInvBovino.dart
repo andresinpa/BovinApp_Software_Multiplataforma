@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+/// The class GridInvBovino is a StatefulWidget in Dart.
 class GridInvBovino extends StatefulWidget {
   const GridInvBovino({super.key});
 
@@ -7,7 +8,13 @@ class GridInvBovino extends StatefulWidget {
   State<GridInvBovino> createState() => _GridInvBovinoState();
 }
 
+/// The `_GridInvBovinoState` class is a stateful widget that builds a grid view with different items,
+/// each containing an image and a title, and handles navigation to different screens when an item is
+/// pressed.
 class _GridInvBovinoState extends State<GridInvBovino> {
+  /// The `build` method is responsible for building the widget tree for the `GridInvBovino` class. It
+  /// returns a `Flexible` widget containing a `GridView.count` widget. The `GridView.count` widget
+  /// creates a grid view with a specified number of columns and rows.
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -51,6 +58,8 @@ class _GridInvBovinoState extends State<GridInvBovino> {
 
     List<Items> myList = [item1, item2, item3, item4, item5, item6];
     var color = 0xffffccbc;
+
+    /// The code is returning a `Flexible` widget that contains a `GridView.count` widget.
     return Flexible(
       child: GridView.count(
         childAspectRatio: 1.0,
@@ -90,6 +99,7 @@ class _GridInvBovinoState extends State<GridInvBovino> {
   }
 }
 
+/// The class "Items" represents an item with a title, image, and an optional onPressed function.
 class Items {
   String title;
   String img;

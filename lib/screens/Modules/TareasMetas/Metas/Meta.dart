@@ -1,5 +1,7 @@
 // ignore_for_file: file_names
 
+/// The class "Event" represents an event with properties such as metaId, titulo, descripcion,
+/// importancia, completo, and date.
 class Event {
   final String metaId;
   final String titulo;

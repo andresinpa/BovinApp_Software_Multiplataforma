@@ -1,3 +1,5 @@
+/// The class "Bovino" represents a bovine animal with various properties such as code, name, breed,
+/// category, image, age, parent codes and breeds, daily milk production, and cloud storage image.
 class Bovino {
   String codigoBovino = '';
   String nombreBovino = '';

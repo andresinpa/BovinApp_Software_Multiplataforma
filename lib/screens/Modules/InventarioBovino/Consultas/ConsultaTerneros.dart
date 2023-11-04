@@ -7,6 +7,7 @@ import 'package:BovinApp/DTO/Services/UserProvider.dart';
 import 'package:BovinApp/DTO/User.dart';
 import 'package:provider/provider.dart';
 
+/// The class ConsultaTerneros is a StatefulWidget in Dart.
 class ConsultaTerneros extends StatefulWidget {
   const ConsultaTerneros({super.key});
   @override
@@ -14,16 +15,22 @@ class ConsultaTerneros extends StatefulWidget {
 }
 
 class ConsultaTernerosApp extends State<ConsultaTerneros> {
+  /// The function `onTabSelected` updates the `currentIndex` variable with the provided `index` value.
+  ///
+  /// Args:
+  ///   index (int): The "index" parameter is an integer that represents the index of the selected tab.
   int currentIndex = 1;
   void onTabSelected(int index) {
     setState(() {
       currentIndex = index;
     });
-  } 
+  }
 
   final db = FirebaseFirestore.instance;
   late User objUser;
 
+  /// The initState function retrieves the user object from the UserProvider using the Provider package in
+  /// Dart.
   @override
   void initState() {
     super.initState();
@@ -31,9 +38,21 @@ class ConsultaTernerosApp extends State<ConsultaTerneros> {
     objUser = userProvider.user;
   }
 
+  /// This function builds a screen with a stack of widgets, including a container, a scaffold with an
+  /// app bar, a body that displays a list of documents from a Firestore collection, and a bottom
+  /// navigation bar.
+  ///
+  /// Args:
+  ///   context (BuildContext): The BuildContext is a reference to the location of a widget within the
+  /// widget tree. It is used to access the theme, media query, and other properties of the current
+  /// widget's ancestor widgets.
+  ///
+  /// Returns:
+  ///   The code is returning a `Stack` widget that contains a `Container` and a `Scaffold`. The
+  /// `Scaffold` widget has an `AppBar`, a `body` that contains a `StreamBuilder` widget, and a
+  /// `bottomNavigationBar` that is a custom `BottomBar` widget.
   @override
   Widget build(BuildContext context) {
-
     return Stack(
       children: [
         Container(
@@ -68,13 +87,22 @@ class ConsultaTernerosApp extends State<ConsultaTerneros> {
             },
           ),
           bottomNavigationBar: BottomBar(
-                initialIndex: currentIndex, onTabSelected: onTabSelected),
-        
+              initialIndex: currentIndex, onTabSelected: onTabSelected),
         ),
       ],
     );
   }
 
+  /// The function `_buildCategoria` builds a widget that displays a title and a list of items with
+  /// their details.
+  ///
+  /// Args:
+  ///   title (String): The title is a string that represents the category title for the widget. It will
+  /// be displayed at the top of the widget.
+  ///   documentos (List<QueryDocumentSnapshot>): A list of QueryDocumentSnapshot objects.
+  ///
+  /// Returns:
+  ///   a widget of type Column.
   Widget _buildCategoria(String title, List<QueryDocumentSnapshot> documentos) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -94,6 +122,9 @@ class ConsultaTernerosApp extends State<ConsultaTerneros> {
         ListView.builder(
           shrinkWrap: true,
           itemCount: documentos.length,
+
+          /// The `itemBuilder` is a callback function that is used by the `ListView.builder` widget to
+          /// build each item in the list.
           itemBuilder: (context, index) {
             final documento = documentos[index];
             final nombre = documento['NombreBovino'];
@@ -103,18 +134,21 @@ class ConsultaTernerosApp extends State<ConsultaTerneros> {
 
             return Card(
               elevation: 3, // Agrega una sombra alrededor del elemento.
-              margin: const EdgeInsets.all(10), // Márgenes alrededor del elemento.
+              margin:
+                  const EdgeInsets.all(10), // Márgenes alrededor del elemento.
               child: ListTile(
                 contentPadding:
                     const EdgeInsets.all(10), // Espacio interno del ListTile.
                 leading: CircleAvatar(
                   // Agrega una imagen o avatar en la parte izquierda.
                   backgroundColor: Colors.blue, // Color de fondo del avatar.
-                  child: Text(nombre[0], style: const TextStyle(color: Colors.white)),
+                  child: Text(nombre[0],
+                      style: const TextStyle(color: Colors.white)),
                 ),
                 title: Text(
                   nombre,
-                  style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                  style: const TextStyle(
+                      fontSize: 18, fontWeight: FontWeight.bold),
                 ),
                 subtitle: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,

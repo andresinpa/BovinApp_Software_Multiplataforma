@@ -1,3 +1,5 @@
+/// In Dart, the `export` keyword is used to make the specified libraries or files available for use in
+/// other files.
 export 'Auth/Login/LoginScreen.dart';
 export 'Auth/Login/OlvidePassword.dart';
 export 'Auth/Register/ConfirmacionCuenta.dart';

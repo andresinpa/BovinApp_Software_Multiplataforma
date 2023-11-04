@@ -1,6 +1,10 @@
+// ignore_for_file: file_names
+
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
+/// The PasswordInput class is a StatefulWidget that represents a password input field with an icon,
+/// hint text, input type, input action, and a controller.
 class PasswordInput extends StatefulWidget {
   const PasswordInput({
     Key? key,
@@ -20,12 +24,17 @@ class PasswordInput extends StatefulWidget {
   State<PasswordInput> createState() => _PasswordInputState();
 }
 
+/// The `_PasswordInputState` class is a stateful widget that represents a password input field with an
+/// icon and a toggle button to show or hide the password.
 class _PasswordInputState extends State<PasswordInput> {
   bool mostrarPassword = false;
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
 
+    /// The code is returning a `Padding` widget that contains a `SizedBox` widget. The `SizedBox`
+    /// widget has a specified height and width based on the `size` of the screen. Inside the
+    /// `SizedBox`, there is a `Center` widget that contains a `TextField` widget.
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 10.0),
       child: SizedBox(

@@ -1,3 +1,5 @@
+/// The User class represents a user with various properties such as name, email, farm details, and
+/// password.
 class User {
   String nombre = '';
   String apellido = '';

@@ -1,3 +1,5 @@
+// ignore_for_file: file_names
+
 import 'dart:io';
 import 'package:BovinApp/DTO/Services/UserProvider.dart';
 import 'package:BovinApp/DTO/User.dart';
@@ -10,6 +12,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 
+/// The class "MiUsuarioYFinca" is a stateful widget in Dart.
 class MiUsuarioYFinca extends StatefulWidget {
   const MiUsuarioYFinca({super.key});
   @override
@@ -23,16 +26,25 @@ class MiUsuarioYFincaApp extends State<MiUsuarioYFinca> {
   TextEditingController direccionFinca = TextEditingController();
   TextEditingController areaFinca = TextEditingController();
   TextEditingController unidadMedida = TextEditingController();
+
+  /// The above code is using the Dart programming language to create a final variable `db` that
+  /// represents an instance of the `FirebaseFirestore` class. It also declares a dynamic variable
+  /// `uploaded` with an empty value, and an integer variable `currentIndex` with a value of 1.
   final db = FirebaseFirestore.instance;
   dynamic uploaded = '';
   int currentIndex = 1;
 
+  /// The above code is declaring a variable `_imagePicker` of type `ImagePicker` and initializing it with
+  /// a new instance of `ImagePicker`. It also declares a nullable variable `_pickedImage` of type `File`
+  /// and sets it to `null`. Additionally, it declares a boolean variable `delete` and sets it to `false`.
   final ImagePicker _imagePicker = ImagePicker();
   File? _pickedImage;
   bool delete = false;
 
   late User objUser;
 
+  /// The `initState` function initializes the state of the widget and sets the values of various text
+  /// fields based on the user's data.
   @override
   void initState() {
     super.initState();
@@ -68,6 +80,12 @@ class MiUsuarioYFincaApp extends State<MiUsuarioYFinca> {
     }
   }
 
+  /// The function `_pickImage` picks an image from a specified source and updates the state with the
+  /// picked image.
+  ///
+  /// Args:
+  ///   source (ImageSource): The source parameter is of type ImageSource, which is an enum that
+  /// represents the source from which the image should be picked. It can have the following values:
   Future<void> _pickImage(ImageSource source) async {
     final pickedImage = await _imagePicker.pickImage(source: source);
     setState(() {
@@ -78,6 +96,12 @@ class MiUsuarioYFincaApp extends State<MiUsuarioYFinca> {
     });
   }
 
+  /// The function updates the current index when a tab is selected.
+  ///
+  /// Args:
+  ///   index (int): The index parameter represents the index of the selected tab. It is used to update
+  /// the state of the current index, which is typically used to control the active tab in a tab bar or
+  /// tab view.
   void onTabSelected(int index) {
     setState(() {
       currentIndex = index;
@@ -86,10 +110,24 @@ class MiUsuarioYFincaApp extends State<MiUsuarioYFinca> {
 
   var lista = ['Unidad de medida', 'Metros cuadrados', 'Fanegadas'];
 
+  /// This is a Dart code snippet that builds a user interface for updating user information and saving
+  /// it to a database.
+  ///
+  /// Args:
+  ///   context (BuildContext): The `context` parameter is the BuildContext object, which represents the
+  /// location in the widget tree where the widget is being built. It is typically used to access the
+  /// theme, media queries, and other information about the app's current state.
+  ///
+  /// Returns:
+  ///   The code is returning a Scaffold widget with various child widgets including buttons, text
+  /// fields, and an image. The bottomNavigationBar is also included.
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
 
+    /// The function `insertarDatos` updates user data in a Firestore database, including the user's
+    /// name, surname, farm name, farm address, farm area, unit of measurement for the area, and avatar
+    /// URL.
     insertarDatos() async {
       try {
         if (_pickedImage == null) {
@@ -138,6 +176,12 @@ class MiUsuarioYFincaApp extends State<MiUsuarioYFinca> {
               height: size.width * 0.1,
             ),
             OutlinedButton.icon(
+              /// The above code is defining an onPressed event handler for a button. If the variable
+              /// "delete" is true, the onPressed event will be set to null, meaning the button will be
+              /// disabled. If "delete" is false, the onPressed event will display an alert dialog with
+              /// a confirmation message. If the user confirms the action, the "uploaded" variable will
+              /// be updated with a new URL and the "_pickedImage" variable will be set to null.
+              /// Finally, the "delete" variable will be set to true.
               onPressed: delete
                   ? null
                   : () => {
@@ -198,6 +242,10 @@ class MiUsuarioYFincaApp extends State<MiUsuarioYFinca> {
                   }
                 else
                   {
+                    /// The above code is using the `setState` method in Dart to update the state of the
+                    /// application. It sets the `_pickedImage` variable to `null` and the `delete`
+                    /// variable to `false`. It then checks if the `objUser.imagenCloudStorage` variable
+                    /// is equal to a specific URL. If it is, it sets the `delete` variable to `true`.
                     setState(() {
                       _pickedImage = null;
                       delete = false;

@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
 
+/// The `BackgroundSimple` class is a widget that displays a background image with different layouts
+/// based on the screen size.
 class BackgroundSimple extends StatelessWidget {
   final Widget child;
 
+  /// The `BackgroundSimple` class is a widget that takes a `child` widget as a parameter. The `const
+  /// BackgroundSimple({ ... })` is the constructor of the class.
   const BackgroundSimple({
     Key? key,
     required this.child,
@@ -44,6 +48,10 @@ class BackgroundSimple extends StatelessWidget {
         ),
       );
     } else {
+      /// The code is returning a `SizedBox` widget with the specified width and height. Inside the
+      /// `SizedBox`, there is a `Stack` widget that allows multiple widgets to be stacked on top of
+      /// each other. The `alignment` property of the `Stack` is set to `Alignment.center`, which means
+      /// the child widgets will be centered within the `Stack`.
       return SizedBox(
         width: double.infinity,
         height: size.height,

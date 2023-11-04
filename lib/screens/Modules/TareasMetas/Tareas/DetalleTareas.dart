@@ -10,6 +10,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import "package:flutter/material.dart";
 import 'package:provider/provider.dart';
 
+/// The class "DetalleTareas" is a stateful widget in Dart that represents a page for displaying
+/// detailed information about tasks.
 class DetalleTareas extends StatefulWidget {
   const DetalleTareas({Key? key}) : super(key: key);
   static const nombrePagina = "DetalleTareas";
@@ -18,11 +20,15 @@ class DetalleTareas extends StatefulWidget {
   State<DetalleTareas> createState() => _DetalleTareasState();
 }
 
+/// The `_DetalleTareasState` class is a stateful widget that displays the details of a task and allows
+/// the user to update or edit the task.
 class _DetalleTareasState extends State<DetalleTareas> {
-    final firebase = FirebaseFirestore.instance;
+  final firebase = FirebaseFirestore.instance;
 
   late User objUser;
 
+  /// The initState function retrieves the user object from the UserProvider using the Provider package in
+  /// Dart.
   @override
   void initState() {
     super.initState();
@@ -30,6 +36,20 @@ class _DetalleTareasState extends State<DetalleTareas> {
     objUser = userProvider.user;
   }
 
+  /// This function builds a detailed view of a task in a Flutter app, including its name, description,
+  /// and buttons to edit or change its status.
+  ///
+  /// Args:
+  ///   context (BuildContext): The `context` parameter is the current build context of the widget. It
+  /// is typically provided by the `build` method of a widget and is used to access various properties
+  /// and methods related to the widget tree and the current state of the app.
+  ///
+  /// Returns:
+  ///   The code is returning a Scaffold widget with an AppBar and a body containing a
+  /// SingleChildScrollView widget. Inside the SingleChildScrollView, there is a Column widget with
+  /// several children. The children include a Container with the task name, a Text widget for the
+  /// description, another Container with the task description, and finally, a Row widget with two
+  /// ElevatedButton widgets for updating and editing the task.
   @override
   Widget build(BuildContext context) {
     LinkedHashMap<String, dynamic>? tarea = ModalRoute.of(context)
@@ -77,13 +97,21 @@ class _DetalleTareasState extends State<DetalleTareas> {
                     backgroundColor: Colors.green,
                   ),
                   onPressed: () async {
+                    /// The code block you provided is checking the value of the `EstadoTarea` property
+                    /// of the `tarea` object. If the value is `true`, it calls the `updateTarea`
+                    /// function with the parameters `false` and then navigates back to the
+                    /// `ListadoTareas` page. If the value is `false`, it calls the `updateTarea`
+                    /// function with the parameters `true` and then navigates back to the
+                    /// `ListadoTareas` page.
                     if (await tarea['EstadoTarea'] == true) {
                       await updateTarea(
                               tarea['uid'],
                               tarea['NombreTarea'],
                               tarea['DescripcionTarea'],
                               tarea['FechaCreacion'],
-                              false, firebase, objUser.usuario)
+                              false,
+                              firebase,
+                              objUser.usuario)
                           .then((_) => {
                                 Navigator.popAndPushNamed(
                                     context, ListadoTareas.nombrePagina)
@@ -93,14 +121,19 @@ class _DetalleTareasState extends State<DetalleTareas> {
                               tarea['uid'],
                               tarea['NombreTarea'],
                               tarea['DescripcionTarea'],
-                              tarea['FechaCreacion'],true,
-                              firebase, objUser.usuario)
+                              tarea['FechaCreacion'],
+                              true,
+                              firebase,
+                              objUser.usuario)
                           .then((_) => {
                                 Navigator.popAndPushNamed(
                                     context, ListadoTareas.nombrePagina)
                               });
                     }
                   },
+
+                  /// The `child: (tarea['EstadoTarea']) ? const Text('Recuperar') : const
+                  /// Text('Terminar')` code is a ternary operator in Dart.
                   child: (tarea['EstadoTarea'])
                       ? const Text('Recuperar')
                       : const Text('Terminar'),
@@ -109,6 +142,10 @@ class _DetalleTareasState extends State<DetalleTareas> {
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.pink,
                   ),
+
+                  /// The `onPressed` property of the `ElevatedButton` widget is assigned a function
+                  /// that is executed when the button is pressed. In this case, the function uses the
+                  /// `Navigator.pushNamed` method to navigate to the `FormularioTareas` page.
                   onPressed: () => Navigator.pushNamed(
                       context, FormularioTareas.nombrePagina,
                       arguments: {

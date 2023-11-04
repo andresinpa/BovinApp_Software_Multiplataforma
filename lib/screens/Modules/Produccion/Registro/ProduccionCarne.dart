@@ -1,4 +1,5 @@
-import 'dart:ui';
+// ignore_for_file: file_names, avoid_print, unused_element, no_leading_underscores_for_local_identifiers
+
 import 'package:BovinApp/Widgets/BottomBar.dart';
 import 'package:BovinApp/Widgets/Export/Widgets.dart';
 import 'package:flutter/material.dart';
@@ -9,12 +10,17 @@ import 'package:BovinApp/DTO/User.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
+/// The line `const List<String> listaEstado = ['Muerto', 'Vivo Enfermo', 'Vivo Sano'];` is declaring a
+/// constant list of strings named `listaEstado`. This list contains three elements: "Muerto", "Vivo
+/// Enfermo", and "Vivo Sano". This list is used as the options for a dropdown button in the `build`
+/// method of the `NuevoRegistroProduccionCarne` class.
 const List<String> listaEstado = [
   'Muerto',
   'Vivo Enfermo',
   'Vivo Sano',
 ];
 
+/// The class "NuevoRegistroProduccionCarne" is a stateful widget in Dart.
 class NuevoRegistroProduccionCarne extends StatefulWidget {
   const NuevoRegistroProduccionCarne({super.key});
 
@@ -23,6 +29,8 @@ class NuevoRegistroProduccionCarne extends StatefulWidget {
       _NuevoRegistroProduccionCarneState();
 }
 
+/// The `_NuevoRegistroProduccionCarneState` class is a stateful widget that allows users to register
+/// production data for a specific cattle, including weight, observations, and selling price.
 class _NuevoRegistroProduccionCarneState
     extends State<NuevoRegistroProduccionCarne> {
   TextEditingController codigoBovino = TextEditingController();
@@ -38,6 +46,8 @@ class _NuevoRegistroProduccionCarneState
 
   late User objUser;
 
+  /// The initState function retrieves the user object from the UserProvider using the Provider package in
+  /// Dart.
   @override
   void initState() {
     super.initState();
@@ -45,6 +55,8 @@ class _NuevoRegistroProduccionCarneState
     objUser = userProvider.user;
   }
 
+  /// The function `validarDatos()` validates data and performs operations on a Firestore database in
+  /// Dart.
   validarDatos() async {
     try {
       DateTime now = DateTime.now();
@@ -62,10 +74,10 @@ class _NuevoRegistroProduccionCarneState
 
           // Agrega el nuevo campo a los datos actuales
           data['DatosSalidaBovino'] = [
-            'Peso Nacido: ' + pesoNacido.text,
-            'Peso Muerto: ' + pesoMuerto.text,
-            'Observaciones: ' + observaciones.text,
-            'Valor Vendido: ' + valorVendido.text,
+            'Peso Nacido: ${pesoNacido.text}',
+            'Peso Muerto: ${pesoMuerto.text}',
+            'Observaciones: ${observaciones.text}',
+            'Valor Vendido: ${valorVendido.text}',
             'Estado: $estado',
             'Fecha Registro: $formattedDate'
           ];
@@ -89,6 +101,8 @@ class _NuevoRegistroProduccionCarneState
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
 
+    /// The function `_showDatePicker()` shows a date picker dialog with the current date as the initial
+    /// date and a range from 2008 to the current date.
     void _showDatePicker() {
       showDatePicker(
         context: context,
@@ -97,6 +111,12 @@ class _NuevoRegistroProduccionCarneState
         lastDate: DateTime.now(),
       );
     }
+
+    /// The function `onTabSelected` updates the `currentIndex` variable with the value of the `index`
+    /// parameter and triggers a state update.
+    ///
+    /// Args:
+    ///   index (int): The index parameter is an integer that represents the index of the selected tab.
 
     int currentIndex = 1;
     void onTabSelected(int index) {

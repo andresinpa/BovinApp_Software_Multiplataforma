@@ -1,4 +1,4 @@
-// ignore_for_file: use_build_context_synchronously
+// ignore_for_file: use_build_context_synchronously, avoid_print
 
 import 'dart:io';
 import 'dart:ui';
@@ -16,6 +16,8 @@ import 'package:BovinApp/DTO/Services/UserProvider.dart';
 import 'package:BovinApp/DTO/User.dart';
 import 'package:provider/provider.dart';
 
+/// The above code is declaring a constant list of strings named "list". The list contains the names of
+/// different types of cows.
 const List<String> list = [
   'Holstein',
   'Normando',
@@ -24,6 +26,8 @@ const List<String> list = [
   'Cruzado',
 ];
 
+/// The above code is declaring a constant list of strings named "list2". The list contains the
+/// following elements: 'Vacas', 'Toros', 'Terneros', 'Novillas', 'Bueyes'.
 const List<String> list2 = [
   'Vacas',
   'Toros',
@@ -32,6 +36,7 @@ const List<String> list2 = [
   'Bueyes',
 ];
 
+/// The class "Registro" is a stateless widget that returns a "NuevoRegistro" widget.
 class Registro extends StatelessWidget {
   const Registro({super.key});
 
@@ -41,6 +46,7 @@ class Registro extends StatelessWidget {
   }
 }
 
+/// The class "NuevoRegistro" is a stateful widget in Dart.
 class NuevoRegistro extends StatefulWidget {
   const NuevoRegistro({super.key});
 
@@ -49,8 +55,21 @@ class NuevoRegistro extends StatefulWidget {
 }
 
 class _NuevoRegistroState extends State<NuevoRegistro> {
+  /// The `_pickImage` function uses the `ImagePicker` package to allow the user to pick an image from a
+  /// specified source and updates the `_pickedImage` variable accordingly.
+  ///
+  /// Args:
+  ///   source (ImageSource): The `source` parameter is of type `ImageSource` and it represents the source
+  /// from where the image should be picked. It can be one of the following values:
   final ImagePicker _imagePicker = ImagePicker();
   File? _pickedImage;
+
+  /// The function `_pickImage` allows the user to pick an image from a specified source and updates the
+  /// state with the selected image.
+  ///
+  /// Args:
+  ///   source (ImageSource): The `source` parameter is of type `ImageSource` and is used to specify the
+  /// source from where the image should be picked. It can have one of the following values:
   Future<void> _pickImage(ImageSource source) async {
     final pickedImage = await _imagePicker.pickImage(source: source);
     setState(() {
@@ -66,6 +85,13 @@ class _NuevoRegistroState extends State<NuevoRegistro> {
   int currentIndex = 1;
   bool bandera = true;
   Bovino objBovino = Bovino();
+
+  /// The function updates the current index when a tab is selected.
+  ///
+  /// Args:
+  ///   index (int): The index parameter represents the index of the selected tab. It is used to update
+  /// the state of the current index, which is typically used to control the active tab in a tab bar or
+  /// tab view.
   void onTabSelected(int index) {
     setState(() {
       currentIndex = index;
@@ -74,6 +100,8 @@ class _NuevoRegistroState extends State<NuevoRegistro> {
 
   late User objUser;
 
+  /// The initState function retrieves the user object from the UserProvider using the Provider package
+  /// in Dart.
   @override
   void initState() {
     super.initState();
@@ -81,6 +109,8 @@ class _NuevoRegistroState extends State<NuevoRegistro> {
     objUser = userProvider.user;
   }
 
+  /// The function `validarDatos()` checks if a bovine code has already been registered and if not, it
+  /// stores the bovine data and navigates to the next registration page.
   validarDatos() async {
     try {
       CollectionReference ref = FirebaseFirestore.instance
@@ -117,6 +147,15 @@ class _NuevoRegistroState extends State<NuevoRegistro> {
     }
   }
 
+  /// This function builds a form for creating a new bovine record with fields for code, name, photo,
+  /// breed, and category.
+  ///
+  /// Args:
+  ///   context (BuildContext): The `context` parameter is the current build context of the widget tree.
+  /// It is used to access the size of the screen using `MediaQuery.of(context).size`.
+  ///
+  /// Returns:
+  ///   The code is returning a Scaffold widget.
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -152,6 +191,8 @@ class _NuevoRegistroState extends State<NuevoRegistro> {
               ),
               const SizedBox(height: 20),
               OutlinedButton.icon(
+                /// The above code is defining an `onPressed` event handler that calls the `_pickImage`
+                /// function with the `ImageSource.gallery` parameter.
                 onPressed: () => _pickImage(ImageSource.gallery),
                 icon: const Icon(FontAwesomeIcons.image),
                 label: const Text(
