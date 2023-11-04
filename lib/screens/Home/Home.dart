@@ -8,6 +8,7 @@ import 'package:BovinApp/Widgets/DialogDosBotones.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+/// The class "Home" is a stateful widget in Dart.
 class Home extends StatefulWidget {
   const Home({super.key});
 
@@ -15,9 +16,21 @@ class Home extends StatefulWidget {
   HomeApp createState() => HomeApp();
 }
 
+/// The `HomeApp` class represents the main screen of the application, including a drawer, app bar, body
+/// content, and a floating action button.
 class HomeApp extends State<Home> {
   late User objUser;
 
+  /// This function builds the main screen of the BovinApp, including the app bar, drawer, body content,
+  /// and a floating action button.
+  ///
+  /// Args:
+  ///   context (BuildContext): The `context` parameter is a required parameter in the `build` method of
+  /// a `StatefulWidget`. It represents the current build context of the widget tree. It is typically
+  /// used to access the theme, media queries, and other contextual information.
+  ///
+  /// Returns:
+  ///   The code is returning a Scaffold widget.
   @override
   Widget build(BuildContext context) {
     final userProvider = Provider.of<UserProvider>(context, listen: false);

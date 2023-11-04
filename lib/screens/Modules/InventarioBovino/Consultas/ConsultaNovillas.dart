@@ -7,6 +7,7 @@ import 'package:BovinApp/DTO/Services/UserProvider.dart';
 import 'package:BovinApp/DTO/User.dart';
 import 'package:provider/provider.dart';
 
+/// The class ConsultaNovillas is a StatefulWidget in Dart.
 class ConsultaNovillas extends StatefulWidget {
   const ConsultaNovillas({super.key});
   @override
@@ -14,6 +15,10 @@ class ConsultaNovillas extends StatefulWidget {
 }
 
 class ConsultaNovillasApp extends State<ConsultaNovillas> {
+  /// The function `onTabSelected` updates the `currentIndex` variable with the provided `index` value.
+  ///
+  /// Args:
+  ///   index (int): The index parameter is the new index of the selected tab.
   int currentIndex = 1;
   void onTabSelected(int index) {
     setState(() {
@@ -24,6 +29,8 @@ class ConsultaNovillasApp extends State<ConsultaNovillas> {
   final db = FirebaseFirestore.instance;
   late User objUser;
 
+  /// The initState function retrieves the user object from the UserProvider using the Provider package in
+  /// Dart.
   @override
   void initState() {
     super.initState();
@@ -31,6 +38,30 @@ class ConsultaNovillasApp extends State<ConsultaNovillas> {
     objUser = userProvider.user;
   }
 
+  /// This function builds a widget that displays a list of "Novillas" (a category of bovine animals)
+  /// from a Firestore database.
+  ///
+  /// Args:
+  ///   context (BuildContext): The BuildContext is a reference to the location of a widget within the
+  /// widget tree. It is used to access the theme, media query, and other properties of the current
+  /// build context.
+  ///
+  /// Returns:
+  ///   The code is returning a `Stack` widget that contains a `Container` and a `Scaffold`. The
+  /// `Scaffold` widget has an `AppBar`, a `body` that contains a `StreamBuilder` widget, and a
+  /// `bottomNavigationBar` that is a custom `BottomBar` widget.
+  /// This function builds a widget that displays a list of "Novillas" (a category of bovine animals)
+  /// from a Firestore database.
+  ///
+  /// Args:
+  ///   context (BuildContext): The BuildContext is a reference to the location of a widget within the
+  /// widget tree. It is used to access the theme, media query, and other properties of the current
+  /// build context.
+  ///
+  /// Returns:
+  ///   The code is returning a `Stack` widget, which contains a `Container` and a `Scaffold`. The
+  /// `Scaffold` widget has an `AppBar`, a `body` that contains a `StreamBuilder` widget, and a
+  /// `bottomNavigationBar` that is a custom `BottomBar` widget.
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -81,12 +112,14 @@ class ConsultaNovillasApp extends State<ConsultaNovillas> {
             },
           ),
           bottomNavigationBar: BottomBar(
-                initialIndex: currentIndex, onTabSelected: onTabSelected),
+              initialIndex: currentIndex, onTabSelected: onTabSelected),
         ),
       ],
     );
   }
 
+  /// The `_buildCategoria` function is responsible for building a widget that displays a list of
+  /// "Novillas" (a category of bovine animals) from a Firestore database.
   Widget _buildCategoria(String title, List<QueryDocumentSnapshot> documentos) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,

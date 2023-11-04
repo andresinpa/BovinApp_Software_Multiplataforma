@@ -1,5 +1,19 @@
 import 'package:flutter/material.dart';
 
+/// The function builds a menu with various options and displays the BovinApp logo and version
+/// information.
+///
+/// Args:
+///   context (BuildContext): The `context` parameter is a required parameter of type `BuildContext`. It
+/// is used to access the current context of the widget tree. The context provides information about the
+/// current state of the app and allows you to access resources such as themes, media queries, and
+/// navigation.
+///
+/// Returns:
+///   a Container widget with a padding and a child widget. The child widget is a Wrap widget with a
+/// runSpacing property set to 18.0. Inside the Wrap widget, there are several ListTile widgets, each
+/// with a leading icon, iconColor, title, and onTap property. After the ListTiles, there is an
+/// Image.asset widget and a Row widget with two Text widgets.
 Widget buildMenuItems(BuildContext context) {
   Size size = MediaQuery.of(context).size;
   return Container(

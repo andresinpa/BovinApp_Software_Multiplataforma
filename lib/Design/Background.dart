@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+/// The `Background` class is a widget that displays a background image with different layouts based on
+/// the screen size.
 class Background extends StatelessWidget {
   final Widget child;
 

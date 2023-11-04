@@ -11,6 +11,7 @@ import 'package:BovinApp/DTO/User.dart';
 import 'package:provider/provider.dart';
 import 'package:BovinApp/DTO/Bovino.dart';
 
+/// The class FichasIndividuales is a StatefulWidget in Dart.
 class FichasIndividuales extends StatefulWidget {
   const FichasIndividuales({super.key});
 
@@ -18,6 +19,7 @@ class FichasIndividuales extends StatefulWidget {
   State<FichasIndividuales> createState() => _FichasIndividualesState();
 }
 
+/// The code defines two constant lists: `clasificacion` and `raza`.
 const List<String> clasificacion = [
   'Vacas',
   'Toros',
@@ -27,7 +29,13 @@ const List<String> clasificacion = [
 ];
 const List<String> raza = ['Holstein', 'Normando', 'Montbeliarde', 'Jersey'];
 
+/// The `_FichasIndividualesState` class is a stateful widget that displays a form for searching and
+/// displaying individual cattle records.
 class _FichasIndividualesState extends State<FichasIndividuales> {
+  /// The function `onTabSelected` updates the `currentIndex` variable with the provided `index` value.
+  ///
+  /// Args:
+  ///   index (int): The index parameter is the new index of the selected tab.
   int currentIndex = 1;
   void onTabSelected(int index) {
     setState(() {
@@ -43,6 +51,9 @@ class _FichasIndividualesState extends State<FichasIndividuales> {
   Bovino objBovino = Bovino();
   late User objUser;
 
+  /// The initState function retrieves the user object from the UserProvider using the Provider package in
+  /// Dart.
+
   @override
   void initState() {
     super.initState();
@@ -50,6 +61,8 @@ class _FichasIndividualesState extends State<FichasIndividuales> {
     objUser = userProvider.user;
   }
 
+  /// The function `validarDatos()` retrieves data from a Firestore collection based on certain
+  /// conditions and navigates to a new page if a match is found, otherwise it displays an alert.
   validarDatos() async {
     try {
       CollectionReference ref = FirebaseFirestore.instance
@@ -97,6 +110,18 @@ class _FichasIndividualesState extends State<FichasIndividuales> {
     }
   }
 
+  /// This function builds a Flutter widget that displays a search screen with various input fields and
+  /// dropdown menus.
+  ///
+  /// Args:
+  ///   context (BuildContext): The `context` parameter is the build context of the widget. It is
+  /// typically used to access the theme, media query, and other properties of the current widget tree.
+  ///
+  /// Returns:
+  ///   The code is returning a `Stack` widget that contains a `Scaffold` widget as its child. The
+  /// `Scaffold` widget has an `AppBar` at the top, a `SingleChildScrollView` as its body, and a
+  /// `BottomBar` at the bottom. Inside the `SingleChildScrollView`, there is a `Column` widget that
+  /// contains various widgets such as `Image`, `Text`,
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;

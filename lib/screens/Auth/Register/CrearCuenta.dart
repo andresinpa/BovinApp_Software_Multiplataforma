@@ -15,15 +15,28 @@ import 'dart:async';
 import 'dart:convert';
 import 'package:image_picker/image_picker.dart';
 
+/// The class "CrearCuenta" is a stateful widget in Dart.
 class CrearCuenta extends StatefulWidget {
   const CrearCuenta({super.key});
   @override
   CrearCuentaApp createState() => CrearCuentaApp();
 }
 
+/// The `CrearCuentaApp` class is a stateful widget in Dart that handles the registration process for a
+/// user in an app, including form validation and image selection.
 class CrearCuentaApp extends State<CrearCuenta> {
+  /// The above code is declaring a final variable named `_imagePicker` of type `ImagePicker`. It is
+  /// assigning an instance of the `ImagePicker` class to this variable.
   final ImagePicker _imagePicker = ImagePicker();
   File? _pickedImage;
+
+  /// The function `_pickImage` picks an image from a specified source and updates the state with the
+  /// picked image.
+  ///
+  /// Args:
+  ///   source (ImageSource): The `source` parameter in the `_pickImage` function is of type
+  /// `ImageSource`. It is used to specify the source from where the image should be picked. The
+  /// `ImageSource` enum has the following possible values:
   Future<void> _pickImage(ImageSource source) async {
     final pickedImage = await _imagePicker.pickImage(source: source);
     setState(() {
@@ -43,6 +56,9 @@ class CrearCuentaApp extends State<CrearCuenta> {
   bool bandera = true;
   String passSha256 = "";
 
+  /// The function `validarDatos()` checks if the entered email and username already exist in the
+  /// Firestore collection 'Usuarios', and if not, it creates a new user with the entered information
+  /// and sends a confirmation email.
   validarDatos() async {
     try {
       CollectionReference ref =
@@ -103,6 +119,16 @@ class CrearCuentaApp extends State<CrearCuenta> {
     }
   }
 
+  /// The build function returns a Scaffold widget with various UI elements for a registration screen in
+  /// a Flutter app.
+  ///
+  /// Args:
+  ///   context (BuildContext): The `context` parameter is the build context of the widget. It is used
+  /// to access the theme, media query, and other properties of the current widget tree. It is typically
+  /// passed down from the parent widget's build method.
+  ///
+  /// Returns:
+  ///   The code is returning a Scaffold widget.
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -308,6 +334,12 @@ class CrearCuentaApp extends State<CrearCuenta> {
     );
   }
 
+  /// The above code is performing input validations. It checks if all the required fields (nombre,
+  /// apellido, usuario, email, finca, ganado, password, confirmacion) are not empty. It then checks if
+  /// the password and confirmation match, if the length of the usuario is greater than 3, if the email
+  /// is valid, if the number of bovinos is between 1 and 99, and if the password meets certain criteria
+  /// (at least 5 characters with the use of letters and numbers). If all the validations pass, it calls
+  /// the `validarDatos()` function. If
   void validacionesDeEntrada() async {
     if (nombre.text.isNotEmpty &&
         apellido.text.isNotEmpty &&

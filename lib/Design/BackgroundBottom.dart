@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
 
+/// The `BackgroundBottom` class is a widget that displays a background image at the bottom of the
+/// screen, with the option to adjust its height based on the screen size.
 class BackgroundBotttom extends StatelessWidget {
   final Widget child;
   final double height;
+
+  /// The `const BackgroundBotttom` is a constructor for the `BackgroundBotttom` class. It takes three
+  /// parameters: `key`, `child`, and `height`.
   const BackgroundBotttom({
     Key? key,
     required this.child,
@@ -45,6 +50,9 @@ class BackgroundBotttom extends StatelessWidget {
         ),
       );
     } else {
+      /// The code is returning a `SizedBox` widget with the width set to `double.infinity` (which means
+      /// it takes up the entire available width) and the height set to `size.height` (which is the
+      /// height of the screen).
       return SizedBox(
         width: double.infinity,
         height: size.height,

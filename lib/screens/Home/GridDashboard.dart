@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+/// The GridDashboard class is a StatefulWidget in Dart that represents a grid-based dashboard.
 class GridDashboard extends StatefulWidget {
   const GridDashboard({super.key});
 
@@ -7,6 +8,8 @@ class GridDashboard extends StatefulWidget {
   State<GridDashboard> createState() => _GridDashboardState();
 }
 
+/// The `_GridDashboardState` class is responsible for building a grid of items with images and titles,
+/// and navigating to different screens when an item is pressed.
 class _GridDashboardState extends State<GridDashboard> {
   @override
   Widget build(BuildContext context) {
@@ -90,6 +93,7 @@ class _GridDashboardState extends State<GridDashboard> {
   }
 }
 
+/// The class "Items" represents an item with a title, image, and an optional onPressed function.
 class Items {
   String title;
   String img;

@@ -10,6 +10,8 @@ import 'package:json_theme/json_theme.dart';
 import 'package:provider/provider.dart';
 import 'package:intl/date_symbol_data_local.dart'; // Importa la biblioteca de localización
 
+/// The main function initializes the app, loads the theme data, initializes Firebase, sets preferred
+/// device orientations, and runs the app with the specified theme.
 void main() async {
   initializeDateFormatting('es_ES', null);
   WidgetsFlutterBinding.ensureInitialized();

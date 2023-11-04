@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously, avoid_print
+
 import 'package:BovinApp/DTO/Bovino.dart';
 import 'package:BovinApp/Screens/Auth/Register/ImagenUsuario.dart';
 import 'package:BovinApp/Widgets/BottomBar.dart';
@@ -9,11 +11,15 @@ import 'package:BovinApp/DTO/Services/UserProvider.dart';
 import 'package:BovinApp/DTO/User.dart';
 import 'package:provider/provider.dart';
 
+/// The above code is declaring a constant list of strings called "listaEdad" with two elements: "Meses"
+/// and "Años".
 const List<String> listaEdad = [
   'Meses',
   'Años',
 ];
 
+/// The above code is declaring a constant list of strings called "listarazas". It contains the names of
+/// different breeds of cows.
 const List<String> listarazas = [
   'Holstein',
   'Normando',
@@ -21,6 +27,8 @@ const List<String> listarazas = [
   'Jersey',
 ];
 
+/// The class SiguienteRegistro is a StatefulWidget that takes a Bovino object as a parameter and
+/// creates a state for it.
 class SiguienteRegistro extends StatefulWidget {
   final Bovino cadena;
   const SiguienteRegistro(this.cadena, {super.key});
@@ -29,6 +37,8 @@ class SiguienteRegistro extends StatefulWidget {
   State<SiguienteRegistro> createState() => _SiguienteRegistroState();
 }
 
+/// The `_SiguienteRegistroState` class is a stateful widget that allows the user to enter additional
+/// data for a new bovine registration.
 class _SiguienteRegistroState extends State<SiguienteRegistro> {
   TextEditingController edadBovino = TextEditingController();
   TextEditingController ingreso = TextEditingController();
@@ -43,6 +53,8 @@ class _SiguienteRegistroState extends State<SiguienteRegistro> {
 
   late User objUser;
 
+  /// The initState function retrieves the user object from the UserProvider using the Provider package in
+  /// Dart.
   @override
   void initState() {
     super.initState();
@@ -50,6 +62,7 @@ class _SiguienteRegistroState extends State<SiguienteRegistro> {
     objUser = userProvider.user;
   }
 
+  /// The function `_showDatePicker()` shows a date picker dialog with a range of selectable dates.
   final firebase = FirebaseFirestore.instance;
   void _showDatePicker() {
     showDatePicker(
@@ -60,6 +73,10 @@ class _SiguienteRegistroState extends State<SiguienteRegistro> {
     );
   }
 
+  /// The function `onTabSelected` updates the `currentIndex` variable with the provided `index` value.
+  ///
+  /// Args:
+  ///   index (int): The index parameter is the new index of the selected tab.
   int currentIndex = 1;
   void onTabSelected(int index) {
     setState(() {
@@ -67,6 +84,8 @@ class _SiguienteRegistroState extends State<SiguienteRegistro> {
     });
   }
 
+  /// The function `validarDatos()` is used to validate and save data related to a bovine animal in a
+  /// Firestore database.
   validarDatos() async {
     try {
       if (widget.cadena.codigoBovino != '' ||
@@ -110,6 +129,15 @@ class _SiguienteRegistroState extends State<SiguienteRegistro> {
     }
   }
 
+  /// This function builds a form for entering data about a new bovine, including age, income, mother's
+  /// code and breed, father's code and breed, and daily milk production if it is a cow.
+  ///
+  /// Args:
+  ///   context (BuildContext): The `context` parameter is the current build context of the widget tree.
+  /// It is used to access the theme, media queries, and other contextual information.
+  ///
+  /// Returns:
+  ///   The code is returning a Scaffold widget.
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;

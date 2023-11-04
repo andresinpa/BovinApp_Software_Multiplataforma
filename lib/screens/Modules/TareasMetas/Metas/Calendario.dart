@@ -10,6 +10,7 @@ import 'package:intl/date_symbol_data_local.dart';
 import 'package:provider/provider.dart';
 import 'package:table_calendar/table_calendar.dart';
 
+/// The Calendar class is a StatefulWidget in Dart.
 class Calendar extends StatefulWidget {
   const Calendar({Key? key}) : super(key: key);
 
@@ -17,12 +18,23 @@ class Calendar extends StatefulWidget {
   _CalendarState createState() => _CalendarState();
 }
 
+/// The `_CalendarState` class is a stateful widget that represents the calendar screen in a
+/// goal-tracking app. It allows users to view and manage their goals, add new goals, mark goals as
+/// complete, and delete goals.
 class _CalendarState extends State<Calendar> {
   final firebase = FirebaseFirestore.instance;
   late User objUser;
+
+  /// The above code is declaring a variable named `selectedEvents` as a `Map` with keys of type
+  /// `DateTime` and values of type `List<Event>`. The `late` keyword indicates that the variable will be
+  /// initialized at a later point in the code.
   late Map<DateTime, List<Event>> selectedEvents;
 
+  /// The above code is declaring a variable `format` of type `CalendarFormat` and assigning it the value
+  /// `CalendarFormat.month`.
   CalendarFormat format = CalendarFormat.month;
+
+  /// The above code is declaring and initializing variables in Dart.
   DateTime selectedDay = DateTime.now();
   DateTime focusedDay = DateTime.now();
   late List<DateTime> markedDates = [];
@@ -33,6 +45,7 @@ class _CalendarState extends State<Calendar> {
       TextEditingController();
   String _eventImportance = "Alto"; // Valor por defecto
 
+  /// The initState function initializes variables and loads events from Firestore.
   @override
   void initState() {
     super.initState();
@@ -47,6 +60,10 @@ class _CalendarState extends State<Calendar> {
     _loadEventsFromFirestore();
   }
 
+  /// The function `onTabSelected` updates the `currentIndex` variable with the provided `index` value.
+  ///
+  /// Args:
+  ///   index (int): The `index` parameter is an integer that represents the index of the selected tab.
   int currentIndex = 1;
   void onTabSelected(int index) {
     setState(() {
@@ -54,6 +71,8 @@ class _CalendarState extends State<Calendar> {
     });
   }
 
+  /// The dispose function is used to release resources and clean up after the widget is removed from the
+  /// widget tree.
   @override
   void dispose() {
     _eventTitleController.dispose();
@@ -64,6 +83,8 @@ class _CalendarState extends State<Calendar> {
   //Obtener las metas que se encuentran registradas -------------------------------------
 
   // Carga las metas desde Firestore y actualiza selectedEvents
+  /// The function `_loadEventsFromFirestore` retrieves events from Firestore and updates the state to
+  /// reflect the changes.
   Future<void> _loadEventsFromFirestore() async {
     // Consulta Firestore para obtener las metas del usuario actual
     final querySnapshot = await firebase
@@ -110,6 +131,7 @@ class _CalendarState extends State<Calendar> {
   }
 
   //Añadir Meta a la base de datos --------------------------------------------------
+  /// The `_addEvent` function adds an event to a selected day in a calendar and saves it to Firestore.
   Future<void> _addEvent() async {
     if (_eventTitleController.text.isNotEmpty) {
       final event = Event(
@@ -148,6 +170,13 @@ class _CalendarState extends State<Calendar> {
   }
 
   //Actualizar estado Meta -------------------------------------------------------------------------------
+  /// The function `_markEventAsComplete` displays a confirmation dialog and updates the completion
+  /// status of an event in Firestore based on the user's selection.
+  ///
+  /// Args:
+  ///   event (Event): The "event" parameter is an object of type "Event" which represents a specific
+  /// event or goal. It contains information such as the completion status (completo) and the ID of the
+  /// goal (metaId).
   Future<void> _markEventAsComplete(Event event) async {
     bool isComplete = event.completo;
     // Muestra un diálogo de confirmación para marcar como completo o no completo
@@ -175,6 +204,10 @@ class _CalendarState extends State<Calendar> {
       ),
     );
 
+    /// The above code is updating the 'completo' field in a Firestore document. It checks if the 'complete'
+    /// variable is not null and not false, and then updates the field to the opposite value of
+    /// 'isComplete'. After updating the field, it calls the setState() method to trigger a rebuild of the
+    /// UI.
     if (complete != null && complete != false) {
       // Actualiza el estado en Firestore
       await firebase
@@ -193,6 +226,11 @@ class _CalendarState extends State<Calendar> {
   Widget build(BuildContext context) {
     // Filtra las metas que corresponden al día seleccionado
     final filteredEventsAdd = selectedEvents[selectedDay] ?? [];
+
+    /// The above code is filtering a list of calendar events based on a selected day. It uses the `where`
+    /// method to check if the `date` property of each event is the same as the `selectedDay`. The filtered
+    /// events are then converted to a list using the `toList` method and stored in the `filteredEvents`
+    /// variable.
     final filteredEvents = _calendarEvents
         .where((event) => isSameDay(event.date, selectedDay))
         .toList();
@@ -383,6 +421,11 @@ class _CalendarState extends State<Calendar> {
                 ),
               ),
               const SizedBox(height: 20),
+
+              /// The above code is creating a `Container` widget with a `transformAlignment` property
+              /// set to `Alignment.centerLeft`. It has padding applied to all sides. Inside the
+              /// container, there is a `Column` widget with `crossAxisAlignment` set to
+              /// `CrossAxisAlignment.start`.
               Container(
                 transformAlignment: Alignment.centerLeft,
                 padding: const EdgeInsets.all(10),
@@ -485,7 +528,9 @@ class _CalendarState extends State<Calendar> {
                                 margin: const EdgeInsets.only(bottom: 10),
                                 padding: const EdgeInsets.all(10),
                                 decoration: BoxDecoration(
-                                  color: event.completo ? Colors.green.withOpacity(0.2) : Colors.blue.withOpacity(0.2),
+                                  color: event.completo
+                                      ? Colors.green.withOpacity(0.2)
+                                      : Colors.blue.withOpacity(0.2),
                                   shape: BoxShape.rectangle,
                                   borderRadius: BorderRadius.circular(10),
                                 ),
@@ -536,6 +581,11 @@ class _CalendarState extends State<Calendar> {
           ),
         ),
       ),
+
+      /// The above code is creating a floating action button with an extended style. When the button is
+      /// pressed, it opens a dialog box (AlertDialog) with a form to add a new goal. The form includes
+      /// fields for title, description, and importance. The importance field is a dropdown menu with
+      /// options for high, medium, and low. The dialog box also has cancel and save buttons.
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () => showDialog(
           context: context,

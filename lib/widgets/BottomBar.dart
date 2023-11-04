@@ -2,10 +2,14 @@
 
 import 'package:flutter/material.dart';
 
+/// The `BottomBar` class is a stateful widget in Dart that represents a bottom navigation bar with an
+/// initial selected index and a callback function for when a tab is selected.
 class BottomBar extends StatefulWidget {
   final int initialIndex;
   final void Function(int) onTabSelected;
 
+  /// The code `const BottomBar({ Key? key, required this.initialIndex, required this.onTabSelected, }) :
+  /// super(key: key);` is the constructor for the `BottomBar` class.
   const BottomBar({
     Key? key,
     required this.initialIndex,
@@ -16,7 +20,11 @@ class BottomBar extends StatefulWidget {
   _BottomBarState createState() => _BottomBarState();
 }
 
+/// The `_BottomBarState` class is a stateful widget that represents a bottom navigation bar in a
+/// Flutter app.
 class _BottomBarState extends State<BottomBar> {
+  /// The initState function in Dart initializes the currentIndex variable to the value of the
+  /// initialIndex property of the widget.
   int currentIndex = 0;
   @override
   void initState() {
@@ -24,6 +32,15 @@ class _BottomBarState extends State<BottomBar> {
     currentIndex = widget.initialIndex;
   }
 
+  /// This function returns a BottomNavigationBar widget with three items.
+  ///
+  /// Args:
+  ///   context (BuildContext): The context parameter is the build context of the widget. It is used to
+  /// access the theme, localization, and other information related to the widget's position in the
+  /// widget tree.
+  ///
+  /// Returns:
+  ///   The code is returning a BottomNavigationBar widget.
   @override
   Widget build(BuildContext context) {
     return BottomNavigationBar(
@@ -48,6 +65,13 @@ class _BottomBarState extends State<BottomBar> {
     );
   }
 
+  /// The function `setStateBottom` updates the state of the current index and performs navigation based
+  /// on the selected index.
+  ///
+  /// Args:
+  ///   index (int): The index parameter is an integer that represents the index of the selected tab. It
+  /// is used to determine which tab is selected and perform the corresponding actions based on the
+  /// selected tab.
   void setStateBottom(int index) {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       try {

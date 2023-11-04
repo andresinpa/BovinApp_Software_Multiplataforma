@@ -8,6 +8,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
+/// The ConfirmacionCuenta class is a StatefulWidget that takes a User object as a parameter and creates
+/// a ConfirmacionCuentaApp widget.
 class ConfirmacionCuenta extends StatefulWidget {
   final User cadena;
   const ConfirmacionCuenta(this.cadena, {super.key});
@@ -15,10 +17,15 @@ class ConfirmacionCuenta extends StatefulWidget {
   ConfirmacionCuentaApp createState() => ConfirmacionCuentaApp();
 }
 
+/// The `ConfirmacionCuentaApp` class is a stateful widget that displays a confirmation screen for a
+/// user account and allows the user to validate their account by entering a code.
 class ConfirmacionCuentaApp extends State<ConfirmacionCuenta> {
   TextEditingController codigo = TextEditingController();
   final firebase = FirebaseFirestore.instance;
   dynamic uploaded;
+
+  /// The function `insertarDatos()` is used to insert data into a Firebase collection called "Usuarios"
+  /// in Dart programming language.
   insertarDatos() async {
     // ignore: duplicate_ignore
     try {
@@ -66,9 +73,24 @@ class ConfirmacionCuentaApp extends State<ConfirmacionCuenta> {
     }
   }
 
+  /// The build function is responsible for creating and returning the widget tree that represents the
+  /// user interface of the app.
+  ///
+  /// Args:
+  ///   context (BuildContext): The context parameter in the build method is a reference to the current
+  /// build context of the widget tree. It provides access to various resources and services, such as
+  /// theme data, media queries, and navigation. It is typically used to retrieve or modify data related
+  /// to the current state of the app.
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
+
+    /// The above code is creating a screen for confirming an account in a mobile app. It includes a
+    /// form where the user can enter a validation code sent to their email. If the entered code matches
+    /// the expected code, the user's data is inserted and they are redirected to the home screen. If
+    /// the code does not match, an error message is displayed. The code also includes a confirmation
+    /// dialog that appears when the user tries to navigate back from this screen, asking for
+    /// confirmation before allowing the navigation.
     return WillPopScope(
       onWillPop: () async {
         bool? resultado = await mostrarAlerta(context);

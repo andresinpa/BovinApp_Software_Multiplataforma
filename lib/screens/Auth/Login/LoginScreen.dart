@@ -10,12 +10,14 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 
+/// The LoginScreen class is a StatefulWidget in Dart that represents a login screen.
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
   @override
   LoginScreenApp createState() => LoginScreenApp();
 }
 
+/// The `LoginScreenApp` class is a stateful widget that represents the login screen of an application.
 class LoginScreenApp extends State<LoginScreen> {
   TextEditingController email = TextEditingController();
   TextEditingController password = TextEditingController();
@@ -32,6 +34,9 @@ class LoginScreenApp extends State<LoginScreen> {
     // Obtén la instancia de User
     final objUser = userProvider.user;
 
+    /// The function `validarDatos()` checks if the entered email and password match any user in the
+    /// Firestore database and displays a dialog box with a success message if the login is successful,
+    /// or an error message if the login fails.
     validarDatos() async {
       try {
         CollectionReference ref =

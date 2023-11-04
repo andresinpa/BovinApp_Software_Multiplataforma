@@ -4,6 +4,7 @@ import 'package:BovinApp/Widgets/BottomBar.dart';
 import 'package:BovinApp/Widgets/Export/Widgets.dart';
 import 'package:flutter/material.dart';
 
+/// The class "Produccion" is a stateful widget in Dart.
 class Produccion extends StatefulWidget {
   const Produccion({super.key});
 
@@ -12,6 +13,10 @@ class Produccion extends StatefulWidget {
 }
 
 class _ProduccionState extends State<Produccion> {
+  /// The function `onTabSelected` updates the `currentIndex` variable with the provided `index` value.
+  ///
+  /// Args:
+  ///   index (int): The index parameter is the new index of the selected tab.
   int currentIndex = 1;
   void onTabSelected(int index) {
     setState(() {
@@ -19,6 +24,16 @@ class _ProduccionState extends State<Produccion> {
     });
   }
 
+  /// This function builds a Scaffold with an AppBar, a SingleChildScrollView, a BackgroundBotttom widget,
+  /// and a BottomBar widget.
+  ///
+  /// Args:
+  ///   context (BuildContext): The BuildContext is a reference to the location of a widget within the
+  /// widget tree. It is used to access the properties and methods of the current widget and its
+  /// ancestors.
+  ///
+  /// Returns:
+  ///   The build method is returning a Scaffold widget.
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;

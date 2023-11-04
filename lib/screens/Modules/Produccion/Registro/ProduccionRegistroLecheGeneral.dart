@@ -1,4 +1,5 @@
-import 'dart:ui';
+// ignore_for_file: avoid_print, unused_element, no_leading_underscores_for_local_identifiers, file_names
+
 import 'package:BovinApp/Widgets/BottomBar.dart';
 import 'package:BovinApp/Widgets/Export/Widgets.dart';
 import 'package:flutter/material.dart';
@@ -9,11 +10,16 @@ import 'package:BovinApp/DTO/User.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
+/// The line `const List<String> listaHorario = ['Mañana', 'Tarde'];` is declaring a constant list of
+/// strings named `listaHorario`. This list contains two elements: "Mañana" and "Tarde". The `const`
+/// keyword is used to indicate that the list is a compile-time constant, meaning its values cannot be
+/// modified at runtime.
 const List<String> listaHorario = [
   'Mañana',
   'Tarde',
 ];
 
+/// The class "NuevoRegistroProduccionLeche" is a stateful widget in Dart.
 class NuevoRegistroProduccionLeche extends StatefulWidget {
   const NuevoRegistroProduccionLeche({super.key});
 
@@ -22,6 +28,8 @@ class NuevoRegistroProduccionLeche extends StatefulWidget {
       _NuevoRegistroProduccionLecheState();
 }
 
+/// The `_NuevoRegistroProduccionLecheState` class is a stateful widget that allows users to register
+/// daily milk production and saves the data to a Firestore database.
 class _NuevoRegistroProduccionLecheState
     extends State<NuevoRegistroProduccionLeche> {
   String horario = listaHorario.first;
@@ -32,6 +40,8 @@ class _NuevoRegistroProduccionLecheState
 
   late User objUser;
 
+  /// The initState function retrieves the user object from the UserProvider using the Provider package in
+  /// Dart.
   @override
   void initState() {
     super.initState();
@@ -39,11 +49,17 @@ class _NuevoRegistroProduccionLecheState
     objUser = userProvider.user;
   }
 
+  /// The function `validarDatos()` checks if a document exists in a Firestore collection and updates it
+  /// with a new field or creates a new document if it doesn't exist.
   validarDatos() async {
     try {
       DateTime now = DateTime.now();
       // Formatea la fecha en el formato "yyyy-MM-dd"
       String formattedDate = DateFormat('yyyy-MM-dd').format(now);
+
+      /// The code `DocumentReference docRef =
+      /// firebase.collection('Usuarios').doc(objUser.usuario).collection('ProduccionLeche').doc(formattedDate);`
+      /// is creating a reference to a specific document in the Firestore database.
       DocumentReference docRef = firebase
           .collection('Usuarios')
           .doc(objUser.usuario)
@@ -55,7 +71,7 @@ class _NuevoRegistroProduccionLecheState
               docSnapshot.data() as Map<String, dynamic>;
 
           // Agrega el nuevo campo a los datos actuales
-          data['Leche $horario'] = (leche.text+" litros");
+          data['Leche $horario'] = ("${leche.text} litros");
           // Actualiza el documento con los nuevos datos
           docRef.update(data).then((value) {
             print('Nuevo campo guardado exitosamente');
@@ -69,7 +85,7 @@ class _NuevoRegistroProduccionLecheState
               .collection('ProduccionLeche')
               .doc(formattedDate)
               .set({
-            "Leche $horario": (leche.text+" litros"),
+            "Leche $horario": ("${leche.text} litros"),
           });
           print('El documento no existe');
         }
@@ -85,6 +101,8 @@ class _NuevoRegistroProduccionLecheState
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
 
+    /// The `_showDatePicker` function displays a date picker dialog with the current date as the initial
+    /// date and a range from 2008 to the current date.
     void _showDatePicker() {
       showDatePicker(
         context: context,

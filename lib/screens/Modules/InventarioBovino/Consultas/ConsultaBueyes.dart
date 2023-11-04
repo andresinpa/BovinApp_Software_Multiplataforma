@@ -7,13 +7,21 @@ import 'package:BovinApp/DTO/Services/UserProvider.dart';
 import 'package:BovinApp/DTO/User.dart';
 import 'package:provider/provider.dart';
 
+/// The class "ConsultaBueyes" is a stateful widget in Dart.
 class ConsultaBueyes extends StatefulWidget {
   const ConsultaBueyes({super.key});
   @override
   ConsultaBueyesApp createState() => ConsultaBueyesApp();
 }
 
+/// The `ConsultaBueyesApp` class is a Dart class that builds a widget to display a list of documents
+/// from a Firestore collection based on a specific category, with a fallback message if there is no
+/// data available.
 class ConsultaBueyesApp extends State<ConsultaBueyes> {
+  /// The function `onTabSelected` updates the `currentIndex` variable with the provided `index` value.
+  ///
+  /// Args:
+  ///   index (int): The index parameter is the new index of the selected tab.
   int currentIndex = 1;
   void onTabSelected(int index) {
     setState(() {
@@ -24,6 +32,8 @@ class ConsultaBueyesApp extends State<ConsultaBueyes> {
   final db = FirebaseFirestore.instance;
   late User objUser;
 
+  /// The initState function retrieves the user object from the UserProvider using the Provider package in
+  /// Dart.
   @override
   void initState() {
     super.initState();
@@ -31,6 +41,18 @@ class ConsultaBueyesApp extends State<ConsultaBueyes> {
     objUser = userProvider.user;
   }
 
+  /// This function builds a widget that displays a list of documents from a Firestore collection based
+  /// on a specific category, with a fallback message if there is no data available.
+  ///
+  /// Args:
+  ///   context (BuildContext): The BuildContext is a reference to the location of a widget within the
+  /// widget tree. It is used to access the theme, media query, and other properties of the current
+  /// build context.
+  ///
+  /// Returns:
+  ///   The code is returning a `Stack` widget that contains a `Container` and a `Scaffold`. The
+  /// `Scaffold` widget has an `AppBar`, a `body` that contains a `StreamBuilder` widget, and a
+  /// `bottomNavigationBar` that is a custom `BottomBar` widget.
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -62,6 +84,8 @@ class ConsultaBueyesApp extends State<ConsultaBueyes> {
                 }
                 return ListView(
                   children: <Widget>[
+                    /// The `_buildCategoria("🐮", categoriaBueyes)` function is creating a widget that
+                    /// displays a list of documents from a Firestore collection.
                     _buildCategoria("🐮", categoriaBueyes),
                   ],
                 );
@@ -81,13 +105,15 @@ class ConsultaBueyesApp extends State<ConsultaBueyes> {
             },
           ),
           bottomNavigationBar: BottomBar(
-                initialIndex: currentIndex, onTabSelected: onTabSelected),
-        
+              initialIndex: currentIndex, onTabSelected: onTabSelected),
         ),
       ],
     );
   }
 
+  /// The `_buildCategoria` function is responsible for creating a widget that displays a list of
+  /// documents from a Firestore collection. It takes two parameters: `title`, which is the title of the
+  /// category, and `documentos`, which is a list of `QueryDocumentSnapshot` objects.
   Widget _buildCategoria(String title, List<QueryDocumentSnapshot> documentos) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,

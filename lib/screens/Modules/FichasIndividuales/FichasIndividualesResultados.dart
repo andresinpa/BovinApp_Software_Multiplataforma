@@ -10,11 +10,16 @@ import 'package:BovinApp/DTO/User.dart';
 import 'package:provider/provider.dart';
 import 'package:BovinApp/Widgets/Export/Widgets.dart';
 
+/// The line `const List<String> listaEdad = ['Meses', 'Años'];` is declaring a constant list of strings
+/// named `listaEdad`. This list contains two elements: "Meses" and "Años".
 const List<String> listaEdad = [
   'Meses',
   'Años',
 ];
 
+/// The line `const List<String> list2 = ['Vacas', 'Toros', 'Terneros', 'Novillas', 'Bueyes'];` is
+/// declaring a constant list of strings named `list2`. This list contains five elements: "Vacas",
+/// "Toros", "Terneros", "Novillas", and "Bueyes".
 const List<String> list2 = [
   'Vacas',
   'Toros',
@@ -23,6 +28,8 @@ const List<String> list2 = [
   'Bueyes',
 ];
 
+/// The class FichasIndividualesResultados is a StatefulWidget that takes a Bovino object as a parameter
+/// and creates a state for managing its individual results.
 class FichasIndividualesResultados extends StatefulWidget {
   final Bovino cadena;
 
@@ -34,8 +41,14 @@ class FichasIndividualesResultados extends StatefulWidget {
       _FichasIndividualesResultadosState();
 }
 
+/// The `_FichasIndividualesResultadosState` class is a stateful widget that displays and updates
+/// information about an individual bovine.
 class _FichasIndividualesResultadosState
     extends State<FichasIndividualesResultados> {
+  /// The function updates the value of the currentIndex variable with the provided index value.
+  ///
+  /// Args:
+  ///   index (int): The parameter "index" is an integer that represents the index of the selected tab.
   int currentIndex = 1;
   void onTabSelected(int index) {
     setState(() {
@@ -49,6 +62,8 @@ class _FichasIndividualesResultadosState
   final firebase = FirebaseFirestore.instance;
   late User objUser;
 
+  /// The initState function initializes the state of the widget by assigning values to variables and
+  /// retrieving user information from a provider.
   @override
   void initState() {
     super.initState();
@@ -58,6 +73,8 @@ class _FichasIndividualesResultadosState
     objUser = userProvider.user;
   }
 
+  /// The function `validarDatos()` validates data and saves it to a Firestore database if all required
+  /// fields are not empty.
   validarDatos() async {
     try {
       if (widget.cadena.codigoBovino != '' ||
@@ -65,6 +82,9 @@ class _FichasIndividualesResultadosState
           widget.cadena.razaBovino != '' ||
           widget.cadena.categoriaBovino != '') {
         // Obtén una referencia al documento
+        /// The above code is creating a reference to a collection in a Firestore database. It is accessing the
+        /// "Usuarios" collection, then accessing a specific document based on the "usuario" field of the
+        /// "objUser" object, and finally accessing the "InventarioBovino" subcollection within that document.
         CollectionReference documentReference = firebase
             .collection('Usuarios')
             .doc(objUser.usuario)
@@ -93,6 +113,15 @@ class _FichasIndividualesResultadosState
     }
   }
 
+  /// This function builds a widget for displaying individual information about a bovine animal.
+  ///
+  /// Args:
+  ///   context (BuildContext): The `context` parameter is the build context of the widget. It is used
+  /// to access the theme, media query, and other properties of the current widget tree. It is typically
+  /// passed down from the parent widget's build method.
+  ///
+  /// Returns:
+  ///   The build method is returning a Scaffold widget.
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -131,6 +160,10 @@ class _FichasIndividualesResultadosState
                   ),
                 ),
                 const SizedBox(height: 16),
+
+                /// The above code is building a series of information rows using the _buildInfoRow function. Each row
+                /// displays a specific piece of information about a bovine object, such as its breed, date of birth or
+                /// entry, parent codes and breeds, and daily milk production.
                 _buildInfoRow('Raza:', widget.cadena.razaBovino),
                 _buildInfoRow(
                     'Fecha de nacimiento o de ingreso:', widget.cadena.ingreso),
@@ -251,6 +284,17 @@ class _FichasIndividualesResultadosState
             initialIndex: currentIndex, onTabSelected: onTabSelected));
   }
 
+  /// The function `_buildInfoRow` returns a row widget with a label and value displayed in a centered
+  /// manner.
+  ///
+  /// Args:
+  ///   label (String): The label parameter is a string that represents the label or title for the
+  /// information being displayed in the row. It could be something like "Name", "Age", or "Address".
+  ///   value (String): The "value" parameter is a string that represents the value to be displayed in the
+  /// row.
+  ///
+  /// Returns:
+  ///   a widget of type `Row`.
   Widget _buildInfoRow(String label, String value) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,

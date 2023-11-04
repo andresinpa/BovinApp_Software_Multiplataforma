@@ -7,13 +7,20 @@ import 'package:BovinApp/DTO/Services/UserProvider.dart';
 import 'package:BovinApp/DTO/User.dart';
 import 'package:provider/provider.dart';
 
+/// The class ConsultaMedicamentos is a StatefulWidget in Dart.
 class ConsultaMedicamentos extends StatefulWidget {
   const ConsultaMedicamentos({super.key});
   @override
   ConsultaMedicamentosApp createState() => ConsultaMedicamentosApp();
 }
 
+/// The `ConsultaMedicamentosApp` class is a stateful widget that displays a list of medications from a
+/// Firestore collection based on the user's inventory.
 class ConsultaMedicamentosApp extends State<ConsultaMedicamentos> {
+  /// The function `onTabSelected` updates the `currentIndex` variable with the provided `index` value.
+  ///
+  /// Args:
+  ///   index (int): The index parameter is an integer that represents the index of the selected tab.
   int currentIndex = 1;
   void onTabSelected(int index) {
     setState(() {
@@ -21,9 +28,13 @@ class ConsultaMedicamentosApp extends State<ConsultaMedicamentos> {
     });
   }
 
+  /// The line `final db = FirebaseFirestore.instance;` creates an instance of the `FirebaseFirestore`
+  /// class, which is used to interact with the Firestore database.
   final db = FirebaseFirestore.instance;
   late User objUser;
 
+  /// The initState function retrieves the user object from the UserProvider using the Provider package in
+  /// Dart.
   @override
   void initState() {
     super.initState();
@@ -31,6 +42,18 @@ class ConsultaMedicamentosApp extends State<ConsultaMedicamentos> {
     objUser = userProvider.user;
   }
 
+  /// This function builds a widget that displays a list of medications from a Firestore collection
+  /// based on the user's inventory.
+  ///
+  /// Args:
+  ///   context (BuildContext): The BuildContext is a reference to the location of a widget within the
+  /// widget tree. It is typically used to access the theme, media query, and other properties of the
+  /// current app or widget.
+  ///
+  /// Returns:
+  ///   The code is returning a `Stack` widget, which contains a `Container` widget and a `Scaffold`
+  /// widget. The `Scaffold` widget has an `AppBar`, a `body` that contains a `StreamBuilder` widget,
+  /// and a `bottomNavigationBar` that uses a custom `BottomBar` widget.
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -75,6 +98,17 @@ class ConsultaMedicamentosApp extends State<ConsultaMedicamentos> {
     );
   }
 
+  /// The `_buildCategoria` function builds a widget that displays a title and a list of items, each
+  /// represented by a card with various details.
+  ///
+  /// Args:
+  ///   title (String): The title is a string that represents the category title for the widget. It will
+  /// be displayed at the top of the widget.
+  ///   documentos (List<QueryDocumentSnapshot>): A list of QueryDocumentSnapshot objects. Each
+  /// QueryDocumentSnapshot represents a document in a Firestore collection.
+  ///
+  /// Returns:
+  ///   a widget of type Column.
   Widget _buildCategoria(String title, List<QueryDocumentSnapshot> documentos) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -111,7 +145,8 @@ class ConsultaMedicamentosApp extends State<ConsultaMedicamentos> {
                 leading: CircleAvatar(
                   // Agrega una imagen o avatar en la parte izquierda.
                   backgroundColor: Colors.blue, // Color de fondo del avatar.
-                  child: Text(nombre[0], style: TextStyle(color: Colors.white)),
+                  child: Text(nombre[0],
+                      style: const TextStyle(color: Colors.white)),
                 ),
                 title: Text(
                   nombre,

@@ -1,4 +1,5 @@
-import 'dart:ui';
+// ignore_for_file: file_names, avoid_print, no_leading_underscores_for_local_identifiers, unused_element
+
 import 'package:BovinApp/Widgets/BottomBar.dart';
 import 'package:BovinApp/Widgets/Export/Widgets.dart';
 import 'package:flutter/material.dart';
@@ -8,6 +9,7 @@ import 'package:BovinApp/DTO/Services/UserProvider.dart';
 import 'package:BovinApp/DTO/User.dart';
 import 'package:provider/provider.dart';
 
+/// The class NuevoRegistroProduccionBovino is a StatefulWidget in Dart.
 class NuevoRegistroProduccionBovino extends StatefulWidget {
   const NuevoRegistroProduccionBovino({super.key});
 
@@ -22,10 +24,16 @@ class _NuevoRegistroProduccionBovinoState
   TextEditingController codigoBovino = TextEditingController();
 
   bool bandera = true;
+
+  /// The line `final firebase = FirebaseFirestore.instance;` is creating an instance of the
+  /// `FirebaseFirestore` class from the `cloud_firestore` package. This instance can be used to interact
+  /// with the Firestore database in Firebase.
   final firebase = FirebaseFirestore.instance;
 
   late User objUser;
 
+  /// The initState function retrieves the user object from the UserProvider using the Provider package in
+  /// Dart.
   @override
   void initState() {
     super.initState();
@@ -33,8 +41,13 @@ class _NuevoRegistroProduccionBovinoState
     objUser = userProvider.user;
   }
 
+  /// The function `validarDatos()` updates a field in a document in a Firestore collection if the
+  /// document exists, otherwise it prints an error message.
   validarDatos() async {
     try {
+      /// The line `DocumentReference docRef =
+      /// firebase.collection('Usuarios').doc(objUser.usuario).collection('InventarioBovino').doc(codigoBovino.text);`
+      /// is creating a reference to a specific document in the Firestore database.
       DocumentReference docRef = firebase
           .collection('Usuarios')
           .doc(objUser.usuario)
@@ -68,6 +81,7 @@ class _NuevoRegistroProduccionBovinoState
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
 
+    /// The function `_showDatePicker()` is used to display a date picker.
     void _showDatePicker() {
       showDatePicker(
         context: context,
@@ -77,6 +91,10 @@ class _NuevoRegistroProduccionBovinoState
       );
     }
 
+    /// The `onTabSelected` function updates the `currentIndex` variable with the selected tab index.
+    ///
+    /// Args:
+    ///   index (int): The `index` parameter is an integer that represents the index of the selected tab.
     int currentIndex = 1;
     void onTabSelected(int index) {
       setState(() {

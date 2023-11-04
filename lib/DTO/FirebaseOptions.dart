@@ -43,6 +43,11 @@ class DefaultFirebaseOptions {
     }
   }
 
+  /// The `static const FirebaseOptions web` is a constant variable that holds the Firebase
+  /// configuration options for the web platform. It contains the necessary information such as the API
+  /// key, app ID, messaging sender ID, project ID, authentication domain, storage bucket, and
+  /// measurement ID. These options are used to initialize Firebase on the web platform when calling
+  /// `Firebase.initializeApp()` with the `options` parameter.
   static const FirebaseOptions web = FirebaseOptions(
     apiKey: 'AIzaSyAeh2a9GkU8CMbbBQxxyEbV6cBp06U8cHY',
     appId: '1:278774091147:web:a7f56824b67d6f33a7738e',
@@ -67,7 +72,8 @@ class DefaultFirebaseOptions {
     messagingSenderId: '278774091147',
     projectId: 'bovinapp-project',
     storageBucket: 'bovinapp-project.appspot.com',
-    iosClientId: '278774091147-9fj7eg59nv67g79ua8cactksoqvv6q8l.apps.googleusercontent.com',
+    iosClientId:
+        '278774091147-9fj7eg59nv67g79ua8cactksoqvv6q8l.apps.googleusercontent.com',
     iosBundleId: 'com.example.bovinapp',
   );
 
@@ -77,7 +83,8 @@ class DefaultFirebaseOptions {
     messagingSenderId: '278774091147',
     projectId: 'bovinapp-project',
     storageBucket: 'bovinapp-project.appspot.com',
-    iosClientId: '278774091147-9fj7eg59nv67g79ua8cactksoqvv6q8l.apps.googleusercontent.com',
+    iosClientId:
+        '278774091147-9fj7eg59nv67g79ua8cactksoqvv6q8l.apps.googleusercontent.com',
     iosBundleId: 'com.example.bovinapp',
   );
 }

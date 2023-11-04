@@ -1,7 +1,23 @@
+// ignore_for_file: file_names
+
 import 'package:flutter/material.dart';
 
+/// The `Invitacion` class is a stateless widget that displays a screen with a grid of invitation
+/// options.
 class Invitacion extends StatelessWidget {
   const Invitacion({super.key});
+/// The code builds a Flutter widget that displays a grid of images and text for sharing the
+/// application.
+/// 
+/// Args:
+///   context (BuildContext): The `context` parameter is a required parameter in the `build` method of a
+/// `StatelessWidget` or `StatefulWidget`. It represents the current build context of the widget tree.
+/// It is typically used to access the theme, media query, and other properties of the current context.
+/// 
+/// Returns:
+///   The code is returning a `Stack` widget, which contains a `Scaffold` widget as its child. The
+/// `Scaffold` widget has an `AppBar` as its `appBar` property and a `Padding` widget as its `body`
+/// property. The `Padding` widget contains a `MatrizImges` widget.
 
   @override
   Widget build(BuildContext context) {
