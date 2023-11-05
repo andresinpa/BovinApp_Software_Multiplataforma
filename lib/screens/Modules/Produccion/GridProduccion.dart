@@ -39,7 +39,7 @@ class _GridProduccionState extends State<GridProduccion> {
         });
     Items item4 = Items(
         title: 'Carne y ventas',
-        img: 'assets/images/produccion/produccion1.png',
+        img: 'assets/images/produccion/produccion5.png',
         onPressed: () {
           Navigator.pushNamed(context, 'ProduccionCarne');
         });
