@@ -1,245 +1,62 @@
 // ignore_for_file: file_names
 
+import 'package:BovinApp/Design/BackgroundBottom.dart';
+import 'package:BovinApp/Screens/Others/GridInvitacion.dart';
+import 'package:BovinApp/Widgets/BottomBar.dart';
+import 'package:BovinApp/Widgets/Export/Widgets.dart';
 import 'package:flutter/material.dart';
 
-/// The `Invitacion` class is a stateless widget that displays a screen with a grid of invitation
-/// options.
-class Invitacion extends StatelessWidget {
+/// The class Invitacion is a StatefulWidget in Dart.
+class Invitacion extends StatefulWidget {
   const Invitacion({super.key});
-/// The code builds a Flutter widget that displays a grid of images and text for sharing the
-/// application.
-/// 
-/// Args:
-///   context (BuildContext): The `context` parameter is a required parameter in the `build` method of a
-/// `StatelessWidget` or `StatefulWidget`. It represents the current build context of the widget tree.
-/// It is typically used to access the theme, media query, and other properties of the current context.
-/// 
-/// Returns:
-///   The code is returning a `Stack` widget, which contains a `Scaffold` widget as its child. The
-/// `Scaffold` widget has an `AppBar` as its `appBar` property and a `Padding` widget as its `body`
-/// property. The `Padding` widget contains a `MatrizImges` widget.
-
   @override
-  Widget build(BuildContext context) {
-    return Stack(
-      children: [
-        Scaffold(
-          appBar: AppBar(
-            title: const Text(
-              'BovinApp',
-              style: TextStyle(
-                fontSize: 24,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            centerTitle: true,
-            actions: <Widget>[
-              IconButton(
-                icon: const Icon(Icons.exit_to_app_rounded),
-                onPressed: () {},
-              ),
-            ],
-          ),
-          body: const Padding(
-            padding: EdgeInsets.only(top: 5),
-            child: MatrizImges(),
-          ),
-        ),
-      ],
-    );
-  }
+  InvitacionApp createState() => InvitacionApp();
 }
 
-class MatrizImges extends StatelessWidget {
-  const MatrizImges({
-    Key? key,
-  }) : super(key: key);
+/// The `InvitacionApp` class is a stateful widget that represents the main app screen for an
+/// inventory management application.
+class InvitacionApp extends State<Invitacion> {
+  /// The function `onTabSelected` updates the `currentIndex` variable with the provided `index` value.
+  ///
+  /// Args:
+  ///   index (int): The index parameter is the new index of the selected tab.
+  int currentIndex = 1;
+  void onTabSelected(int index) {
+    setState(() {
+      currentIndex = index;
+    });
+  }
+
+  /// This function builds a Scaffold with an AppBar, a SingleChildScrollView containing a
+  /// BackgroundBotttom widget, and a BottomNavigationBar.
+  ///
+  /// Args:
+  ///   context (BuildContext): The context parameter is the current build context of the widget. It is
+  /// typically used to access the theme, media queries, and other properties of the current widget tree.
+  ///
+  /// Returns:
+  ///   The build method is returning a Scaffold widget.
 
   @override
   Widget build(BuildContext context) {
-    return GridView.count(
-      crossAxisCount: 2,
-      children: <Widget>[
-        const Column(
-          children: <Widget>[
-            SizedBox(
-              height: 90,
-            ),
-            Row(
-              children: [
-                SizedBox(
-                  width: 30,
-                ),
-                Text(
-                  'Comparte la',
-                  style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
-                ),
-              ],
-            ),
-          ],
+    Size size = MediaQuery.of(context).size;
+    return Scaffold(
+      resizeToAvoidBottomInset: true,
+      appBar: const AppBarRetroceder(title: 'Comparte a BovinApp'),
+      body: SingleChildScrollView(
+        child: BackgroundBotttom(
+          height: size.height * 0.935,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              SizedBox(height: size.height * 0.1),
+              const GridInvitacion(),
+            ],
+          ),
         ),
-        const Column(
-          children: [
-            SizedBox(
-              height: 90,
-            ),
-            Row(
-              children: [
-                SizedBox(
-                  width: 5,
-                ),
-                Text(
-                  'aplicación',
-                  style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
-                ),
-                SizedBox(
-                  width: 5,
-                ),
-                Icon(
-                  Icons.share_rounded,
-                  size: 28,
-                ),
-              ],
-            ),
-          ],
-        ),
-        //////////////////////////////////////////////////////////////////////////////////////
-        Column(
-          children: <Widget>[
-            Container(
-              padding: const EdgeInsets.all(5.0),
-              height: 150,
-              width: 150,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(16),
-              ),
-              child: Image.asset('assets/images/invitacion/invitacion1.png',
-                  scale: 5),
-            ),
-            const Padding(
-              padding: EdgeInsets.symmetric(vertical: 2),
-              child: Text(
-                'Generar enlace',
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
-              ),
-            )
-          ],
-        ),
-        ///////////////////////////////////////////////////////////////////////////////////////
-        Column(
-          children: <Widget>[
-            Container(
-              padding: const EdgeInsets.all(5.0),
-              height: 150,
-              width: 150,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(16),
-              ),
-              child: GestureDetector(
-                onTap: () => Navigator.pushNamed(context, ''),
-                child: Image.asset('assets/images/invitacion/invitacion2.png',
-                    scale: 4),
-              ),
-            ),
-            const Padding(
-              padding: EdgeInsets.symmetric(vertical: 2),
-              child: Text(
-                'Mensaje de texto',
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
-              ),
-            )
-          ],
-        ),
-        ///////////////////////////////////////////////////////////////////////////////////////
-        Column(
-          children: <Widget>[
-            Container(
-              padding: const EdgeInsets.all(5.0),
-              height: 150,
-              width: 150,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(16),
-              ),
-              child: Image.asset('assets/images/invitacion/invitacion3.png',
-                  scale: 4),
-            ),
-            const Padding(
-              padding: EdgeInsets.symmetric(vertical: 2),
-              child: Text(
-                'Telegram',
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
-              ),
-            )
-          ],
-        ),
-        ///////////////////////////////////////////////////////////////////////////////////////
-        Column(
-          children: <Widget>[
-            Container(
-              padding: const EdgeInsets.all(5.0),
-              height: 150,
-              width: 150,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(16),
-              ),
-              child: Image.asset('assets/images/invitacion/invitacion4.png',
-                  scale: 4),
-            ),
-            const Padding(
-              padding: EdgeInsets.symmetric(vertical: 2),
-              child: Text(
-                'WhatsApp',
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
-              ),
-            )
-          ],
-        ),
-        ///////////////////////////////////////////////////////////////////////////////////////
-        Column(
-          children: <Widget>[
-            Container(
-              padding: const EdgeInsets.all(5.0),
-              height: 150,
-              width: 150,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(16),
-              ),
-              child: Image.asset('assets/images/invitacion/invitacion5.png',
-                  scale: 4),
-            ),
-            const Padding(
-              padding: EdgeInsets.symmetric(vertical: 2),
-              child: Text(
-                'Correo Electrónico',
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
-              ),
-            )
-          ],
-        ),
-        ///////////////////////////////////////////////////////////////////////////////////////
-        Column(
-          children: <Widget>[
-            Container(
-              padding: const EdgeInsets.all(5.0),
-              height: 150,
-              width: 150,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(16),
-              ),
-              child: Image.asset('assets/images/invitacion/invitacion6.png',
-                  scale: 4),
-            ),
-            const Padding(
-              padding: EdgeInsets.symmetric(vertical: 2),
-              child: Text(
-                'Bluetooth',
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
-              ),
-            )
-          ],
-        ),
-        //////////////////////////////////////////////////////////////////////////////////////
-      ],
+      ),
+      bottomNavigationBar:
+          BottomBar(initialIndex: currentIndex, onTabSelected: onTabSelected),
     );
   }
 }

@@ -1,3 +1,5 @@
+// ignore_for_file: file_names
+
 import 'package:BovinApp/Design/BackgroundBottom.dart';
 import 'package:BovinApp/Screens/Modules/InventarioFisico/GridInvFisico.dart';
 import 'package:BovinApp/Widgets/BottomBar.dart';
