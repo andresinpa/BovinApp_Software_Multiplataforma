@@ -7,6 +7,7 @@ import 'package:BovinApp/DTO/Services/EmailService.dart';
 import 'package:BovinApp/DTO/User.dart';
 import 'package:BovinApp/Design/Background.dart';
 import 'package:BovinApp/Screens/Others/EliminarCuenta/ConfirmacionEliminar.dart';
+import 'package:BovinApp/Widgets/BottomBar.dart';
 import 'package:BovinApp/Widgets/Export/Widgets.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:crypto/crypto.dart';
@@ -24,6 +25,18 @@ class EliminarCuenta extends StatefulWidget {
 /// recovery functionality, including validating user input and sending an email with a confirmation
 /// code.
 class _EliminarCuentaState extends State<EliminarCuenta> {
+
+  /// The function `onTabSelected` updates the `currentIndex` variable with the provided `index` value.
+  ///
+  /// Args:
+  ///   index (int): The index parameter is the new index of the selected tab.
+  int currentIndex = 1;
+  void onTabSelected(int index) {
+    setState(() {
+      currentIndex = index;
+    });
+  }
+
   TextEditingController email = TextEditingController();
   TextEditingController password = TextEditingController();
   TextEditingController confirmacion = TextEditingController();
@@ -94,6 +107,7 @@ class _EliminarCuentaState extends State<EliminarCuenta> {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
       resizeToAvoidBottomInset: true,
+      appBar: const AppBarRetroceder(title: 'Eliminar Cuenta'),
       body: SingleChildScrollView(
         child: Background(
           child: Column(
@@ -184,6 +198,8 @@ class _EliminarCuentaState extends State<EliminarCuenta> {
           ),
         ),
       ),
+      bottomNavigationBar:
+          BottomBar(initialIndex: currentIndex, onTabSelected: onTabSelected),
     );
   }
 

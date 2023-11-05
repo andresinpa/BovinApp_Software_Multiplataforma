@@ -37,7 +37,7 @@ class _AcercaDeScreenState extends State<AcercaDeScreen> {
     /// confirmation before allowing the navigation.
     return Scaffold(
       resizeToAvoidBottomInset: true,
-      appBar: const AppBarRetroceder(title: 'Inventario Fisíco'),
+      appBar: const AppBarRetroceder(title: 'Acerca de'),
       body: Background(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
