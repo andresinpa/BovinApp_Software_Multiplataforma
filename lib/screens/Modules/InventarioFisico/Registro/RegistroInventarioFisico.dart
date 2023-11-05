@@ -10,6 +10,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:BovinApp/DTO/Services/UserProvider.dart';
 import 'package:BovinApp/DTO/User.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
 /// The class NuevoRegistroInventarioFisico is a StatefulWidget in Dart.
@@ -26,6 +27,7 @@ class NuevoRegistroInventarioFisico extends StatefulWidget {
 /// description, etc.
 class _NuevoRegistroInventarioFisicoState
     extends State<NuevoRegistroInventarioFisico> {
+  DateTime? selectedDate;
   TextEditingController nombreProducto = TextEditingController();
   TextEditingController ingreso = TextEditingController();
   TextEditingController codigoProducto = TextEditingController();
@@ -146,6 +148,28 @@ class _NuevoRegistroInventarioFisicoState
     }
   }
 
+  /// The function `_showDatePicker` is used to display a date picker dialog and update the selected
+  /// date if a new date is picked.
+  ///
+  /// Args:
+  ///   context (BuildContext): The context parameter is the BuildContext object that represents the
+  /// current build context of the widget tree. It is used to show the date picker dialog and to access
+  /// the current theme and localization information.
+  Future<void> _showDatePicker(BuildContext context) async {
+    final currentDate = DateTime.now();
+    final pickedDate = await showDatePicker(
+        context: context,
+        initialDate: selectedDate ?? currentDate,
+        firstDate: DateTime(currentDate.year - 15),
+        lastDate: currentDate);
+
+    if (pickedDate != null && pickedDate != selectedDate) {
+      setState(() {
+        selectedDate = pickedDate;
+      });
+    }
+  }
+
   /// This function builds a form for creating a new product with various input fields and a bottom
   /// navigation bar.
   ///
@@ -159,17 +183,6 @@ class _NuevoRegistroInventarioFisicoState
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-
-    /// The `_showDatePicker` function displays a date picker dialog with the current date as the initial
-    /// date and a range from 2008 to the current date.
-    void _showDatePicker() {
-      showDatePicker(
-        context: context,
-        initialDate: DateTime.now(),
-        firstDate: DateTime(2008),
-        lastDate: DateTime.now(),
-      );
-    }
 
     /// The `onTabSelected` function updates the `currentIndex` variable with the selected tab index.
     ///
@@ -259,7 +272,9 @@ class _NuevoRegistroInventarioFisicoState
                       TextInputFieldWidth(
                         controler: ingreso,
                         icon: FontAwesomeIcons.moneyCheckDollar,
-                        hint: 'Obtención',
+                        hint: selectedDate != null
+                            ? DateFormat('yyyy-MM-dd').format(selectedDate!)
+                            : 'Obtención',
                         inputType: TextInputType.none,
                         inputAction: TextInputAction.next,
                         widthContainer: 0.6,
@@ -268,7 +283,7 @@ class _NuevoRegistroInventarioFisicoState
                         width: 12,
                       ),
                       MaterialButton(
-                        onPressed: _showDatePicker,
+                        onPressed: () => _showDatePicker(context),
                         child: const Icon(
                           Icons.calendar_month_rounded,
                           size: 24,
@@ -318,7 +333,7 @@ class _NuevoRegistroInventarioFisicoState
                               color: Color(0xfff16437)),
                           elevation: 16,
                           style: const TextStyle(
-                              fontSize: 16, fontWeight: FontWeight.bold),
+                              fontSize: 16, fontWeight: FontWeight.bold, color: Colors.black),
                           underline: Container(
                             height: 2,
                           ),

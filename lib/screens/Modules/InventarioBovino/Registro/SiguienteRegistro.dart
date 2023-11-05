@@ -9,6 +9,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:BovinApp/DTO/Services/UserProvider.dart';
 import 'package:BovinApp/DTO/User.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
 /// The above code is declaring a constant list of strings called "listaEdad" with two elements: "Meses"
@@ -40,6 +41,8 @@ class SiguienteRegistro extends StatefulWidget {
 /// The `_SiguienteRegistroState` class is a stateful widget that allows the user to enter additional
 /// data for a new bovine registration.
 class _SiguienteRegistroState extends State<SiguienteRegistro> {
+  DateTime? selectedDate;
+
   TextEditingController edadBovino = TextEditingController();
   TextEditingController ingreso = TextEditingController();
   TextEditingController codigoMadre = TextEditingController();
@@ -62,16 +65,9 @@ class _SiguienteRegistroState extends State<SiguienteRegistro> {
     objUser = userProvider.user;
   }
 
-  /// The function `_showDatePicker()` shows a date picker dialog with a range of selectable dates.
+  /// The above code is importing the `FirebaseFirestore` class from the `firebase` package and creating
+  /// an instance of it called `firebase`.
   final firebase = FirebaseFirestore.instance;
-  void _showDatePicker() {
-    showDatePicker(
-      context: context,
-      initialDate: DateTime.now(),
-      firstDate: DateTime(2008),
-      lastDate: DateTime.now(),
-    );
-  }
 
   /// The function `onTabSelected` updates the `currentIndex` variable with the provided `index` value.
   ///
@@ -111,7 +107,9 @@ class _SiguienteRegistroState extends State<SiguienteRegistro> {
           "CategoriaBovino": widget.cadena.categoriaBovino,
           "RazaBovino": widget.cadena.razaBovino,
           "EdadBovino": (edadBovino.text),
-          "IngresoBovino": ingreso.text,
+          "IngresoBovino": selectedDate != null
+                            ? DateFormat('yyyy-MM-dd').format(selectedDate!).toString()
+                            : ' ',
           "CodigoMadre": codigoMadre.text,
           "RazaMadre": razaMadre,
           "CodigoPadre": codigoPadre.text,
@@ -126,6 +124,29 @@ class _SiguienteRegistroState extends State<SiguienteRegistro> {
       print('se envio la información');
     } catch (e) {
       print("error ----->$e");
+    }
+  }
+
+  /// The function `_showDatePicker` is used to display a date picker dialog and update the selected
+  /// date if a new date is picked.
+  /// 
+  /// Args:
+  ///   context (BuildContext): The context parameter is the BuildContext object that represents the
+  /// current build context of the widget tree. It is used to show the date picker dialog and to access
+  /// the current theme and localization information.
+  Future<void> _showDatePicker(BuildContext context) async {
+    final currentDate = DateTime.now();
+    final pickedDate = await showDatePicker(
+      context: context,
+      initialDate: selectedDate ?? currentDate,
+      firstDate: DateTime(currentDate.year -15 ),
+      lastDate: currentDate
+    );
+
+    if (pickedDate != null && pickedDate != selectedDate) {
+      setState(() {
+        selectedDate = pickedDate;
+      });
     }
   }
 
@@ -176,7 +197,7 @@ class _SiguienteRegistroState extends State<SiguienteRegistro> {
                         hint: 'Edad',
                         inputType: TextInputType.number,
                         inputAction: TextInputAction.next,
-                        widthContainer: 0.4,
+                        widthContainer: 0.5,
                       ),
                       const SizedBox(
                         width: 55,
@@ -188,6 +209,7 @@ class _SiguienteRegistroState extends State<SiguienteRegistro> {
                         elevation: 16,
                         style: const TextStyle(
                           fontSize: 16,
+                          color: Colors.black,
                           fontWeight: FontWeight.bold,
                         ),
                         underline: Container(
@@ -220,7 +242,9 @@ class _SiguienteRegistroState extends State<SiguienteRegistro> {
                       TextInputFieldWidth(
                         controler: ingreso,
                         icon: FontAwesomeIcons.moneyCheckDollar,
-                        hint: 'Ingreso a la finca',
+                        hint: selectedDate != null
+                            ? DateFormat('yyyy-MM-dd').format(selectedDate!)
+                            : 'Ingreso a la finca',
                         inputType: TextInputType.none,
                         inputAction: TextInputAction.next,
                         widthContainer: 0.6,
@@ -229,7 +253,7 @@ class _SiguienteRegistroState extends State<SiguienteRegistro> {
                         width: 12,
                       ),
                       MaterialButton(
-                        onPressed: _showDatePicker,
+                        onPressed: () => _showDatePicker(context),
                         child: const Icon(
                           Icons.calendar_month_rounded,
                           size: 24,
@@ -279,7 +303,7 @@ class _SiguienteRegistroState extends State<SiguienteRegistro> {
                               color: Color(0xfff16437)),
                           elevation: 16,
                           style: const TextStyle(
-                              fontSize: 16, fontWeight: FontWeight.bold),
+                              fontSize: 16, fontWeight: FontWeight.bold, color: Colors.black,),
                           underline: Container(
                             height: 2,
                           ),
@@ -341,7 +365,7 @@ class _SiguienteRegistroState extends State<SiguienteRegistro> {
                               color: Color(0xfff16437)),
                           elevation: 16,
                           style: const TextStyle(
-                              fontSize: 16, fontWeight: FontWeight.bold),
+                              fontSize: 16, fontWeight: FontWeight.bold, color: Colors.black,),
                           underline: Container(
                             height: 2,
                           ),
