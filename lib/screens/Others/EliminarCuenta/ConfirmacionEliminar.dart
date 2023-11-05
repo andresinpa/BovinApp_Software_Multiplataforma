@@ -2,6 +2,7 @@
 
 import 'package:BovinApp/DTO/User.dart';
 import 'package:BovinApp/Design/Background.dart';
+import 'package:BovinApp/Widgets/BottomBar.dart';
 import 'package:BovinApp/Widgets/Export/Widgets.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -19,6 +20,17 @@ class ConfirmacionEliminar extends StatefulWidget {
 /// The `ConfirmacionEliminarApp` class is a stateful widget that displays a confirmation screen for a
 /// user account and allows the user to validate their account by entering a code.
 class ConfirmacionEliminarApp extends State<ConfirmacionEliminar> {
+  /// The function `onTabSelected` updates the `currentIndex` variable with the provided `index` value.
+  ///
+  /// Args:
+  ///   index (int): The index parameter is the new index of the selected tab.
+  int currentIndex = 1;
+  void onTabSelected(int index) {
+    setState(() {
+      currentIndex = index;
+    });
+  }
+
   TextEditingController codigo = TextEditingController();
   final firebase = FirebaseFirestore.instance;
   dynamic uploaded;
@@ -56,7 +68,7 @@ class ConfirmacionEliminarApp extends State<ConfirmacionEliminar> {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-
+    const AppBarRetroceder(title: 'Confirmación');
     /// The above code is creating a screen for confirming an account in a mobile app. It includes a
     /// form where the user can enter a validation code sent to their email. If the entered code matches
     /// the expected code, the user's data is inserted and they are redirected to the home screen. If
@@ -160,6 +172,8 @@ class ConfirmacionEliminarApp extends State<ConfirmacionEliminar> {
             ),
           ),
         ),
+        bottomNavigationBar:
+            BottomBar(initialIndex: currentIndex, onTabSelected: onTabSelected),
       ),
     );
   }
