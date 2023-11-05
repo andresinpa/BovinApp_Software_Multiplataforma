@@ -34,3 +34,5 @@ export 'Modules/Produccion/Consulta/ProduccionLecheHato.dart';
 export 'Modules/Produccion/Registro/ProduccionCarne.dart';
 export 'Modules/Produccion/Consulta/ProduccionConsultaCarne.dart';
 export 'Modules/TareasMetas/Metas/Calendario.dart';
+export 'Others/AcercaDe.dart';
+export 'Others/EliminarCuenta/EliminarCuenta.dart';

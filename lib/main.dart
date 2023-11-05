@@ -89,6 +89,8 @@ class MyApp extends StatelessWidget {
         'ProduccionLecheHato': (context) => const ProduccionLecheHato(),
         'ProduccionCarne': (context) => const NuevoRegistroProduccionCarne(),
         'ProduccionConsultaCarne': (context) => const ProduccionConsultacarne(),
+        'AcercaDe': (context) => const AcercaDeScreen(),
+        'EliminarCuenta': (context) => const EliminarCuenta(),
       },
     );
   }

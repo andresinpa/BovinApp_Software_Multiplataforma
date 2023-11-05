@@ -28,7 +28,7 @@ Widget buildMenuItems(BuildContext context) {
         ListTile(
             leading: const Icon(Icons.share_rounded),
             iconColor: const Color(0xff1d38ae),
-            title: const Text('Invita a ganaderos Ubatenses a usar BovinApp'),
+            title: const Text('Invita a otros ganaderos a usar BovinApp'),
             onTap: () {
               Navigator.pushNamed(context, 'Invitacion');
             }),
@@ -50,12 +50,16 @@ Widget buildMenuItems(BuildContext context) {
             leading: const Icon(Icons.info_rounded),
             iconColor: const Color(0xff1d38ae),
             title: const Text('Acerca de'),
-            onTap: () {}),
+            onTap: () {
+              Navigator.pushNamed(context, 'AcercaDe');
+            }),
         ListTile(
             leading: const Icon(Icons.delete_forever),
             iconColor: const Color(0xff1d38ae),
             title: const Text('Eliminar mi cuenta'),
-            onTap: () {}),
+            onTap: () {
+              Navigator.pushNamed(context, 'EliminarCuenta');
+            }),
         Center(
             child:
                 Image.asset('assets/icon/icon.png', height: size.height * 0.2)),
