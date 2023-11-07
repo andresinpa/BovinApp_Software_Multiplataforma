@@ -49,7 +49,7 @@ class _GridDashboardState extends State<GridDashboard> {
         title: 'Informes de mi finca',
         img: 'assets/images/home1/home7.png',
         onPressed: () {
-          Navigator.pushNamed(context, 'RazasBovinosUbate');
+          Navigator.pushNamed(context, 'Informes');
         });
 
     List<Items> myList = [item1, item2, item3, item4, item5, item6];

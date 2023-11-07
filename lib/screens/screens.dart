@@ -17,7 +17,7 @@ export 'Modules/InventarioBovino/Consultas/ConsultaToros.dart';
 export 'Modules/InventarioBovino/Consultas/ConsultaNovillas.dart';
 export 'Modules/InventarioBovino/Consultas/ConsultaBueyes.dart';
 export 'Modules/InventarioBovino/Consultas/ConsultaTerneros.dart';
-export 'Modules/RazasUbate/RazasBovinosUbate.dart';
+export 'Modules/Informes/Informes.dart';
 export 'Auth/Register/CrearCuenta.dart';
 export 'Modules/InventarioFisico/Consultas/ConsultaAlimentos.dart';
 export 'Modules/InventarioFisico/Registro/RegistroInventarioFisico.dart';
