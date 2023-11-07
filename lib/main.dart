@@ -69,7 +69,7 @@ class MyApp extends StatelessWidget {
         'ConsultaTerneros': (context) => const ConsultaTerneros(),
         'ConsultaNovillas': (context) => const ConsultaNovillas(),
         'ConsultaBueyes': (context) => const ConsultaBueyes(),
-        'RazasBovinosUbate': (context) => const RazasBovinosUbate(),
+        'Informes': (context) => const Informes(),
         'CambioPassword': (context) => const OlvidePassword(),
         'ConsultaAlimentos': (context) => const ConsultaAlimentos(),
         'NuevoRegistroInventarioFisico': (context) =>
