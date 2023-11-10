@@ -135,47 +135,104 @@ class _FichasIndividualesResultadosState
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
+                SizedBox(
+                  height: size.width * 0.05,
+                ),
                 CircleAvatar(
-                  radius: 100,
+                  radius: 60,
                   backgroundColor: Colors.blue[100],
                   child: const Icon(
                     FontAwesomeIcons.cow,
-                    size: 80,
+                    size: 55,
                     color: Colors.blue,
                   ),
                 ),
-                const SizedBox(height: 16),
+                SizedBox(
+                  height: size.width * 0.05,
+                ),
                 Text(
                   widget.cadena.nombreBovino,
                   style: const TextStyle(
+                    color: Color.fromARGB(255, 230, 74, 25),
                     fontSize: 28,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                const SizedBox(height: 8),
+                SizedBox(
+                  height: size.width * 0.02,
+                ),
                 Text(
                   'Código: ${widget.cadena.codigoBovino}',
                   style: const TextStyle(
                     fontSize: 20,
+                    fontWeight: FontWeight.bold,
                   ),
                 ),
-                const SizedBox(height: 16),
+                SizedBox(
+                  height: size.width * 0.05,
+                ),
 
                 /// The above code is building a series of information rows using the _buildInfoRow function. Each row
                 /// displays a specific piece of information about a bovine object, such as its breed, date of birth or
                 /// entry, parent codes and breeds, and daily milk production.
-                _buildInfoRow('Raza:', widget.cadena.razaBovino),
-                _buildInfoRow(
-                    'Fecha de nacimiento o de ingreso:', widget.cadena.ingreso),
-                _buildInfoRow('Código del padre:', widget.cadena.codigoPadre),
-                _buildInfoRow('Raza del padre:', widget.cadena.razaPadre),
-                _buildInfoRow('Código de la madre:', widget.cadena.codigoMadre),
-                _buildInfoRow('Raza de la madre:', widget.cadena.razaMadre),
-                _buildInfoRow('leche diaria:', widget.cadena.lecheDiaria),
-                const SizedBox(height: 16),
+                Table(
+                  columnWidths: const {
+                    0: FlexColumnWidth(1), // Columna de etiquetas
+                    1: FlexColumnWidth(2), // Columna de valores
+                  },
+                  defaultVerticalAlignment: TableCellVerticalAlignment.middle,
+                  border: TableBorder.all(color: Colors.orange, width: 2),
+                  children: [
+                    TableRow(
+                      children: [
+                        _buildInfoLabel('Raza'),
+                        _buildInfoValue(widget.cadena.razaBovino),
+                      ],
+                    ),
+                    TableRow(
+                      children: [
+                        _buildInfoLabel('Nacimiento o ingreso'),
+                        _buildInfoValue(widget.cadena.ingreso),
+                      ],
+                    ),
+                    TableRow(
+                      children: [
+                        _buildInfoLabel('Código del padre'),
+                        _buildInfoValue(widget.cadena.codigoPadre),
+                      ],
+                    ),
+                    TableRow(
+                      children: [
+                        _buildInfoLabel('Raza del padre'),
+                        _buildInfoValue(widget.cadena.razaPadre),
+                      ],
+                    ),
+                    TableRow(
+                      children: [
+                        _buildInfoLabel('Código de la madre'),
+                        _buildInfoValue(widget.cadena.codigoMadre),
+                      ],
+                    ),
+                    TableRow(
+                      children: [
+                        _buildInfoLabel('Raza de la madre'),
+                        _buildInfoValue(widget.cadena.razaMadre),
+                      ],
+                    ),
+                    TableRow(
+                      children: [
+                        _buildInfoLabel('leche diaria'),
+                        _buildInfoValue(widget.cadena.lecheDiaria),
+                      ],
+                    ),
+
+                    // Agrega más filas según sea necesario
+                  ],
+                ),
                 SizedBox(
                   height: size.width * 0.05,
                 ),
+
                 const Align(
                   alignment: Alignment.center,
                   child: Center(
@@ -266,13 +323,31 @@ class _FichasIndividualesResultadosState
                         ),
                       ],
                     ),
-                    const SizedBox(height: 16),
-                    ElevatedButton(
-                      onPressed: () {
-                        validarDatos();
-                        Navigator.pushNamed(context, 'FichasIndividuales');
-                      },
-                      child: const Text('Actualizar y Guardar'),
+                    const SizedBox(height: 20),
+                    SizedBox(
+                      height: size.height * 0.05,
+                      width: size.width * 0.6,
+                      child: TextButton(
+                        onPressed: () {
+                          validarDatos();
+                          Navigator.pushNamed(context, 'FichasIndividuales');
+                        },
+                        style: TextButton.styleFrom(
+                          backgroundColor: const Color(0xfff16437),
+                        ),
+                        child: const Text(
+                          'Actualizar y Guardar',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize:
+                                16,
+                            fontWeight: FontWeight.bold,                          
+                          ),
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                      height: size.width * 0.1,
                     ),
                   ],
                 ),
@@ -295,23 +370,31 @@ class _FichasIndividualesResultadosState
   ///
   /// Returns:
   ///   a widget of type `Row`.
-  Widget _buildInfoRow(String label, String value) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Text(
-          label,
-          style: const TextStyle(
-            fontSize: 20,
-          ),
+  Widget _buildInfoLabel(String label) {
+    return Container(
+      padding: const EdgeInsets.all(8.0),
+      color: const Color.fromARGB(255, 233, 214, 185),
+      alignment: Alignment.center,
+      child: Text(
+        label,
+        style: const TextStyle(
+          fontSize: 18,
+          fontWeight: FontWeight.bold,
         ),
-        Text(
-          value,
-          style: const TextStyle(
-            fontSize: 20,
-          ),
+      ),
+    );
+  }
+
+  Widget _buildInfoValue(String value) {
+    return Container(
+      padding: const EdgeInsets.all(8.0),
+      alignment: Alignment.center,
+      child: Text(
+        value,
+        style: const TextStyle(
+          fontSize: 18,
         ),
-      ],
+      ),
     );
   }
 }

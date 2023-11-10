@@ -65,7 +65,7 @@ class ProduccionConsultacarneApp extends State<ProduccionConsultacarne> {
         ),
         Scaffold(
           appBar: AppBar(
-            title: const Text('Carne'),
+            title: const Text('Producción Carne'),
           ),
           body: StreamBuilder<QuerySnapshot>(
             stream: db
@@ -84,7 +84,7 @@ class ProduccionConsultacarneApp extends State<ProduccionConsultacarne> {
               }
               return ListView(
                 children: <Widget>[
-                  _buildCategoria("Bovinos", produccionCarne),
+                  _buildCategoria("🥩", produccionCarne),
                 ],
               );
             },
