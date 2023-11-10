@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:BovinApp/DTO/Services/UserProvider.dart';
 import 'package:BovinApp/DTO/User.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter/widgets.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:pdf/pdf.dart';
 import 'package:provider/provider.dart';
@@ -46,6 +48,8 @@ class InformesApp extends State<Informes> {
   /// fields are not empty.
   validarDatos() async {
     try {
+      final image = await rootBundle.load('assets/icon/icon.png');
+      final imageBytes = image.buffer.asUint8List();
       if (consulta == 'InventarioBovino') {
         final QuerySnapshot snapshot = await firebase
             .collection('Usuarios')
@@ -61,11 +65,38 @@ class InformesApp extends State<Informes> {
               return pw.Column(
                 crossAxisAlignment: pw.CrossAxisAlignment.start,
                 children: [
+                  pw.Row(
+                    mainAxisAlignment: pw.MainAxisAlignment
+                        .spaceBetween, // Alinea la imagen a la derecha
+                    children: [
+                      pw.Text(
+                        'Informe',
+                        style: pw.TextStyle(fontSize: 16),
+                      ),
+                      pw.Container(
+                        width: 80, // Ancho de la imagen
+                        height: 80, // Alto de la imagen
+                        child: pw.Image(pw.MemoryImage(imageBytes)),
+                      ),
+                    ],
+                  ),
                   pw.Text(
                     'Información del inventario Bovino',
                     style: pw.TextStyle(
                       fontSize: 18,
                       fontWeight: pw.FontWeight.bold,
+                    ),
+                  ),
+                  pw.Text(
+                    '__________________________________________________________',
+                    style: const pw.TextStyle(
+                      fontSize: 14,
+                    ),
+                  ),
+                  pw.Text(
+                    '\n \n',
+                    style: const pw.TextStyle(
+                      fontSize: 14,
                     ),
                   ),
                   pw.Text(
@@ -75,16 +106,140 @@ class InformesApp extends State<Informes> {
                       fontWeight: pw.FontWeight.bold,
                     ),
                   ),
-                  // Agrega los datos del bovino en una tabla
-                  pw.Table.fromTextArray(
-                    context: context,
-                    data: <List<String>>[
-                      ['Campo', 'Valor'],
-                      ...data.entries.map((entry) {
-                        return [entry.key, entry.value.toString()];
-                      }),
-                    ],
+                  pw.Text(
+                    '             \n',
+                    style: const pw.TextStyle(
+                      fontSize: 14,
+                    ),
                   ),
+                  pw.Text(
+                    'Codigo Bovino: ${data['CodigoBovino']}',
+                    style: const pw.TextStyle(
+                      fontSize: 14,
+                    ),
+                  ),
+                  pw.Text(
+                    '             \n',
+                    style: const pw.TextStyle(
+                      fontSize: 14,
+                    ),
+                  ),
+                  pw.Text(
+                    'Raza Bovino: ${data['RazaBovino']}',
+                    style: const pw.TextStyle(
+                      fontSize: 14,
+                    ),
+                  ),
+                  pw.Text(
+                    '             \n',
+                    style: const pw.TextStyle(
+                      fontSize: 14,
+                    ),
+                  ),
+                  pw.Text(
+                    'Edad Bovino: ${data['EdadBovino']}',
+                    style: const pw.TextStyle(
+                      fontSize: 14,
+                    ),
+                  ),
+                  pw.Text(
+                    '             \n',
+                    style: const pw.TextStyle(
+                      fontSize: 14,
+                    ),
+                  ),
+                  pw.Text(
+                    'Categoria Bovino: ${data['CategoriaBovino']}',
+                    style: const pw.TextStyle(
+                      fontSize: 14,
+                    ),
+                  ),
+                  pw.Text(
+                    '             \n',
+                    style: const pw.TextStyle(
+                      fontSize: 14,
+                    ),
+                  ),
+                  pw.Text(
+                    'Fecha de ingreso Bovino: ${data['IngresoBovino']}',
+                    style: const pw.TextStyle(
+                      fontSize: 14,
+                    ),
+                  ),
+                  pw.Text(
+                    '             \n',
+                    style: const pw.TextStyle(
+                      fontSize: 14,
+                    ),
+                  ),
+                  pw.Text(
+                    'Leche diaria: ${data['lecheDiaria']} litros',
+                    style: const pw.TextStyle(
+                      fontSize: 14,
+                    ),
+                  ),
+                  pw.Text(
+                    '          \n \n  \n',
+                    style: const pw.TextStyle(
+                      fontSize: 14,
+                    ),
+                  ),
+                  pw.Text(
+                    'Arbol familiar',
+                    style: pw.TextStyle(
+                      fontSize: 16,
+                      fontWeight: pw.FontWeight.bold,
+                    ),
+                  ),
+                  pw.Text(
+                    '          \n   \n',
+                    style: const pw.TextStyle(
+                      fontSize: 14,
+                    ),
+                  ),
+                  pw.Text(
+                    'Codigo Padre: ${data['CodigoPadre']}',
+                    style: const pw.TextStyle(
+                      fontSize: 14,
+                    ),
+                  ),
+                  pw.Text(
+                    '             \n',
+                    style: const pw.TextStyle(
+                      fontSize: 14,
+                    ),
+                  ),
+                  pw.Text(
+                    'Raza Padre: ${data['RazaPadre']}',
+                    style: const pw.TextStyle(
+                      fontSize: 14,
+                    ),
+                  ),
+                  pw.Text(
+                    '             \n',
+                    style: const pw.TextStyle(
+                      fontSize: 14,
+                    ),
+                  ),
+                  pw.Text(
+                    'Codigo Madre: ${data['CodigoMadre']}',
+                    style: const pw.TextStyle(
+                      fontSize: 14,
+                    ),
+                  ),
+                  pw.Text(
+                    '             \n',
+                    style: const pw.TextStyle(
+                      fontSize: 14,
+                    ),
+                  ),
+                  pw.Text(
+                    'Raza Madre: ${data['RazaMadre']}',
+                    style: const pw.TextStyle(
+                      fontSize: 14,
+                    ),
+                  ),
+                  // Agrega los datos del bovino en una tabla
                 ],
               );
             },
@@ -109,11 +264,32 @@ class InformesApp extends State<Informes> {
               return pw.Column(
                 crossAxisAlignment: pw.CrossAxisAlignment.start,
                 children: [
+                  pw.Row(
+                    mainAxisAlignment: pw.MainAxisAlignment
+                        .spaceBetween, // Alinea la imagen a la derecha
+                    children: [
+                      pw.Text(
+                        'Informe',
+                        style: pw.TextStyle(fontSize: 16),
+                      ),
+                      pw.Container(
+                        width: 80, // Ancho de la imagen
+                        height: 80, // Alto de la imagen
+                        child: pw.Image(pw.MemoryImage(imageBytes)),
+                      ),
+                    ],
+                  ),
                   pw.Text(
                     'Información del inventario fisico',
                     style: pw.TextStyle(
                       fontSize: 18,
                       fontWeight: pw.FontWeight.bold,
+                    ),
+                  ),
+                  pw.Text(
+                    '__________________________________________________________',
+                    style: const pw.TextStyle(
+                      fontSize: 14,
                     ),
                   ),
                   pw.Text(
@@ -123,15 +299,35 @@ class InformesApp extends State<Informes> {
                       fontWeight: pw.FontWeight.bold,
                     ),
                   ),
-                  // Agrega los datos del bovino en una tabla
-                  pw.Table.fromTextArray(
-                    context: context,
-                    data: <List<String>>[
-                      ['Campo', 'Valor'],
-                      ...data.entries.map((entry) {
-                        return [entry.key, entry.value.toString()];
-                      }),
-                    ],
+                  pw.Text(
+                    'Codigo Producto: ${data['CodigoProducto']}',
+                    style: const pw.TextStyle(
+                      fontSize: 14,
+                    ),
+                  ),
+                  pw.Text(
+                    'Fecha de obtención: ${data['FechaObtencion']}',
+                    style: const pw.TextStyle(
+                      fontSize: 14,
+                    ),
+                  ),
+                  pw.Text(
+                    'Utilidad Producto: ${data['UtilidadProducto']}',
+                    style: const pw.TextStyle(
+                      fontSize: 14,
+                    ),
+                  ),
+                  pw.Text(
+                    'Precio Producto: ${data['PrecioProducto']}',
+                    style: const pw.TextStyle(
+                      fontSize: 14,
+                    ),
+                  ),
+                  pw.Text(
+                    'Descripción producto: ${data['DescripcionProducto']}',
+                    style: const pw.TextStyle(
+                      fontSize: 14,
+                    ),
                   ),
                 ],
               );
@@ -157,11 +353,32 @@ class InformesApp extends State<Informes> {
               return pw.Column(
                 crossAxisAlignment: pw.CrossAxisAlignment.start,
                 children: [
+                  pw.Row(
+                    mainAxisAlignment: pw.MainAxisAlignment
+                        .spaceBetween, // Alinea la imagen a la derecha
+                    children: [
+                      pw.Text(
+                        'Informe',
+                        style: pw.TextStyle(fontSize: 16),
+                      ),
+                      pw.Container(
+                        width: 80, // Ancho de la imagen
+                        height: 80, // Alto de la imagen
+                        child: pw.Image(pw.MemoryImage(imageBytes)),
+                      ),
+                    ],
+                  ),
                   pw.Text(
                     'Información de la producción de leche',
                     style: pw.TextStyle(
                       fontSize: 18,
                       fontWeight: pw.FontWeight.bold,
+                    ),
+                  ),
+                  pw.Text(
+                    '__________________________________________________________',
+                    style: const pw.TextStyle(
+                      fontSize: 14,
                     ),
                   ),
                   pw.Text(
@@ -171,15 +388,19 @@ class InformesApp extends State<Informes> {
                       fontWeight: pw.FontWeight.bold,
                     ),
                   ),
-                  // Agrega los datos del bovino en una tabla
-                  pw.Table.fromTextArray(
-                    context: context,
-                    data: <List<String>>[
-                      ['Campo', 'Valor'],
-                      ...data.entries.map((entry) {
-                        return [entry.key, entry.value.toString()];
-                      }),
-                    ],
+                  pw.Text(
+                    'Leche Mañana: ${data['Leche Mañana']}',
+                    style: pw.TextStyle(
+                      fontSize: 16,
+                      fontWeight: pw.FontWeight.bold,
+                    ),
+                  ),
+                  pw.Text(
+                    'Leche Tarde: ${data['Leche Tarde']}',
+                    style: pw.TextStyle(
+                      fontSize: 16,
+                      fontWeight: pw.FontWeight.bold,
+                    ),
                   ),
                 ],
               );
@@ -198,17 +419,45 @@ class InformesApp extends State<Informes> {
 
         for (final DocumentSnapshot doc in snapshot.docs) {
           final data = doc.data() as Map<String, dynamic>;
+          final datosSalida = data['DatosSalidaBovino'];
 
           final page = pw.Page(
             build: (pw.Context context) {
               return pw.Column(
                 crossAxisAlignment: pw.CrossAxisAlignment.start,
                 children: [
+                  pw.Row(
+                    mainAxisAlignment: pw.MainAxisAlignment
+                        .spaceBetween, // Alinea la imagen a la derecha
+                    children: [
+                      pw.Text(
+                        'Informe',
+                        style: pw.TextStyle(fontSize: 16),
+                      ),
+                      pw.Container(
+                        width: 80, // Ancho de la imagen
+                        height: 80, // Alto de la imagen
+                        child: pw.Image(pw.MemoryImage(imageBytes)),
+                      ),
+                    ],
+                  ),
                   pw.Text(
-                    'Información de la producción carne',
+                    'Información de la producción de carne',
                     style: pw.TextStyle(
                       fontSize: 18,
                       fontWeight: pw.FontWeight.bold,
+                    ),
+                  ),
+                  pw.Text(
+                    '__________________________________________________________',
+                    style: const pw.TextStyle(
+                      fontSize: 14,
+                    ),
+                  ),
+                  pw.Text(
+                    '\n \n',
+                    style: const pw.TextStyle(
+                      fontSize: 14,
                     ),
                   ),
                   pw.Text(
@@ -218,16 +467,188 @@ class InformesApp extends State<Informes> {
                       fontWeight: pw.FontWeight.bold,
                     ),
                   ),
-                  // Agrega los datos del bovino en una tabla
-                  pw.Table.fromTextArray(
-                    context: context,
-                    data: <List<String>>[
-                      ['Campo', 'Valor'],
-                      ...data.entries.map((entry) {
-                        return [entry.key, entry.value.toString()];
-                      }),
-                    ],
+                  pw.Text(
+                    '             \n',
+                    style: const pw.TextStyle(
+                      fontSize: 14,
+                    ),
                   ),
+                  pw.Text(
+                    'Codigo Bovino: ${data['CodigoBovino']}',
+                    style: const pw.TextStyle(
+                      fontSize: 14,
+                    ),
+                  ),
+                  pw.Text(
+                    '             \n',
+                    style: const pw.TextStyle(
+                      fontSize: 14,
+                    ),
+                  ),
+                  pw.Text(
+                    'Raza Bovino: ${data['RazaBovino']}',
+                    style: const pw.TextStyle(
+                      fontSize: 14,
+                    ),
+                  ),
+                  pw.Text(
+                    '             \n',
+                    style: const pw.TextStyle(
+                      fontSize: 14,
+                    ),
+                  ),
+                  pw.Text(
+                    'Edad Bovino: ${data['EdadBovino']}',
+                    style: const pw.TextStyle(
+                      fontSize: 14,
+                    ),
+                  ),
+                  pw.Text(
+                    '             \n',
+                    style: const pw.TextStyle(
+                      fontSize: 14,
+                    ),
+                  ),
+                  pw.Text(
+                    'Categoria Bovino: ${data['CategoriaBovino']}',
+                    style: const pw.TextStyle(
+                      fontSize: 14,
+                    ),
+                  ),
+                  pw.Text(
+                    '             \n',
+                    style: const pw.TextStyle(
+                      fontSize: 14,
+                    ),
+                  ),
+                  pw.Text(
+                    'Fecha de ingreso Bovino: ${data['IngresoBovino']}',
+                    style: const pw.TextStyle(
+                      fontSize: 14,
+                    ),
+                  ),
+                  pw.Text(
+                    '             \n',
+                    style: const pw.TextStyle(
+                      fontSize: 14,
+                    ),
+                  ),
+                  pw.Text(
+                    'Leche diaria: ${data['lecheDiaria']} litros',
+                    style: const pw.TextStyle(
+                      fontSize: 14,
+                    ),
+                  ),
+                  pw.Text(
+                    '          \n \n  \n',
+                    style: const pw.TextStyle(
+                      fontSize: 14,
+                    ),
+                  ),
+                  pw.Text(
+                    'Arbol familiar',
+                    style: pw.TextStyle(
+                      fontSize: 16,
+                      fontWeight: pw.FontWeight.bold,
+                    ),
+                  ),
+                  pw.Text(
+                    '          \n   \n',
+                    style: const pw.TextStyle(
+                      fontSize: 14,
+                    ),
+                  ),
+                  pw.Text(
+                    'Codigo Padre: ${data['CodigoPadre']}',
+                    style: const pw.TextStyle(
+                      fontSize: 14,
+                    ),
+                  ),
+                  pw.Text(
+                    '             \n',
+                    style: const pw.TextStyle(
+                      fontSize: 14,
+                    ),
+                  ),
+                  pw.Text(
+                    'Raza Padre: ${data['RazaPadre']}',
+                    style: const pw.TextStyle(
+                      fontSize: 14,
+                    ),
+                  ),
+                  pw.Text(
+                    '             \n',
+                    style: const pw.TextStyle(
+                      fontSize: 14,
+                    ),
+                  ),
+                  pw.Text(
+                    'Codigo Madre: ${data['CodigoMadre']}',
+                    style: const pw.TextStyle(
+                      fontSize: 14,
+                    ),
+                  ),
+                  pw.Text(
+                    '             \n',
+                    style: const pw.TextStyle(
+                      fontSize: 14,
+                    ),
+                  ),
+                  pw.Text(
+                    'Raza Madre: ${data['RazaMadre']}',
+                    style: const pw.TextStyle(
+                      fontSize: 14,
+                    ),
+                  ),
+                  pw.Text(
+                    '             \n',
+                    style: const pw.TextStyle(
+                      fontSize: 14,
+                    ),
+                  ),
+                  pw.Text(
+                    'Datos Salida:',
+                    style: const pw.TextStyle(
+                      fontSize: 14,
+                    ),
+                  ),
+                  pw.Text(
+                    '     - ${datosSalida[0]} kg',
+                    style: const pw.TextStyle(
+                      fontSize: 14,
+                    ),
+                  ),
+                  pw.Text(
+                    '     - ${datosSalida[1]} kg',
+                    style: const pw.TextStyle(
+                      fontSize: 14,
+                    ),
+                  ),
+                  pw.Text(
+                    '     - ${datosSalida[2]}',
+                    style: const pw.TextStyle(
+                      fontSize: 14,
+                    ),
+                  ),
+                  pw.Text(
+                    '     - ${datosSalida[3]}',
+                    style: const pw.TextStyle(
+                      fontSize: 14,
+                    ),
+                  ),
+                  pw.Text(
+                    '     - ${datosSalida[4]}',
+                    style: const pw.TextStyle(
+                      fontSize: 14,
+                    ),
+                  ),
+                  pw.Text(
+                    '     - ${datosSalida[5]}',
+                    style: const pw.TextStyle(
+                      fontSize: 14,
+                    ),
+                  ),
+                  // Agrega los datos del bovino en una tabla
                 ],
               );
             },
