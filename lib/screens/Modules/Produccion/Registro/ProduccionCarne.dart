@@ -127,13 +127,23 @@ class _NuevoRegistroProduccionCarneState
 
     return Scaffold(
       resizeToAvoidBottomInset: true,
-      appBar: const AppBarRetroceder(title: 'Registro producción carne'),
+      appBar: const AppBarRetroceder(title: 'Producción carne'),
       body: SingleChildScrollView(
         child: Center(
           child: Column(
             children: [
               SizedBox(
-                height: size.width * 0.1,
+                height: size.width * 0.06,
+              ),
+              const Text(
+                "🥩",
+                style: TextStyle(
+                  fontSize: 48,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              SizedBox(
+                height: size.width * 0.06,
               ),
               Column(
                 children: [

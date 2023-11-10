@@ -5,6 +5,7 @@ import 'package:BovinApp/DTO/Tareas.dart';
 import 'package:BovinApp/DTO/User.dart';
 import 'package:BovinApp/Screens/Modules/TareasMetas/Tareas/ListadoTareas.dart';
 import 'package:BovinApp/Screens/Modules/TareasMetas/services/TareasServices.dart';
+import 'package:BovinApp/Widgets/BottomBar.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -19,6 +20,13 @@ class FormularioTareas extends StatefulWidget {
 }
 
 class _FormularioTareasState extends State<FormularioTareas> {
+  int currentIndex = 1;
+  void onTabSelected(int index) {
+    setState(() {
+      currentIndex = index;
+    });
+  }
+
   /// The line `final firebase = FirebaseFirestore.instance;` is creating an instance of the
   /// `FirebaseFirestore` class from the `cloud_firestore` package. This instance can be used to interact
   /// with the Firestore database in Firebase.
@@ -102,6 +110,7 @@ class _FormularioTareasState extends State<FormularioTareas> {
 
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
     tarea = ModalRoute.of(context)?.settings.arguments
         as LinkedHashMap<String, dynamic>?;
 
@@ -115,20 +124,41 @@ class _FormularioTareasState extends State<FormularioTareas> {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Formulario de tareas 📝'),
+        title: const Text('Formulario de tareas'),
       ),
       body: SingleChildScrollView(
         child: Container(
           margin: const EdgeInsets.all(10.0),
           child: Column(
             children: [
-              Text(fechaCreacion),
+              SizedBox(
+                height: size.width * 0.05,
+              ),
+              const Text(
+                '📆',
+                style: TextStyle(
+                  fontSize: 26,
+                ),
+              ),
+              SizedBox(
+                height: size.width * 0.05,
+              ),
+              Text(
+                fechaCreacion,
+                style: const TextStyle(fontWeight: FontWeight.bold),
+              ),
+              SizedBox(
+                height: size.width * 0.05,
+              ),
               Form(
                 key: idForm,
                 child: Column(
                   children: <Widget>[
                     _crearInputNombre(),
                     _crearInputDescripcion(),
+                    SizedBox(
+                      height: size.width * 0.1,
+                    ),
                     _crearBotonAgregar(context),
                   ],
                 ),
@@ -137,6 +167,8 @@ class _FormularioTareasState extends State<FormularioTareas> {
           ),
         ),
       ),
+      bottomNavigationBar:
+          BottomBar(initialIndex: currentIndex, onTabSelected: onTabSelected),
     );
   }
 

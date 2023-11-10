@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:BovinApp/DTO/Services/UserProvider.dart';
 import 'package:BovinApp/DTO/User.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 
 /// The class "ProduccionLecheHato" is a stateful widget in Dart.
@@ -50,7 +51,7 @@ class ProduccionLecheHatoApp extends State<ProduccionLecheHato> {
         ),
         Scaffold(
           appBar: AppBar(
-            title: const Text('Lista de Documentos'),
+            title: const Text('Leche del Hato'),
           ),
           body: StreamBuilder<QuerySnapshot>(
             stream: db
@@ -69,7 +70,7 @@ class ProduccionLecheHatoApp extends State<ProduccionLecheHato> {
               } else {
                 return ListView(
                   children: <Widget>[
-                    _buildCategoria("Producción Leche Hato", produccionHato),
+                    _buildCategoria("🥛", produccionHato),
                   ],
                 );
               }
@@ -100,11 +101,14 @@ class ProduccionLecheHatoApp extends State<ProduccionLecheHato> {
       children: <Widget>[
         Padding(
           padding: const EdgeInsets.all(8.0),
-          child: Text(
-            title,
-            style: const TextStyle(
-              fontSize: 48,
-              fontWeight: FontWeight.bold,
+          child: Center(
+            child: Text(
+              title,
+              
+              style: const TextStyle(
+                fontSize: 48,
+                fontWeight: FontWeight.bold,
+              ),
             ),
           ),
         ),
@@ -129,10 +133,13 @@ class ProduccionLecheHatoApp extends State<ProduccionLecheHato> {
                 contentPadding:
                     const EdgeInsets.all(10), // Espacio interno del ListTile.
                 leading: const CircleAvatar(
-                  // Agrega una imagen o avatar en la parte izquierda.
-                  backgroundColor: Color.fromARGB(
-                      255, 236, 158, 68), // Color de fondo del avatar.
+                  backgroundColor: Color.fromARGB(255, 236, 158, 68),
+                  child: Icon(
+                    FontAwesomeIcons.cow,
+                    color: Colors.white,
+                  ),
                 ),
+
                 title: Text(
                   ("Fecha: $nombreDocumento"),
                   style: const TextStyle(

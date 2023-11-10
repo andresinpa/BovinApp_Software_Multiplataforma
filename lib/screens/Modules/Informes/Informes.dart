@@ -1,15 +1,16 @@
-import 'package:flutter/material.dart';
+// ignore_for_file: file_names, avoid_print
+
+import 'package:BovinApp/Widgets/BottomBar.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:BovinApp/DTO/Services/UserProvider.dart';
-import 'package:BovinApp/DTO/User.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter/widgets.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:pdf/pdf.dart';
-import 'package:provider/provider.dart';
 import 'package:pdf/widgets.dart' as pw;
 import 'package:printing/printing.dart';
+import 'package:provider/provider.dart';
+
+import 'package:BovinApp/DTO/Services/UserProvider.dart';
+import 'package:BovinApp/DTO/User.dart';
 
 /// The line `const List<String> listaInformes = ['ProduccionLeche','InventarioFisicio','InventarioBovino','ProduccionCarne',];` is
 /// declaring a constant list of strings named `listaInformes`.
@@ -27,6 +28,13 @@ class Informes extends StatefulWidget {
 }
 
 class InformesApp extends State<Informes> {
+  int currentIndex = 1;
+  void onTabSelected(int index) {
+    setState(() {
+      currentIndex = index;
+    });
+  }
+
   /// The line `final db = FirebaseFirestore.instance;` creates an instance of the `FirebaseFirestore`
   /// class, which is used to interact with the Firestore database. This instance is stored in the
   /// variable `db` for later use.
@@ -71,7 +79,7 @@ class InformesApp extends State<Informes> {
                     children: [
                       pw.Text(
                         'Informe',
-                        style: pw.TextStyle(fontSize: 16),
+                        style: const pw.TextStyle(fontSize: 16),
                       ),
                       pw.Container(
                         width: 80, // Ancho de la imagen
@@ -270,7 +278,7 @@ class InformesApp extends State<Informes> {
                     children: [
                       pw.Text(
                         'Informe',
-                        style: pw.TextStyle(fontSize: 16),
+                        style: const pw.TextStyle(fontSize: 16),
                       ),
                       pw.Container(
                         width: 80, // Ancho de la imagen
@@ -359,7 +367,7 @@ class InformesApp extends State<Informes> {
                     children: [
                       pw.Text(
                         'Informe',
-                        style: pw.TextStyle(fontSize: 16),
+                        style: const pw.TextStyle(fontSize: 16),
                       ),
                       pw.Container(
                         width: 80, // Ancho de la imagen
@@ -432,7 +440,7 @@ class InformesApp extends State<Informes> {
                     children: [
                       pw.Text(
                         'Informe',
-                        style: pw.TextStyle(fontSize: 16),
+                        style: const pw.TextStyle(fontSize: 16),
                       ),
                       pw.Container(
                         width: 80, // Ancho de la imagen
@@ -662,7 +670,7 @@ class InformesApp extends State<Informes> {
       final pdfFile = await pdf.save();
 
       // Muestra el PDF con la biblioteca 'printing'
-      final pdfBytes = await pdfFile;
+      final pdfBytes = pdfFile;
       await Printing.layoutPdf(
         onLayout: (format) => pdfBytes,
       );
@@ -676,7 +684,7 @@ class InformesApp extends State<Informes> {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Ficha Individual'),
+        title: const Text('Informes'),
       ),
       body: SingleChildScrollView(
         child: Padding(
@@ -684,16 +692,18 @@ class InformesApp extends State<Informes> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              const SizedBox(height: 8),
+              SizedBox(
+                height: size.width * 0.06,
+              ),
               const Text(
-                'Informes',
+                '📊📝',
                 style: TextStyle(
-                  fontSize: 20,
+                  fontSize: 26,
                 ),
               ),
               const SizedBox(height: 16),
               SizedBox(
-                height: size.width * 0.05,
+                height: size.width * 0.1,
               ),
               const Align(
                 alignment: Alignment.center,
@@ -754,6 +764,8 @@ class InformesApp extends State<Informes> {
           ),
         ),
       ),
+      bottomNavigationBar:
+          BottomBar(initialIndex: currentIndex, onTabSelected: onTabSelected),
     );
   }
 }

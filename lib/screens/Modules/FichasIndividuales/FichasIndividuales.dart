@@ -21,13 +21,14 @@ class FichasIndividuales extends StatefulWidget {
 
 /// The code defines two constant lists: `clasificacion` and `raza`.
 const List<String> clasificacion = [
+  '',
   'Vacas',
   'Toros',
   'Terneros',
   'Novillas',
   'Bueyes'
 ];
-const List<String> raza = ['Holstein', 'Normando', 'Montbeliarde', 'Jersey'];
+const List<String> raza = ['', 'Holstein', 'Normando', 'Montbeliarde', 'Jersey'];
 
 /// The `_FichasIndividualesState` class is a stateful widget that displays a form for searching and
 /// displaying individual cattle records.
@@ -74,8 +75,8 @@ class _FichasIndividualesState extends State<FichasIndividuales> {
         for (var cursor in bovinos.docs) {
           if ((cursor.get('CodigoBovino') == buscar.text ||
                   cursor.get('NombreBovino') == buscar.text) &&
-              (cursor.get('CategoriaBovino') == clasificacionBovino) &&
-              (cursor.get('RazaBovino') == razaBovino)) {
+              ((cursor.get('CategoriaBovino') == clasificacionBovino) || (clasificacionBovino == '')) &&
+              ((cursor.get('RazaBovino') == razaBovino) || (razaBovino == ''))) {
             objBovino.codigoBovino = cursor.get('CodigoBovino');
             objBovino.nombreBovino = cursor.get('NombreBovino');
             objBovino.categoriaBovino = cursor.get('CategoriaBovino');
@@ -129,22 +130,7 @@ class _FichasIndividualesState extends State<FichasIndividuales> {
     return Stack(
       children: [
         Scaffold(
-          appBar: AppBar(
-            leading: IconButton(
-              icon: const Icon(Icons.arrow_back_ios),
-              onPressed: () {
-                Navigator.pop(context);
-              },
-            ),
-            title: const Text(
-              'BovinApp',
-              style: TextStyle(
-                fontSize: 24,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            centerTitle: true,
-          ),
+          appBar: const AppBarSencillo(title: "Fichas individuales"),
           body: SingleChildScrollView(
               child: Center(
             child: Column(
@@ -161,26 +147,13 @@ class _FichasIndividualesState extends State<FichasIndividuales> {
                 SizedBox(
                   height: size.width * 0.1,
                 ),
-                SizedBox(
-                  width: size.width * 0.6,
-                  child: const Text(
-                    'Fichas Individuales',
-                    style: TextStyle(
-                      fontSize: 28,
-                    ),
-                  ),
-                ),
-                SizedBox(
-                  height: size.width * 0.1,
-                ),
-                SizedBox(
-                  width: size.width * 0.8,
-                  child: const Text(
-                    'Datos Generales',
-                    style: TextStyle(
-                      fontSize: 24,
-                    ),
-                  ),
+                const Text(
+                  "Datos generales",
+                  textAlign: TextAlign.left,
+                  style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 25,
+                      color: Color.fromARGB(255, 230, 74, 25)),
                 ),
                 SizedBox(
                   height: size.width * 0.1,
@@ -194,8 +167,8 @@ class _FichasIndividualesState extends State<FichasIndividuales> {
                     ),
                   ),
                 ),
-                const SizedBox(
-                  height: 20,
+                SizedBox(
+                  height: size.width * 0.02,
                 ),
 
                 // ignore: prefer_const_constructors
@@ -210,9 +183,11 @@ class _FichasIndividualesState extends State<FichasIndividuales> {
                 SizedBox(
                   width: size.width * 0.8,
                   child: const Text(
-                    'Buscar por:',
+                    'Filtros 🔍',
+                    textAlign: TextAlign.center,
                     style: TextStyle(
                       fontSize: 22,
+                      fontWeight: FontWeight.bold
                     ),
                   ),
                 ),
@@ -227,7 +202,7 @@ class _FichasIndividualesState extends State<FichasIndividuales> {
                       child: const Text(
                         'Clasificación',
                         style: TextStyle(
-                          fontSize: 22,
+                          fontSize: 18,
                         ),
                       ),
                     ),
@@ -270,7 +245,7 @@ class _FichasIndividualesState extends State<FichasIndividuales> {
                       child: const Text(
                         'Raza',
                         style: TextStyle(
-                          fontSize: 22,
+                          fontSize: 18,
                         ),
                       ),
                     ),
@@ -302,7 +277,7 @@ class _FichasIndividualesState extends State<FichasIndividuales> {
                   ],
                 ),
                 const SizedBox(
-                  height: 25,
+                  height: 28,
                 ),
 
                 Center(

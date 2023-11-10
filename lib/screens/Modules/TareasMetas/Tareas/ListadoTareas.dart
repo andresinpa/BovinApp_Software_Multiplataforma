@@ -77,7 +77,7 @@ class _ListadoTareasState extends State<ListadoTareas> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Mis tareas 📋'),
+        title: const Text('Mis tareas'),
       ),
       body: FutureBuilder(
         future: getTareas(firebase, objUser.usuario),
@@ -151,34 +151,45 @@ class _ListadoTareasState extends State<ListadoTareas> {
                             child: const Icon(Icons.delete),
                           ),
                           direction: DismissDirection.startToEnd,
-                          child: ListTile(
-                            /// The `onTap` property in the `ListTile` widget is used to define an
-                            /// action when the user taps on the tile. In this case, when the user taps
-                            /// on a task in the list, it will navigate to the `DetalleTareas` screen
-                            /// using `Navigator.pushNamed`.
-                            onTap: () => Navigator.pushNamed(
-                                context, DetalleTareas.nombrePagina,
-                                arguments: {
-                                  'NombreTarea': tarea['NombreTarea'],
-                                  'DescripcionTarea': tarea['DescripcionTarea'],
-                                  'FechaCreacion': tarea['FechaCreacion'],
-                                  'EstadoTarea': tarea['EstadoTarea'],
-                                  'uid': tarea['uid'],
-                                }),
-                            title: Text(
-                              '${tarea['NombreTarea']}',
-                              style: TextStyle(
-                                color: tarea['EstadoTarea']
-                                    ? const Color.fromARGB(255, 204, 35, 23)
-                                    : Colors.black,
-                              ),
+                          child: Container(
+                            margin: const EdgeInsets.symmetric(vertical: 4.0),
+                            decoration: BoxDecoration(
+                              color: const Color.fromARGB(255, 240, 217, 187), // Color de fondo naranja
+                              border: Border.all(color: const Color.fromARGB(255, 177, 50, 11)), // Bordes
+                              borderRadius: BorderRadius.circular(
+                                  8.0), // Borde redondeado
                             ),
-                            trailing: (tarea['EstadoTarea'])
-                                ? const Icon(
-                                    Icons.star,
-                                    color: Colors.red,
-                                  )
-                                : const Icon(Icons.star_border),
+                            child: ListTile(
+                              /// The `onTap` property in the `ListTile` widget is used to define an
+                              /// action when the user taps on the tile. In this case, when the user taps
+                              /// on a task in the list, it will navigate to the `DetalleTareas` screen
+                              /// using `Navigator.pushNamed`.
+                              onTap: () => Navigator.pushNamed(
+                                  context, DetalleTareas.nombrePagina,
+                                  arguments: {
+                                    'NombreTarea': tarea['NombreTarea'],
+                                    'DescripcionTarea':
+                                        tarea['DescripcionTarea'],
+                                    'FechaCreacion': tarea['FechaCreacion'],
+                                    'EstadoTarea': tarea['EstadoTarea'],
+                                    'uid': tarea['uid'],
+                                  }),
+
+                              title: Text(
+                                '${tarea['NombreTarea']}',
+                                style: TextStyle(
+                                  color: tarea['EstadoTarea']
+                                      ? const Color.fromARGB(255, 204, 35, 23)
+                                      : Colors.black,
+                                ),
+                              ),
+                              trailing: (tarea['EstadoTarea'])
+                                  ? const Icon(
+                                      Icons.star,
+                                      color: Colors.red,
+                                    )
+                                  : const Icon(Icons.star_border),
+                            ),
                           ),
                         );
                       }),

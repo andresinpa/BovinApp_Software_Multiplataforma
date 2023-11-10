@@ -6,6 +6,7 @@ import 'package:BovinApp/DTO/User.dart';
 import 'package:BovinApp/Screens/Modules/TareasMetas/Tareas/FormularioTareas.dart';
 import 'package:BovinApp/Screens/Modules/TareasMetas/Tareas/ListadoTareas.dart';
 import 'package:BovinApp/Screens/Modules/TareasMetas/services/TareasServices.dart';
+import 'package:BovinApp/Widgets/BottomBar.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import "package:flutter/material.dart";
 import 'package:provider/provider.dart';
@@ -23,6 +24,16 @@ class DetalleTareas extends StatefulWidget {
 /// The `_DetalleTareasState` class is a stateful widget that displays the details of a task and allows
 /// the user to update or edit the task.
 class _DetalleTareasState extends State<DetalleTareas> {
+  /// The function updates the value of the currentIndex variable with the provided index value.
+  ///
+  /// Args:
+  ///   index (int): The parameter "index" is an integer that represents the index of the selected tab.
+  int currentIndex = 1;
+  void onTabSelected(int index) {
+    setState(() {
+      currentIndex = index;
+    });
+  }
   final firebase = FirebaseFirestore.instance;
 
   late User objUser;
@@ -52,34 +63,50 @@ class _DetalleTareasState extends State<DetalleTareas> {
   /// ElevatedButton widgets for updating and editing the task.
   @override
   Widget build(BuildContext context) {
+        Size size = MediaQuery.of(context).size;
+
     LinkedHashMap<String, dynamic>? tarea = ModalRoute.of(context)
         ?.settings
         .arguments as LinkedHashMap<String, dynamic>?;
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Detalle de Tarea 📆'),
+        title: const Text('Detalle de Tarea'),
       ),
       body: SingleChildScrollView(
         child: Column(
           children: [
+            SizedBox(
+                  height: size.width * 0.05,
+                ),
+            const Text(
+                '👨‍🌾',
+                style: TextStyle(
+                  fontSize: 42,
+                ),
+              ),
+              SizedBox(
+                  height: size.width * 0.02,
+                ),
             Container(
               margin: const EdgeInsets.only(
                 top: 20,
                 bottom: 40,
               ),
-              child: Text(
+              child: 
+              Text(
                 '${tarea!['NombreTarea']}',
                 style: const TextStyle(
                   fontSize: 20.0,
                   fontWeight: FontWeight.bold,
+                  color: Color.fromARGB(255, 230, 74, 25),
                 ),
               ),
             ),
             const Text(
               'Descripción',
               style: TextStyle(
-                fontSize: 16,
+                fontSize: 18,
                 fontWeight: FontWeight.bold,
               ),
             ),
@@ -87,8 +114,10 @@ class _DetalleTareasState extends State<DetalleTareas> {
                 margin: const EdgeInsets.only(
                   top: 20,
                   bottom: 40,
+                  right: 12,
+                  left: 12,
                 ),
-                child: Text('${tarea['DescripcionTarea']}')),
+                child: Text('${tarea['DescripcionTarea']}', style: const TextStyle(fontSize: 18),)),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: <Widget>[
@@ -162,6 +191,8 @@ class _DetalleTareasState extends State<DetalleTareas> {
           ],
         ),
       ),
+      bottomNavigationBar: BottomBar(
+            initialIndex: currentIndex, onTabSelected: onTabSelected),
     );
   }
 }

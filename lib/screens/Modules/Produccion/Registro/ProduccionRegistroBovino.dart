@@ -104,7 +104,7 @@ class _NuevoRegistroProduccionBovinoState
 
     return Scaffold(
       resizeToAvoidBottomInset: true,
-      appBar: const AppBarRetroceder(title: 'Registro diario'),
+      appBar: const AppBarRetroceder(title: 'Leche por bovino'),
       body: SingleChildScrollView(
         child: Center(
           child: Column(
@@ -114,9 +114,14 @@ class _NuevoRegistroProduccionBovinoState
               ),
               Column(
                 children: [
-                  SizedBox(
-                    height: size.width * 0.008,
+                  const Text(
+                    "🥛",
+                    style: TextStyle(
+                      fontSize: 48,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
+                  
                   TextInputField(
                     maxLines: 1,
                     icon: FontAwesomeIcons.cow,

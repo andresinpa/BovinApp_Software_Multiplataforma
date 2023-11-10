@@ -121,7 +121,7 @@ class _NuevoRegistroProduccionLecheState
 
     return Scaffold(
       resizeToAvoidBottomInset: true,
-      appBar: const AppBarRetroceder(title: 'Registro diario leche hato'),
+      appBar: const AppBarRetroceder(title: 'Leche del hato'),
       body: SingleChildScrollView(
         child: Center(
           child: Column(
@@ -132,7 +132,17 @@ class _NuevoRegistroProduccionLecheState
               Column(
                 children: [
                   SizedBox(
-                    height: size.width * 0.008,
+                    height: size.width * 0.06,
+                  ),
+                  const Text(
+                    "🥛",
+                    style: TextStyle(
+                      fontSize: 48,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  SizedBox(
+                    height: size.width * 0.06,
                   ),
                   TextInputField(
                     maxLines: 1,
