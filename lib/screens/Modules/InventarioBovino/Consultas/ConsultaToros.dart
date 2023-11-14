@@ -6,6 +6,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:BovinApp/DTO/Services/UserProvider.dart';
 import 'package:BovinApp/DTO/User.dart';
 import 'package:provider/provider.dart';
+import 'package:BovinApp/DTO/Bovino.dart';
+import 'package:BovinApp/Screens/Modules/FichasIndividuales/FichasIndividualesResultados.dart';
 
 /// The class ConsultasToros is a StatefulWidget in Dart.
 class ConsultasToros extends StatefulWidget {
@@ -137,35 +139,56 @@ class ConsultaTorosApp extends State<ConsultasToros> {
             final codigo = documento['CodigoBovino'];
             final raza = documento['RazaBovino'];
             final edad = documento['EdadBovino'];
+            Bovino objBovino = Bovino();
+            objBovino.codigoBovino = documento['CodigoBovino'];
+            objBovino.nombreBovino = documento['NombreBovino'];
+            objBovino.categoriaBovino = documento['CategoriaBovino'];
+            objBovino.razaBovino = documento['RazaBovino'];
+            objBovino.edadBovino = documento['EdadBovino'];
+            objBovino.codigoMadre = documento['CodigoMadre'];
+            objBovino.razaMadre = documento['RazaMadre'];
+            objBovino.codigoPadre = documento['CodigoPadre'];
+            objBovino.razaPadre = documento['RazaPadre'];
+            objBovino.lecheDiaria = documento['lecheDiaria'];
+            objBovino.ingreso = documento['IngresoBovino'];
 
-            return Card(
-              elevation: 3, // Agrega una sombra alrededor del elemento.
-              margin:
-                  const EdgeInsets.all(10), // Márgenes alrededor del elemento.
-              child: ListTile(
-                contentPadding:
-                    const EdgeInsets.all(10), // Espacio interno del ListTile.
-                leading: CircleAvatar(
-                  // Agrega una imagen o avatar en la parte izquierda.
-                  backgroundColor: Colors.blue, // Color de fondo del avatar.
-                  child: Text(nombre[0],
-                      style: const TextStyle(color: Colors.white)),
-                ),
-                title: Text(
-                  nombre,
-                  style: const TextStyle(
-                      fontSize: 18, fontWeight: FontWeight.bold),
-                ),
-                subtitle: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text("Código: $codigo"),
-                    Text("Raza: $raza"),
-                    Text("Edad: $edad años"),
-                  ],
-                ),
-              ),
-            );
+            return InkWell(
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (_) =>
+                              FichasIndividualesResultados(objBovino)));
+                },
+                child: Card(
+                  elevation: 3, // Agrega una sombra alrededor del elemento.
+                  margin: const EdgeInsets.all(
+                      10), // Márgenes alrededor del elemento.
+                  child: ListTile(
+                    contentPadding: const EdgeInsets.all(
+                        10), // Espacio interno del ListTile.
+                    leading: CircleAvatar(
+                      // Agrega una imagen o avatar en la parte izquierda.
+                      backgroundColor:
+                          Colors.blue, // Color de fondo del avatar.
+                      child: Text(nombre[0],
+                          style: const TextStyle(color: Colors.white)),
+                    ),
+                    title: Text(
+                      nombre,
+                      style: const TextStyle(
+                          fontSize: 18, fontWeight: FontWeight.bold),
+                    ),
+                    subtitle: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text("Código: $codigo"),
+                        Text("Raza: $raza"),
+                        Text("Edad: $edad años"),
+                      ],
+                    ),
+                  ),
+                ));
           },
         )
       ],
